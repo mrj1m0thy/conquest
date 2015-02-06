@@ -1,3 +1,5 @@
+#include "player.h"
+using namespace std;
 #ifndef gameDriver_H
 #define gameDriver_H
 
@@ -9,14 +11,14 @@ public:
 	~gameDriver();
 
 private:
-	int startPhase();
+	void startPhase();
 	void mainPhase(int);
 	void reinforcementPhase(player);
 	void attackPhase(player);
 	void fortification(player);
 
 	int numberOfPlayers;
-	player players[];
+	player* players;
 };
 
 #endif

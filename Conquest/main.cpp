@@ -4,5 +4,8 @@
 using namespace std;
 
 void main(){
+	gameDriver game;
+	game.start();
 
+	system("pause");
 }
