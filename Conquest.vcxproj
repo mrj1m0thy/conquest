@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2ECAF530-4799-4F03-ADCF-D7FE2551A2F7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Assignment1</RootNamespace>
+    <RootNamespace>Conquest</RootNamespace>
     <ProjectName>Conquest</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
