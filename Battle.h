@@ -10,7 +10,6 @@ This file defines the Battle class along with the Die structure. It is used to d
 #ifndef BATTLE_H
 #define BATTLE_H
 
-#include <string>
 #include "Country.h"
 
 using namespace std;

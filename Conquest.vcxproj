@@ -84,6 +84,7 @@
     <ClCompile Include="Country.cpp" />
     <ClCompile Include="gameDriver.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="map.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>

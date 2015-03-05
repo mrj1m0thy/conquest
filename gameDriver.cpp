@@ -63,7 +63,7 @@ void gameDriver::startPhase()
 	cout << endl;
 	myMap.saveMap(); // save content from continent/country classes to a .map (in this case, it is "test.map")
 
-
+	system("pause");
 
 	cout << "This is the beginning of the start phase\n\n\n";
 	system("pause");
