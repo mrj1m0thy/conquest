@@ -1,4 +1,4 @@
-#include "player.h"
+#include "Player.h"
 #include "Battle.h"
 using namespace std;
 #ifndef gameDriver_H
@@ -14,12 +14,12 @@ public:
 private:
 	void startPhase();
 	void mainPhase(int);
-	void reinforcementPhase(player);
-	void attackPhase(player);
-	void fortification(player);
+	void reinforcementPhase(Player);
+	void attackPhase(Player);
+	void fortification(Player);
 
 	int numberOfPlayers;
-	player* players;
+	Player* players;
 
 	Country Canada;
 	Country USA;

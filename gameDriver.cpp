@@ -18,7 +18,8 @@ a continent or Risk card) in order to keep the games equal for all.
 */
 
 #include "gameDriver.h"
-#include "player.h"
+#include "Player.h"
+#include "map.h"
 #include <iostream>
 using namespace std;
 
@@ -43,17 +44,38 @@ void gameDriver::start()
 //(where the number of players and map are chosen, and the countries are randomly assigned to the players);
 void gameDriver::startPhase()
 {
+	cout << "My Map!" << endl;
+
+	map myMap; //create a map
+
+	myMap.loadMap(); //load contents from sample file downloaded from given website
+
+	cout << endl;
+
+	cout << "The continents are:" << endl;
+	myMap.getContinentsList();
+
+	cout << endl;
+
+	cout << "The countries are:" << endl;
+	myMap.getCountryList();
+
+	cout << endl;
+	myMap.saveMap(); // save content from continent/country classes to a .map (in this case, it is "test.map")
+
+
+
 	cout << "This is the beginning of the start phase\n\n\n";
 	system("pause");
 
 	cout << "How many players will be participating in this game?";
 	cin >> numberOfPlayers;
 
-	players = new player[numberOfPlayers];
+	players = new Player[numberOfPlayers];
 
 	for (int i = 0; i < numberOfPlayers; i++)
 	{
-		players[i] = player(i); //TODO: Required player parameters 
+		players[i] = Player(i); //TODO: Required player parameters 
 	}
 	
 	//TODO: Call to maps section for available maps and once chosen, a returned map.
@@ -91,7 +113,7 @@ void gameDriver::mainPhase(int num)
 }
 
 //a) reinforcement phase (where a player is given some armies and places them on some if the countries he owns)
-void gameDriver::reinforcementPhase(player user){
+void gameDriver::reinforcementPhase(Player user){
 	//TODO: Details are for assignment 2
 	cout << "This is the reinforcement phase for player " << user.getID() << endl;
 	system("pause");
@@ -99,7 +121,7 @@ void gameDriver::reinforcementPhase(player user){
 }
 
 //b) attack phase(where a player may declare a series of attacks	from one of his countries to one of its adjacent countries owned by another player)
-void gameDriver::attackPhase(player user){
+void gameDriver::attackPhase(Player user){
 	//TODO: Details are for assignment 2
 	cout << "This is the attack phase for player " << user.getID() << endl;
 	Battle battle1(USA, Mexico);		//Instancies battles to be carried out.
@@ -109,7 +131,7 @@ void gameDriver::attackPhase(player user){
 }
 
 //c) fortification phase (where a player may move some armies from one of his countries to another of his countries)
-void gameDriver::fortification(player user){
+void gameDriver::fortification(Player user){
 	//TODO: Details are for assignment 2
 	cout << "This is the fortification phase for player " << user.getID() << endl;
 	system("pause");

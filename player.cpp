@@ -1,13 +1,19 @@
-#include "player.h"
-
-player::player(){
+#include "Player.h"
+#include <string>
+Player::Player(){
 
 }
 
-player::player(int id){
+Player::Player(int id){
 	playerID = id;
 }
 
-int player::getID(){
+int Player::getID(){
 	return playerID;
+}
+
+Player::Player(string name, int color, int turnOrder) {
+	this->name = name;
+	this->color = color;
+	this->turnOrder = turnOrder;
 }

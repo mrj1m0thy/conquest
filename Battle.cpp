@@ -20,7 +20,7 @@ Battle::Battle(Country& attack, Country& defend)
 	allIn = false;
 
 	cout << "Battle!!!" << endl <<endl;
-	cout << attack.countryName << " Vs. " << defend.countryName << endl << endl;
+	cout << attack.name << " Vs. " << defend.name << endl << endl;
 	cout << "Player " << attack.occupiedBy << " Vs. Player " << defend.occupiedBy << endl << endl;
 	cout << attack.numberOfPieces << " Armies Vs. " << defend.numberOfPieces  << " Armies" << endl << endl;
 	
