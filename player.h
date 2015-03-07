@@ -11,6 +11,7 @@ public:
 	int numOfUnitsPerTurn;		//Increases and decreases depending on board control and Risk cards
 	string name;				//Because why not. Will be for interface later
 	int playerID;
+	bool isComputer = false;
 	Player();
 	Player(int id);
 	Player(string, int, int);

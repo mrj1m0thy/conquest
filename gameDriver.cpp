@@ -68,8 +68,16 @@ void gameDriver::startPhase()
 	cout << "This is the beginning of the start phase\n\n\n";
 	system("pause");
 
-	cout << "How many players will be participating in this game?";
-	cin >> numberOfPlayers;
+	do{
+		cout << "How many players will be participating in this game? (max: 6)";
+		cin >> numberOfPlayers;
+	} while (numberOfPlayers > 6 || numberOfPlayers < 2);
+
+	computers = new AI[6 - numberOfPlayers]();
+	for (int i = 0; i < 6 - numberOfPlayers; i++)
+	{ 
+		computers[i] = AI(i);		//
+	}
 
 	players = new Player[numberOfPlayers];
 
@@ -87,7 +95,7 @@ void gameDriver::startPhase()
 the main play phase (a round-robin turn-based phase where the players are allowed to reinforce, attack and
 move). The sub-phases of the main phase are:
 */
-void gameDriver::mainPhase(int num)
+void gameDriver::mainPhase(int numberOfPlayers)
 {
 	cout << "This is the beginning of the main phase\n\n\n";
 	system("pause");
@@ -97,7 +105,7 @@ void gameDriver::mainPhase(int num)
 	
 	while (end == false){
 
-		for (int id = 0; id < num; id++){
+		for (int id = 0; id < numberOfPlayers; id++){
 			cout << "\nPlayer " << players[id].getID() << " turn\n";
 			cout << "------------------------------------------\n";
 			reinforcementPhase(players[id]);
@@ -105,6 +113,15 @@ void gameDriver::mainPhase(int num)
 			attackPhase(players[id]);
 			//add break somewhere here if the player wins
 			fortification(players[id]);
+		}
+		for (int id = 0; id < 6-numberOfPlayers; id++){
+			cout << "\Computer " << computers[id].getID() << " turn\n";
+			cout << "------------------------------------------\n";
+			reinforcementPhase(computers[id]);
+
+			attackPhase(computers[id]);
+			//add break somewhere here if the player wins
+			fortification(computers[id]);
 		}
 		
 		end = true;	//For testing
@@ -120,6 +137,12 @@ void gameDriver::reinforcementPhase(Player user){
 
 }
 
+void gameDriver::reinforcementPhase(AI comp){
+	
+	cout << "This is the reinforcement phase for computer " << comp.getID() << endl;
+	system("pause");
+}
+
 //b) attack phase(where a player may declare a series of attacks	from one of his countries to one of its adjacent countries owned by another player)
 void gameDriver::attackPhase(Player user){
 	//TODO: Details are for assignment 2
@@ -130,9 +153,34 @@ void gameDriver::attackPhase(Player user){
 	system("pause");
 }
 
+void gameDriver::attackPhase(AI comp){
+	//TODO: Details are for assignment 2
+	cout << "This is the attack phase for computer " << comp.getID() << " using the " << comp.strat << " strategy." << endl;
+	/*switch(comp.strat)
+	{
+		case "Aggressive":
+			call function for aggressive strategy
+		case "Defensive":
+			call function for defensive strategy
+		case: "Random":
+			yolo
+	}
+	*/
+	Battle battle1(USA, Mexico);		//Instancies battles to be carried out.
+	Battle battle2(Canada, USA);
+	Battle battle3(Mexico, USA);
+	system("pause");
+}
+
 //c) fortification phase (where a player may move some armies from one of his countries to another of his countries)
 void gameDriver::fortification(Player user){
 	//TODO: Details are for assignment 2
 	cout << "This is the fortification phase for player " << user.getID() << endl;
+	system("pause");
+}
+
+void gameDriver::fortification(AI comp){
+	//TODO: Details are for assignment 2
+	cout << "This is the fortification phase for computer " << comp.getID() << endl;
 	system("pause");
 }

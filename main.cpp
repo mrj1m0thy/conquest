@@ -1,11 +1,15 @@
 #include <iostream>
+#include <time.h>
 #include "gameDriver.h"
-
-using namespace std;
+#include "AI.h"
+; using namespace std;
 
 void main(){
-	gameDriver game;
-	game.start();
+	srand(static_cast<int>(time(0)));
+	//gameDriver game;
+	//game.start();
+
+	AI comp;
 
 	system("pause");
 }
