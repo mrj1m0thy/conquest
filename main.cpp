@@ -6,10 +6,10 @@
 
 void main(){
 	srand(static_cast<int>(time(0)));
-	//gameDriver game;
-	//game.start();
 
-	AI comp;
+	gameDriver game;
+	game.start();
+
 
 	system("pause");
 }

@@ -76,14 +76,14 @@ void gameDriver::startPhase()
 	computers = new AI[6 - numberOfPlayers]();
 	for (int i = 0; i < 6 - numberOfPlayers; i++)
 	{ 
-		computers[i] = AI(i);		//
+		computers[i] = AI(i+1);		//
 	}
 
 	players = new Player[numberOfPlayers];
 
 	for (int i = 0; i < numberOfPlayers; i++)
 	{
-		players[i] = Player(i); //TODO: Required player parameters 
+		players[i] = Player(i+1); //TODO: Required player parameters 
 	}
 	
 	//TODO: Call to maps section for available maps and once chosen, a returned map.
@@ -115,7 +115,7 @@ void gameDriver::mainPhase(int numberOfPlayers)
 			fortification(players[id]);
 		}
 		for (int id = 0; id < 6-numberOfPlayers; id++){
-			cout << "\Computer " << computers[id].getID() << " turn\n";
+			cout << "\nComputer " << computers[id].getID() << " turn\n";
 			cout << "------------------------------------------\n";
 			reinforcementPhase(computers[id]);
 
@@ -154,7 +154,9 @@ void gameDriver::attackPhase(Player user){
 }
 
 void gameDriver::attackPhase(AI comp){
-	//TODO: Details are for assignment 2
+	//Determine the strategy to use.
+	comp.deterStrat();
+
 	cout << "This is the attack phase for computer " << comp.getID() << " using the " << comp.strat << " strategy." << endl;
 	/*switch(comp.strat)
 	{
@@ -166,6 +168,8 @@ void gameDriver::attackPhase(AI comp){
 			yolo
 	}
 	*/
+
+	//These battles will have to become dynamic before the strategies can be used.
 	Battle battle1(USA, Mexico);		//Instancies battles to be carried out.
 	Battle battle2(Canada, USA);
 	Battle battle3(Mexico, USA);

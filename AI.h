@@ -3,13 +3,14 @@
 #ifndef AI_H
 #define AI_H
 
-string Strategy[] = { "Aggressive", "Defensive", "Random" };
-
 class AI : public Player
 {
 	public:
+		AI();
 		AI(int);
 		string strat;
+		static const string Strategy[3];
+		void deterStrat();
 };
 
 #endif
