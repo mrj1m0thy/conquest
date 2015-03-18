@@ -52,6 +52,16 @@ string Country::getName()
 	return name;
 }
 
+void Country::setSurrounding(string s)
+{
+	surrounding = s;
+}
+
+void Country::setContinent(string c)
+{
+	continent = c;
+}
+
 int Country::getX()
 {
 	return posX;

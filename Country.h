@@ -5,8 +5,6 @@
 #include "Player.h"
 using namespace std;
 
-enum Eplayer { Blue, Red, Yellow, Green, Black, nil };
-
 class Country
 {
 public:
@@ -19,6 +17,8 @@ public:
 	int getY();
 	string getContinent();
 	string getSurrounding();
+	void setSurrounding(string);
+	void setContinent(string);
 	Player* player;
 	void addTarget(Country*);
 	string listTargets(string);
