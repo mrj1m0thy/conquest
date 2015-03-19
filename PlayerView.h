@@ -4,7 +4,7 @@ Nicholas Sabelli
 COMP 345 Section SI
 Assignement #2
 
-This file defines a derived class of type Observer.
+This file defines PLayerView a derived class of type Observer.
 */
 
 #ifndef PLAYERVIEW_H

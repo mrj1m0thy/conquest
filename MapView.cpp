@@ -4,16 +4,16 @@ Nicholas Sabelli
 COMP 345 Section SI
 Assignement #2
 
-This file implements the PlayerView class.
+This file implements the MapView class.
 */
 
 #include <iostream>
 
-#include "PlayerView.h"
+#include "MapView.h"
 
 using namespace std;
 
-PlayerView::PlayerView()
+MapView::MapView()
 {
-	type = "PlayerView";
+	type = "MapView";
 }

@@ -9,18 +9,19 @@ Player::Player()
 
 }
 
+Player::Player(Colours colour, string playername)
+{
+	colour = colour;
+	name = playername;
+}
+
 Player::Player(int id)
 {
 	playerID = id;
-	colour = Blue;
-	renforcementsThisTurn = 10;
-	armiesOwned = 10;
-	battlesWon = 10;
-}
-
-int Player::getID()
-{
-	return playerID;
+	_colour = Blue;
+	_renforcements = 10;
+	_armiesOwned = 10;
+	_battlesWon = 10;
 }
 
 Player::Player(string name, int color, int turnOrder)
@@ -30,93 +31,41 @@ Player::Player(string name, int color, int turnOrder)
 	this->turnOrder = turnOrder;
 }
 
-void Player::Attach(Observer s)
-{
-	observerList[nextindex++] = s;
-	cout << s.type << " Subscribed" << endl;
+int Player::getID()
+{ 
+	return playerID;
 }
 
-void Player::Detach(Observer s)
+void Player::AddCountry(string* c)
 {
-	cout << s.type << "Unsubscribed" << endl;
+	_countriesOwned.push_back(c);
 }
 
-void Player::Notify()
-{
-	cout << "Notify" << endl;
-
-	for each (Observer s in observerList)
+void Player::RemoveCountry(string* c)
+{	
+	for (int i = 0; i < _countriesOwned.size(); i++)
 	{
-		s.Update();
+		if (_countriesOwned[i] == c)
+		{
+			_countriesOwned.erase(_countriesOwned.begin() + i);
+			break;
+		}
 	}
 }
 
-void Player::SetColour(colours)
+void Player::AddContinent(string* c)
 {
-	Notify();	//Notify observer that a change has been made.
+	_continentsOwned.push_back(c);
 }
-
-void Player::GetColour(colours)
+ 
+void Player::RemoveContinent(string* c)
 {
-	Notify();	//Notify observer that a change has been made.
-}
-
-void Player::SetCountries(int)
-{
-	Notify();	//Notify observer that a change has been made.
-}
-
-void Player::GetCountries(int)
-{
-	Notify();	//Notify observer that a change has been made.
-}
-
-void Player::SetContinent(int)
-{
-	Notify();	//Notify observer that a change has been made.
-}
-
-void Player::GetContinent(int)
-{
-	Notify();	//Notify observer that a change has been made.
-}
-
-void Player::SetRenforcementsThisTurn(int)
-{
-	Notify();	//Notify observer that a change has been made.
-}
-
-void Player::GetRenforcementsThisTurn(int)
-{
-	Notify();	//Notify observer that a change has been made.
-}
-
-void Player::SetArmiesOwned(int)
-{
-	Notify();	//Notify observer that a change has been made.
-}
-
-void Player::GetArmiesOwned(int)
-{
-	Notify();	//Notify observer that a change has been made.
-}
-
-void Player::SetBattlesWon(int)
-{
-	Notify();	//Notify observer that a change has been made.
-}
-
-void Player::GetBattlesWon(int)
-{
-	Notify();	//Notify observer that a change has been made.
-}
-
-void Player::SetObserverList(Observer)
-{
-	Notify();	//Notify observer that a change has been made.
-}
-
-void Player::GetObserverList(Observer)
-{
-	Notify();	//Notify observer that a change has been made.
+	for (int i = 0; i < _continentsOwned.size(); i++)
+	{
+		if (_continentsOwned[i] == c)
+		{
+			_continentsOwned.erase(_continentsOwned.begin() + i);
+			break;
+		}
+	}
 }

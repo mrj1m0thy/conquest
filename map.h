@@ -1,11 +1,13 @@
+#ifndef map_H
+#define map_H
+
 #include <string>
 #include <fstream>
 #include "Continent.h"
 #include "Country.h"
-#ifndef map_H
-#define map_H
+#include "Subject.h"
 
-class map
+class map : public Subject
 {
 public:
 	map();
