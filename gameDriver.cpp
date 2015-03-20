@@ -61,7 +61,7 @@ void gameDriver::startPhase()
 	myMap.getCountryList();
 
 	cout << endl;
-	myMap.saveMap("x", "Jane Doe", "noFile", "no", "horizontal", "yes"); // save content from continent/country classes to a .map (in this case, it is "test.map")
+	myMap.saveMap(); // save content from continent/country classes to a .map (in this case, it is "test.map")
 
 	system("pause");
 

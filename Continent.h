@@ -6,25 +6,25 @@ using namespace std;
 
 class Continent
 {
-	public:
-		Continent();
-		Continent(string, int);
+public:
+	Continent();
+	Continent(string, int);
 
-		string getName();
-		int getArmyNum();
-		void setCountry(Country);
-		void addCountry(Country*);
-		Player* getOwningPlayer();
-		string getOwnerName();
+	string getName();
+	int getArmyNum();
+	void addCountry(Country);
+	void addCountry(Country*);
+	Player* getOwningPlayer();
+	string getOwnerName();
 
-		~Continent();
+	~Continent();
 
-	private:
-		string name;
-		int armyNum;
-		int numCountries;
-		Country* countryArray[42];
-		
+private:
+	string name;
+	int armyNum;
+	int numCountries;
+	Country* countryArray[42];
+
 };
 
 #endif

@@ -29,10 +29,10 @@ int Continent::getArmyNum()
 }
 
 //set country to a continent
-void Continent::setCountry(Country c)
+void Continent::addCountry(Country c)
 {
 	countryArray[numCountries] = new Country(c);
-	numCountries ++;
+	numCountries++;
 }
 
 void Continent::addCountry(Country* newTerritory) {
@@ -45,7 +45,7 @@ Player* Continent::getOwningPlayer() {
 	if (this->numCountries > 0) {
 		Player* owner = this->countryArray[0]->player;
 		for (int i = 1; i < this->numCountries; i++) {
-			if ( owner != this->countryArray[i]->player) {
+			if (owner != this->countryArray[i]->player) {
 				return NULL;
 			}
 		}
