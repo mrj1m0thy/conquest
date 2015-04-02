@@ -87,15 +87,23 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="strategy.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="aggressive.h" />
     <ClInclude Include="AI.h" />
     <ClInclude Include="Battle.h" />
     <ClInclude Include="Continent.h" />
     <ClInclude Include="Country.h" />
+    <ClInclude Include="defensive.h" />
     <ClInclude Include="gameDriver.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="random.h" />
+    <ClInclude Include="strategy.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
