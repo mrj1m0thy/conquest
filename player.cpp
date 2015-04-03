@@ -36,12 +36,12 @@ int Player::getID()
 	return playerID;
 }
 
-void Player::AddCountry(string* c)
+void Player::AddCountry(Country* c)
 {
 	_countriesOwned.push_back(c);
 }
 
-void Player::RemoveCountry(string* c)
+void Player::RemoveCountry(Country* c)
 {	
 	for (int i = 0; i < _countriesOwned.size(); i++)
 	{
@@ -53,12 +53,12 @@ void Player::RemoveCountry(string* c)
 	}
 }
 
-void Player::AddContinent(string* c)
+void Player::AddContinent(Continent* c)
 {
 	_continentsOwned.push_back(c);
 }
  
-void Player::RemoveContinent(string* c)
+void Player::RemoveContinent(Continent* c)
 {
 	for (int i = 0; i < _continentsOwned.size(); i++)
 	{

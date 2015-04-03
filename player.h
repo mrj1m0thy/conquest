@@ -20,6 +20,9 @@ using namespace std;
  
 enum Colours { Blue, Red, Yellow, Green, Black, nil };
 
+class Country;
+class Continent;
+
 class Player : public Subject
 {
 private:
@@ -29,8 +32,8 @@ private:
 	
 	Colours _colour;
 
-	vector<string*> _countriesOwned;	//List of Countires occupied by the Player object.
-	vector<string*> _continentsOwned;	//List of Continents controled by the Player object.
+	vector<Country*> _countriesOwned;	//List of Countires occupied by the Player object.
+	vector<Continent*> _continentsOwned;	//List of Continents controled by the Player object.
 
 public:	
 	string name = "";
@@ -45,13 +48,16 @@ public:
 	Player(int id);
 	Player(string, int, int);
 	
-	void AddCountry(string*); //The string is the name of the country and not the country itself.
-	void RemoveCountry(string*);
-	vector<string*> GetCountries() { return _countriesOwned; }
 
-	void AddContinent(string*); //The string is the name of the continent and not the continent itself.
-	void RemoveContinent(string*);
-	vector<string*> GetContinents() { return _continentsOwned; }
+	void GetCountry(); //The string is the name of the country and not the country itself.
+
+	void AddCountry(Country*); //The string is the name of the country and not the country itself.
+	void RemoveCountry(Country*);
+	vector<Country*> GetCountries() { return _countriesOwned; }
+
+	void AddContinent(Continent*); //The string is the name of the continent and not the continent itself.
+	void RemoveContinent(Continent*);
+	vector<Continent*> GetContinents() { return _continentsOwned; }
 	
 	void SetColour(Colours c) { _colour = c; Notify(); }
 	Colours GetColour(Colours) { return _colour; }
