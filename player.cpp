@@ -32,7 +32,7 @@ Player::Player(string name, int color, int turnOrder)
 }
 
 int Player::getID()
-{ 
+{
 	return playerID;
 }
 
@@ -42,8 +42,8 @@ void Player::AddCountry(Country* c)
 }
 
 void Player::RemoveCountry(Country* c)
-{	
-	for (int i = 0; i < _countriesOwned.size(); i++)
+{
+	for (int i = 0; i < int(_countriesOwned.size()); i++)
 	{
 		if (_countriesOwned[i] == c)
 		{
@@ -57,10 +57,10 @@ void Player::AddContinent(Continent* c)
 {
 	_continentsOwned.push_back(c);
 }
- 
+
 void Player::RemoveContinent(Continent* c)
 {
-	for (int i = 0; i < _continentsOwned.size(); i++)
+	for (int i = 0; i < int(_continentsOwned.size()); i++)
 	{
 		if (_continentsOwned[i] == c)
 		{

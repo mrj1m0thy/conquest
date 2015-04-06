@@ -46,7 +46,7 @@ Country::Country(string n, int positionX, int positionY, string cont, string sur
 
 	adjacentCount = 1;
 
-	for (int s = 0; s < surround.size(); s++)
+	for (int s = 0; s < int(surround.size()); s++)
 	{
 		if (surround[s] == ',')
 			adjacentCount++;

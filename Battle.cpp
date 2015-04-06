@@ -183,7 +183,7 @@ void Battle::Roll(Country& attack, Country& defend)
 		defendRoll = tempRoll;
 	}
 
-	srand(time(NULL));
+	srand(static_cast<int>(time(0)));
 	
 	Die att;
 	Die def;
