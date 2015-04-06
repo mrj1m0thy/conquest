@@ -79,10 +79,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <ClCompile Include="aggressive.cpp" />
-=======
->>>>>>> abfcc43624991bc6296e92c1efc7886099dd1f86
     <ClCompile Include="AI.cpp" />
     <ClCompile Include="Battle.cpp" />
     <ClCompile Include="Continent.cpp" />
@@ -94,18 +91,13 @@
     <ClCompile Include="MapView.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Player.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="random.cpp" />
     <ClCompile Include="strategy.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="aggressive.h" />
-=======
     <ClCompile Include="PlayerView.cpp" />
     <ClCompile Include="Subject.cpp" />
   </ItemGroup>
   <ItemGroup>
->>>>>>> abfcc43624991bc6296e92c1efc7886099dd1f86
+    <ClInclude Include="aggressive.h" />
     <ClInclude Include="AI.h" />
     <ClInclude Include="Battle.h" />
     <ClInclude Include="Continent.h" />
@@ -117,12 +109,9 @@
     <ClInclude Include="Observer.h" />
     <ClInclude Include="PlayerView.h" />
     <ClInclude Include="Player.h" />
-<<<<<<< HEAD
     <ClInclude Include="random.h" />
     <ClInclude Include="strategy.h" />
-=======
     <ClInclude Include="Subject.h" />
->>>>>>> abfcc43624991bc6296e92c1efc7886099dd1f86
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
