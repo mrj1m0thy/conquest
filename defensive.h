@@ -1,6 +1,12 @@
-class defensive
+#include "strategy.h"
+#ifndef DEFENSIVE_H
+#define DEFENSIVE_H
+
+class defensive : public Strategy
 {
 public:
-	void execute();
+	virtual void execute();
 
 };
+
+#endif

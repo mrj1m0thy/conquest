@@ -79,14 +79,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="aggressive.cpp" />
     <ClCompile Include="AI.cpp" />
     <ClCompile Include="Battle.cpp" />
     <ClCompile Include="Continent.cpp" />
     <ClCompile Include="Country.cpp" />
+    <ClCompile Include="defensive.cpp" />
     <ClCompile Include="gameDriver.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="random.cpp" />
     <ClCompile Include="strategy.cpp" />
   </ItemGroup>
   <ItemGroup>

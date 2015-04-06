@@ -1,6 +1,12 @@
-class random
+#include "strategy.h"
+#ifndef RANDOM_H
+#define RANDOM_H
+
+class random : public Strategy
 {
 public:
-	void execute();
+	virtual void execute();
 
 };
+
+#endif

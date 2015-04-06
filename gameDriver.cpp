@@ -21,6 +21,8 @@ a continent or Risk card) in order to keep the games equal for all.
 #include "Player.h"
 #include "map.h"
 #include <iostream>
+#include "aggressive.h"
+
 using namespace std;
 
 gameDriver::gameDriver()
@@ -155,9 +157,11 @@ void gameDriver::attackPhase(Player user){
 
 void gameDriver::attackPhase(AI comp){
 	//Determine the strategy to use.
-	comp.deterStrat();
 
-	cout << "This is the attack phase for computer " << comp.getID() << " using the " << comp.strat << " strategy." << endl;
+	cout << "This is the attack phase for computer " << comp.getID() << " using the " << comp.stratType << " strategy." << endl;
+	
+	comp.strat->execute();
+	
 	/*switch(comp.strat)
 	{
 		case "Aggressive":
