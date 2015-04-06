@@ -86,7 +86,6 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="AI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -100,7 +99,8 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="random.h">
-=======
+		<Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="PlayerView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -114,7 +114,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MapView.h">
->>>>>>> abfcc43624991bc6296e92c1efc7886099dd1f86
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
