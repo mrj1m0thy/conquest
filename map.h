@@ -7,23 +7,44 @@
 
 class map
 {
-	public:
-		map();
-		void getContinents(std::ifstream&);
-		void getCountries(std::ifstream&);
-		void setCountry(std::string);
-		void getCountryList();
-		void getContinentsList();
+public:
+	map();
+	void getFileDetails(ifstream&);
+	void getContinents(ifstream&);
+	void getCountries(ifstream&);
+	void addCountry(string, int, int, string, string);
+	void addCountry(Country);
+	void addContinent(Continent);
+	void getCountryList();
+	void getContinentsList();
 
-		void loadMap();
-		void saveMap();
-		~map();
+	void setAuthor(string);
+	void setFilename(string);
+	void setImage(string);
+	void setWrap(string);
+	void setScroll(string);
+	void setWarn(string);
 
-	private:
-		int numOfCountries;
-		std::string countryList[42];
-		Continent continents[6];
-		Country countries[42];
+	bool continentExists(string);
+	Continent getContinent(string);
+
+	void loadMap();
+	void saveMap();
+	void createMap();
+
+	~map();
+
+private:
+	int numOfCountries;
+	string countryList[42];
+	Continent continents[6];
+	Country countries[42];
+	string author;
+	string filename;
+	string image;
+	string wrap;
+	string scroll;
+	string warn;
 };
 
 #endif

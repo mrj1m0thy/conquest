@@ -43,6 +43,23 @@ Country::Country(string n, int positionX, int positionY, string cont, string sur
 	posX = positionX;
 	posY = positionY;
 	continent = cont;
+
+	adjacentCount = 1;
+
+	for (int s = 0; s < surround.size(); s++)
+	{
+		if (surround[s] == ',')
+			adjacentCount++;
+	}
+
+	adjacent = new Country[adjacentCount];
+
+	for (int i = 0; i < adjacentCount; i++)
+	{
+		adjacent[i] = Country(surround.substr(0, surround.find(',')));
+		surround = surround.substr(surround.find(',') + 1);
+	}
+
 	surrounding = surround; //this variable keeps stores nearby territories/territories
 }
 
@@ -50,6 +67,11 @@ Country::Country(string n, int positionX, int positionY, string cont, string sur
 string Country::getName()
 {
 	return name;
+}
+
+void Country::setContinent(string c)
+{
+	continent = c;
 }
 
 int Country::getX()
@@ -69,7 +91,16 @@ string Country::getContinent()
 
 string Country::getSurrounding()
 {
-	return surrounding;
+	//return surrounding;
+	string adjacentCountries = "";
+
+	for (int i = 0; i < adjacentCount; i++)
+		if (i == 0)
+			adjacentCountries = adjacentCountries + adjacent[i].getName();
+		else
+			adjacentCountries = adjacentCountries + "," + adjacent[i].getName();
+
+	return adjacentCountries;
 }
 
 void Country::addTarget(Country* newTarget) {

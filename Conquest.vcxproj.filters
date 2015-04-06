@@ -30,10 +30,25 @@
     <ClCompile Include="Continent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="map.cpp">
+    <ClCompile Include="PlayerView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MapView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AI.cpp">
@@ -71,6 +86,7 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="AI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -84,6 +100,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="random.h">
+=======
+    <ClInclude Include="PlayerView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapView.h">
+>>>>>>> abfcc43624991bc6296e92c1efc7886099dd1f86
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

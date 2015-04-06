@@ -1,4 +1,4 @@
-/*
+﻿/*
 Game Driver by Tyler Lauzon
 
 Thought process:
@@ -77,17 +77,26 @@ void gameDriver::startPhase()
 
 	computers = new AI[6 - numberOfPlayers]();
 	for (int i = 0; i < 6 - numberOfPlayers; i++)
+<<<<<<< HEAD
 	{ 
 		computers[i] = AI(i+1);		//
+=======
+	{
+		computers[i] = AI(i + 1);		//
+>>>>>>> abfcc43624991bc6296e92c1efc7886099dd1f86
 	}
 
 	players = new Player[numberOfPlayers];
 
 	for (int i = 0; i < numberOfPlayers; i++)
 	{
+<<<<<<< HEAD
 		players[i] = Player(i+1); //TODO: Required player parameters 
+=======
+		players[i] = Player(i + 1); //TODO: Required player parameters 
+>>>>>>> abfcc43624991bc6296e92c1efc7886099dd1f86
 	}
-	
+
 	//TODO: Call to maps section for available maps and once chosen, a returned map.
 
 	//randomly assign countries (Probably something that will have to be done in maps section...)
@@ -104,7 +113,7 @@ void gameDriver::mainPhase(int numberOfPlayers)
 
 	bool end = false;
 	//Passing player to the functions for their phase
-	
+
 	while (end == false){
 
 		for (int id = 0; id < numberOfPlayers; id++){
@@ -116,7 +125,11 @@ void gameDriver::mainPhase(int numberOfPlayers)
 			//add break somewhere here if the player wins
 			fortification(players[id]);
 		}
+<<<<<<< HEAD
 		for (int id = 0; id < 6-numberOfPlayers; id++){
+=======
+		for (int id = 0; id < 6 - numberOfPlayers; id++){
+>>>>>>> abfcc43624991bc6296e92c1efc7886099dd1f86
 			cout << "\nComputer " << computers[id].getID() << " turn\n";
 			cout << "------------------------------------------\n";
 			reinforcementPhase(computers[id]);
@@ -125,7 +138,11 @@ void gameDriver::mainPhase(int numberOfPlayers)
 			//add break somewhere here if the player wins
 			fortification(computers[id]);
 		}
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> abfcc43624991bc6296e92c1efc7886099dd1f86
 		end = true;	//For testing
 		cout << "Game is over!\n\n";
 	}
@@ -140,7 +157,11 @@ void gameDriver::reinforcementPhase(Player user){
 }
 
 void gameDriver::reinforcementPhase(AI comp){
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> abfcc43624991bc6296e92c1efc7886099dd1f86
 	cout << "This is the reinforcement phase for computer " << comp.getID() << endl;
 	system("pause");
 }
@@ -157,6 +178,7 @@ void gameDriver::attackPhase(Player user){
 
 void gameDriver::attackPhase(AI comp){
 	//Determine the strategy to use.
+<<<<<<< HEAD
 
 	cout << "This is the attack phase for computer " << comp.getID() << " using the " << comp.stratType << " strategy." << endl;
 	
