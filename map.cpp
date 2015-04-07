@@ -57,6 +57,8 @@ void map::getCountries(ifstream& mapFile) //extract countries
 	int adjacentCount = 0;
 	string continent; //Country class variable
 	string surrounding; //Country class variable
+	int playerid = 0;
+	int numOfArmies = 0;
 
 	while (!mapFile.eof())
 	{
@@ -71,27 +73,38 @@ void map::getCountries(ifstream& mapFile) //extract countries
 
 			terri = terri.substr(terri.find(terrdel) + 1);
 			continent = terri.substr(0, terri.find(terrdel));
+			terri = terri.substr(terri.find(terrdel) + 1);
+			playerid = stoi(terri.substr(0, terri.find(terrdel)));
+			terri = terri.substr(terri.find(terrdel) + 1);
+			numOfArmies = stoi(terri.substr(0, terri.find(terrdel)));
+			terri = terri.substr(terri.find(terrdel) + 1);
 			surrounding = terri.substr(terri.find(terrdel) + 1);
 
 			for (int i = 0; i < 6; i++)
 			{
 				if (continents[i].getName() == continent)
-					continents[i].addCountry(new Country(name, positionX, positionY, continent, surrounding));
+					continents[i].addCountry(new Country(name, positionX, positionY, continent, surrounding, playerid, numOfArmies));
 			}
-			//Country c = Country(name, positionX, positionY, continent, surrounding); //create country/territory from the obtained information
-			//countries[countListNum] = c; //add country to list
+			Country c = Country(name, positionX, positionY, continent, surrounding, playerid, numOfArmies); //create country/territory from the obtained information
+			countries[countListNum] = c; //add country to list
 			countryList[countListNum] = name; // store a list of country name
 			countListNum++; //increment country count
 		}
 	}
 }
 
-void map::loadMap()
+void map::loadMap(string file)
 {
 	ifstream mapFile;
 	string output;
-
-	mapFile.open("World.map"); //template used to create class
+	if (file != ""){
+		this->setFilename(file);
+		mapFile.open(file);
+	}
+	else{
+		this->setFilename("World.map");
+		mapFile.open("World.map"); //template used to create class
+	}
 
 	if (mapFile.is_open())
 	{
@@ -142,12 +155,17 @@ void map::getContinentsList()
 }
 
 //void map::saveMap(string filename, string author, string image, string wrap, string scroll, string warn)
-void map::saveMap()
+void map::saveMap(string file)
 {
 	cout << "Saving Map! " << endl;
 
 	ofstream mapFile;
-	mapFile.open(filename); //save content to test file
+	if (file != ""){
+		mapFile.open(file); 
+	}
+	else{
+		mapFile.open(filename); //save content to test file
+	}
 
 	if (mapFile.is_open())
 	{
@@ -171,6 +189,8 @@ void map::saveMap()
 			mapFile << countries[index].getX() << ",";
 			mapFile << countries[index].getY() << ",";
 			mapFile << countries[index].getContinent() << ",";
+			mapFile << countries[index].occupiedBy.getID() << ",";
+			mapFile << countries[index].numberOfPieces << ",";
 			mapFile << countries[index].getSurrounding() << endl;
 		}
 
@@ -257,7 +277,7 @@ void map::createMap()
 
 		} while (counter < (numAdjacent));
 
-		Country c(country, stoi(posX), stoi(posY), continent, adjacentCountry);
+		Country c(country, stoi(posX), stoi(posY), continent, adjacentCountry, 0, 0);
 		addCountry(country, stoi(posX), stoi(posY), continent, adjacentCountry);
 		c.setContinent(continent);
 
@@ -282,7 +302,7 @@ void map::createMap()
 	setWrap(wrap);
 	setScroll(scroll);
 	setWarn(warn);
-	saveMap();
+	saveMap("");
 
 	outfile.close();
 }
@@ -304,8 +324,8 @@ Continent map::getContinent(string con)
 
 void map::addCountry(string name, int positionX, int positionY, string continent, string surrounding)
 {
-	continents[numOfCountries].addCountry(new Country(name, positionX, positionY, continent, surrounding));
-	countries[numOfCountries] = Country(name, positionX, positionY, continent, surrounding);
+	continents[numOfCountries].addCountry(new Country(name, positionX, positionY, continent, surrounding, 0, 0));
+	countries[numOfCountries] = Country(name, positionX, positionY, continent, surrounding, 0, 0);
 	countryList[numOfCountries] = name;
 	numOfCountries++;
 }
@@ -356,4 +376,8 @@ void map::setWrap(string w)
 map::~map()
 {
 
+}
+
+string map::getFilename(){
+	return filename;
 }

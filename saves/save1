@@ -1,0 +1,5 @@
+map=myMap.map
+numberOfPlayers=2
+whosTurn=4
+phaseNum=2
+computers=defensive,aggressive,aggressive,aggressive,

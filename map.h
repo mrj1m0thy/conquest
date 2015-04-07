@@ -17,6 +17,7 @@ public:
 	void addContinent(Continent);
 	void getCountryList();
 	void getContinentsList();
+	string getFilename();
 
 	void setAuthor(string);
 	void setFilename(string);
@@ -28,8 +29,8 @@ public:
 	bool continentExists(string);
 	Continent getContinent(string);
 
-	void loadMap();
-	void saveMap();
+	void loadMap(string);
+	void saveMap(string);
 	void createMap();
 
 	~map();

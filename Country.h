@@ -9,10 +9,9 @@ class Country
 {
 public:
 	Country();
-	Country(string, int, int, string, string);
+	Country(string, int, int, string, string, int, int);
 	Country(string);				//Constructor
 	Country(string, Player, int);	//Constructor
-	Player* player;
 
 	string getName();
 	int getX();

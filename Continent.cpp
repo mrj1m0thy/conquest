@@ -43,9 +43,9 @@ void Continent::addCountry(Country* newTerritory) {
 
 Player* Continent::getOwningPlayer() {
 	if (this->numCountries > 0) {
-		Player* owner = this->countryArray[0]->player;
+		Player* owner = &this->countryArray[0]->occupiedBy;
 		for (int i = 1; i < this->numCountries; i++) {
-			if (owner != this->countryArray[i]->player) {
+			if (owner != &this->countryArray[i]->occupiedBy) {
 				return NULL;
 			}
 		}

@@ -44,7 +44,7 @@ public:
 
 	Player();
 	Player(Colours, string);
-	Player(int id);
+	Player(int);
 	Player(string, int, int);
 
 

@@ -29,6 +29,38 @@ AI::AI(int id)
 	}
 }
 
+AI::AI(int id, string inStrat)
+{
+	int result;
+	isComputer = true;
+	playerID = id;
+	name = "CPU";
+
+	if (inStrat == "aggressive")
+		result = 0;
+	else if (inStrat == "defensive")
+		result = 1;
+	else
+		result = 2;
+
+
+	switch (result)
+	{
+	case 0:
+		strat = new aggressive();
+		stratType = "aggressive";
+		break;
+	case 1:
+		strat = new defensive();
+		stratType = "defensive";
+		break;
+	case 2:
+		strat = new random();
+		stratType = "random";
+		break;
+	}
+}
+
 AI::AI()
 {
 	isComputer = true;

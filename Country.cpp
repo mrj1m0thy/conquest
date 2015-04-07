@@ -37,7 +37,7 @@ Country::Country(string cName, Player colour, int pieces)
 	diesRolled = 0;
 }
 
-Country::Country(string n, int positionX, int positionY, string cont, string surround)
+Country::Country(string n, int positionX, int positionY, string cont, string surround, int playerid, int numOfArmies)
 {
 	name = n;
 	posX = positionX;
@@ -61,6 +61,9 @@ Country::Country(string n, int positionX, int positionY, string cont, string sur
 	}
 
 	surrounding = surround; //this variable keeps stores nearby territories/territories
+
+	occupiedBy = Player(playerid);
+	numberOfPieces = numOfArmies;
 }
 
 //getters for all local variables
@@ -126,7 +129,7 @@ string Country::listTargets(string separator) {
 }
 
 void Country::conquer(Player* player, int armySize) {
-	this->player = player;
+	this->occupiedBy = *player;
 	this->armySize = armySize;
 }
 

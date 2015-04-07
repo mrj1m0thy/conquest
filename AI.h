@@ -11,6 +11,7 @@ class AI : public Player
 		string stratType;
 		AI();
 		AI(int);
+		AI(int, string);
 		
 };
 
