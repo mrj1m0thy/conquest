@@ -24,6 +24,14 @@ Player::Player(int id)
 	_battlesWon = 10;
 }
 
+Player::Player(Colours c, int r, int a, int b)
+{
+	_colour = c;
+	_renforcements = r;
+	_armiesOwned = a;
+	_battlesWon = b;
+}
+
 Player::Player(string name, int color, int turnOrder)
 {
 	this->name = name;
@@ -39,6 +47,8 @@ int Player::getID()
 void Player::AddCountry(Country* c)
 {
 	_countriesOwned.push_back(c);
+
+	Notify(this);
 }
 
 void Player::RemoveCountry(Country* c)
@@ -51,11 +61,15 @@ void Player::RemoveCountry(Country* c)
 			break;
 		}
 	}
+
+	Notify(this);
 }
 
 void Player::AddContinent(Continent* c)
 {
 	_continentsOwned.push_back(c);
+
+	Notify(this);
 }
  
 void Player::RemoveContinent(Continent* c)
@@ -67,5 +81,18 @@ void Player::RemoveContinent(Continent* c)
 			_continentsOwned.erase(_continentsOwned.begin() + i);
 			break;
 		}
+	}
+
+	Notify(this);
+}
+
+void Player::Notify(Player* p)
+{
+	//cout << "Notify" << endl;
+
+	for (int i = 0; i < _observers.size(); i++)
+	{
+		//TODO check if observer is of type player.
+		_observers[i]->Update(p);
 	}
 }

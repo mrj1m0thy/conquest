@@ -1,12 +1,24 @@
-#include <string>
 #ifndef Country_H
 #define Country_H
 
+#include <string>
 #include "Player.h"
+
 using namespace std;
 
-class Country
+class Country: public Subject
 {
+private:
+	int posX;
+	int posY;
+	int targetCount;
+	int armySize;
+	int adjacentCount;
+	string continent;
+
+	Country* adjacent;
+	string surrounding;
+	Country* targetArray[20];
 public:
 	Country();
 	Country(string, int, int, string, string);
@@ -33,18 +45,5 @@ public:
 	int diesRolled;			//Keeps track of how many dies rolled per attack. Used in calculations.  
 
 	~Country();
-
-private:
-	int posX;
-	int posY;
-	int targetCount;
-	int armySize;
-	int adjacentCount;
-	string continent;
-
-	Country* adjacent;
-	string surrounding;
-	Country* targetArray[20];
 };
-
 #endif

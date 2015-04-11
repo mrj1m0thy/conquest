@@ -11,14 +11,15 @@ This file defines the Player class. It is an observabled object, extending the S
 #define PLAYER_H
 
 #include <string>
-#include <array>
-#include <list>
 #include <vector>
+
 #include "Subject.h"
+#include "Card.h"
+#include "Hand.h"
 
 using namespace std;
  
-enum Colours { Blue, Red, Yellow, Green, Black, nil };
+enum Colours { Blue, Red, Yellow, Green, Black, Pink, nil };
 
 class Country;
 class Continent;
@@ -29,11 +30,15 @@ private:
 	int _renforcements = 0; //Number of renforcements for a given turn.
 	int _armiesOwned = 0;
 	int _battlesWon = 0;
+	int _battlesLost = 0;
 	
 	Colours _colour;
 
+	Hand _hand;
+
+	//vector<Card*> _hand;	//List of Cards in the Player's hand.
 	vector<Country*> _countriesOwned;	//List of Countires occupied by the Player object.
-	vector<Continent*> _continentsOwned;	//List of Continents controled by the Player object.
+	vector<Continent*> _continentsOwned;	//List of Continents controlled by the Player object.
 
 public:	
 	string name = "";
@@ -47,29 +52,40 @@ public:
 	Player(Colours, string);
 	Player(int id);
 	Player(string, int, int);
+	Player(Colours, int, int, int);
 	
-
-	void GetCountry(); //The string is the name of the country and not the country itself.
-
-	void AddCountry(Country*); //The string is the name of the country and not the country itself.
+	void AddCountry(Country*); 
 	void RemoveCountry(Country*);
 	vector<Country*> GetCountries() { return _countriesOwned; }
+	int GetNumCountries() { return _countriesOwned.size(); }
 
-	void AddContinent(Continent*); //The string is the name of the continent and not the continent itself.
+	void AddContinent(Continent*); 
 	void RemoveContinent(Continent*);
 	vector<Continent*> GetContinents() { return _continentsOwned; }
-	
-	void SetColour(Colours c) { _colour = c; Notify(); }
-	Colours GetColour(Colours) { return _colour; }
 
-	void SetRenforcements(int r) { _renforcements = r; Notify(); }
+	/*
+	void AddCard(Card*); 
+	void RemoveCard(Card*);
+	vector<Card*> GetHand() { return _hand; }	
+	*/
+	int HandSize() { return _hand.Size(); }
+
+	void SetColour(Colours c) { _colour = c; }
+	Colours GetColour() { return _colour; }
+
+	void SetRenforcements(int r) { _renforcements = r; Notify(this); }
 	int GetRenforcements() { return _renforcements; }
 
-	void SetArmiesOwned(int a) { _armiesOwned = a; Notify(); }
+	void SetArmiesOwned(int a) { _armiesOwned = a; Notify(this); }
 	int GetArmiesOwned() { return _armiesOwned; }
 	
-	void SetBattlesWon(int b) { _battlesWon = b; Notify(); }
+	void SetBattlesWon(int b) { _battlesWon = b; Notify(this); }
 	int GetBattlesWon() { return _battlesWon; }
+
+	void SetBattlesLost(int b) { _battlesLost = b; Notify(this); }
+	int GetBattlesLost() { return _battlesLost; }
+
+	virtual void Notify(Player*);				//Notifies the observer of a change.
 };
 
 #endif

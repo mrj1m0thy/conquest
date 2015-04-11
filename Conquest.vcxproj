@@ -81,29 +81,43 @@
   <ItemGroup>
     <ClCompile Include="AI.cpp" />
     <ClCompile Include="Battle.cpp" />
+    <ClCompile Include="Card.cpp" />
     <ClCompile Include="Continent.cpp" />
     <ClCompile Include="Country.cpp" />
+    <ClCompile Include="Deck.cpp" />
     <ClCompile Include="gameDriver.cpp" />
+    <ClCompile Include="Hand.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="MapView.cpp" />
     <ClCompile Include="Observer.cpp" />
+    <ClCompile Include="PercentOfWorld.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerView.cpp" />
+    <ClCompile Include="SimpleStats.cpp" />
     <ClCompile Include="Subject.cpp" />
+    <ClCompile Include="WinLoss.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI.h" />
     <ClInclude Include="Battle.h" />
+    <ClInclude Include="Card.h" />
     <ClInclude Include="Continent.h" />
     <ClInclude Include="Country.h" />
+    <ClInclude Include="Deck.h" />
     <ClInclude Include="gameDriver.h" />
+    <ClInclude Include="Hand.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="MapView.h" />
     <ClInclude Include="Observer.h" />
+    <ClInclude Include="PercentOfWorld.h" />
     <ClInclude Include="PlayerView.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SimpleStats.h" />
+    <ClInclude Include="Statistics.h" />
+    <ClInclude Include="StatsDecorator.h" />
     <ClInclude Include="Subject.h" />
+    <ClInclude Include="WinLoss.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -16,10 +16,11 @@ This file defines the base Subject class.
 
 using namespace std;
 
+class Player;
 
 class Subject
 {
-private:
+protected:
 	vector<Observer*> _observers;	//List of observers attached to the object.
 
 public:
@@ -28,6 +29,8 @@ public:
 	virtual void Attach(Observer*);		//Attaches an observer to an observable object.	
 	virtual void Detach(Observer*);		//Detaches an observer from an observable object.	
 	virtual void Notify();				//Notifies the observer of a change.
+	virtual void Notify(Subject*);		//Notifies the observer of a change.
+	virtual void Notify(Player*) {};
 };
 
 #endif

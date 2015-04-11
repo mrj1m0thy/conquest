@@ -6,6 +6,15 @@
 #include "Continent.h"
 #include "map.h"
 
+//Used in assign 3
+#include "Player.h"	
+#include "Country.h"
+#include "PlayerView.h"
+#include "SimpleStats.h"
+#include "StatsDecorator.h"
+#include "PercentOfWorld.h"
+#include "WinLoss.h"
+
 using namespace std;
 
 void main()
@@ -18,7 +27,7 @@ void main()
 
 	while (!quit)
 	{
-		cout << "Welcome to Online Risk!\n***********************\n" << endl;
+		cout << "Welcome to Risk!\n***********************\n" << endl;
 
 		cout << "What would you like to do?:" << endl;
 		cout << "1. Start Game with Default Map" << endl;
@@ -51,3 +60,47 @@ void main()
 	}
 }
 
+/*
+void main() // Used for Nick's Assignment 3
+{
+const int numberOfPlayers = 3;
+const int numCountries = 3;
+
+Player* one = new Player(Red, 4, 10, 8);
+Player* two = new Player(Blue, 5, 4, 10);
+Player* three = new Player(Green, 2, 1, 2);
+
+Country* Canada = new Country("Canada", Red, 5);	//Instanciate countries for battle.
+Country* USA = new Country("USA", Blue, 7);
+Country* Mexico = new Country("Mexico", Green, 3);
+
+Observer* stats = new SimpleStats();
+Statistics* pow = new SimpleStats();
+Statistics* wl = new SimpleStats();
+
+pow = new PercentOfWorld(pow);
+wl = new WinLoss(wl);
+
+one->AddCountry(USA);
+two->AddCountry(Canada);
+three->AddCountry(Mexico);
+
+one->Attach(stats);
+two->Attach(stats);
+three->Attach(stats);
+one->Attach(pow);
+two->Attach(pow);
+three->Attach(pow);
+one->Attach(wl);
+two->Attach(wl);
+three->Attach(wl);
+
+cout << "STATS" << endl << endl;
+
+one->Notify(one);
+two->Notify(two);
+three->Notify(three);
+
+system("pause");
+}
+*/
