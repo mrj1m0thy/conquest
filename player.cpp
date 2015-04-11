@@ -15,8 +15,9 @@ Player::Player(Colours colour, string playername)
 	name = playername;
 }
 
-Player::Player(int id)
+Player::Player(int id, string playername)
 {
+	name = playername;
 	playerID = id;
 	_colour = Blue;
 	_renforcements = 10;

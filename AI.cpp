@@ -8,7 +8,7 @@ AI::AI(int id)
 {
 	isComputer = true;
 	playerID = id;
-	name = "CPU"+id;
+	name = "CPU"+to_string(id);
 
 	int num = strat->getStrategy();
 
@@ -34,7 +34,7 @@ AI::AI(int id, string inStrat)
 	int result;
 	isComputer = true;
 	playerID = id;
-	name = "CPU"+id;
+	name = "CPU"+to_string(id);
 
 	if (inStrat == "aggressive")
 		result = 0;

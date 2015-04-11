@@ -12,10 +12,10 @@ void main(){
 	//By: Tyler Lauzon
 	//ID: 7396708
 	//Team: J
+	//Note: We have yet to implement cards for the player so i wasn't able to save those.
 	gameDriver game;
 	
 	game.start();
 
 
-	system("pause");
 }

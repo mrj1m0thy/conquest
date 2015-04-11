@@ -24,6 +24,7 @@ public:
 	void setContinent(string);
 	void addTarget(Country*);
 	void conquer(Player*, int);
+	void setOccupier(Player);
 
 	string name;
 	Player* occupiedBy;		//Keeps track of which player controls this instance of Country.
@@ -37,7 +38,6 @@ private:
 	int posX;
 	int posY;
 	int targetCount;
-	int armySize;
 	int adjacentCount;
 	string continent;
 

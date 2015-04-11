@@ -84,6 +84,7 @@ void map::getCountries(ifstream& mapFile) //extract countries
 			countries[countListNum] = c; //add country to list
 			countryList[countListNum] = name; // store a list of country name
 			countListNum++; //increment country count
+			numOfCountries++;
 		}
 	}
 	createContinents();
