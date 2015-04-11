@@ -80,15 +80,21 @@ void map::getCountries(ifstream& mapFile) //extract countries
 			terri = terri.substr(terri.find(terrdel) + 1);
 			surrounding = terri.substr(terri.find(terrdel) + 1);
 
-			for (int i = 0; i < 6; i++)
-			{
-				if (continents[i].getName() == continent)
-					continents[i].addCountry(new Country(name, positionX, positionY, continent, surrounding, playerid, numOfArmies));
-			}
 			Country c = Country(name, positionX, positionY, continent, surrounding, playerid, numOfArmies); //create country/territory from the obtained information
 			countries[countListNum] = c; //add country to list
 			countryList[countListNum] = name; // store a list of country name
 			countListNum++; //increment country count
+		}
+	}
+	createContinents();
+}
+
+void map::createContinents()
+{
+	for (int i = 0; i < 6; i++){
+		for (int j = 0; j < numOfCountries; j++){
+			if (continents[i].getName() == countries[j].getContinent())
+				continents[i].addCountry(&countries[j]);
 		}
 	}
 }
@@ -189,7 +195,7 @@ void map::saveMap(string file)
 			mapFile << countries[index].getX() << ",";
 			mapFile << countries[index].getY() << ",";
 			mapFile << countries[index].getContinent() << ",";
-			mapFile << countries[index].occupiedBy.getID() << ",";
+			mapFile << countries[index].occupiedBy->getID() << ",";
 			mapFile << countries[index].numberOfPieces << ",";
 			mapFile << countries[index].getSurrounding() << endl;
 		}
@@ -380,4 +386,16 @@ map::~map()
 
 string map::getFilename(){
 	return filename;
+}
+
+bool map::isWinner()
+{
+	Player* winner = countries[0].occupiedBy;
+
+	for (int i = 1; i < numOfCountries; i++)
+	{
+		if (winner->playerID != countries[i].occupiedBy->playerID)
+			return false;
+	}
+	return true;
 }

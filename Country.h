@@ -26,7 +26,7 @@ public:
 	void conquer(Player*, int);
 
 	string name;
-	Player occupiedBy;		//Keeps track of which player controls this instance of Country.
+	Player* occupiedBy;		//Keeps track of which player controls this instance of Country.
 	bool occupied;
 	int numberOfPieces;		//Keeps track of how many pieces are on this instance of Country.
 	int diesRolled;			//Keeps track of how many dies rolled per attack. Used in calculations.  

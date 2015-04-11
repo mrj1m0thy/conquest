@@ -14,7 +14,7 @@ Country::Country()
 	armySize = 0;
 	name = "Neverland";
 	occupied = false;
-	occupiedBy = nil;
+	occupiedBy = nullptr;
 	numberOfPieces = 0;
 	diesRolled = 0;
 }
@@ -23,7 +23,7 @@ Country::Country(string cName)
 {
 	name = cName;
 	occupied = false;
-	occupiedBy = nil;
+	occupiedBy = nullptr;
 	numberOfPieces = 0;
 	diesRolled = 0;
 }
@@ -32,7 +32,7 @@ Country::Country(string cName, Player colour, int pieces)
 {
 	name = cName;
 	occupied = true;
-	occupiedBy = colour;
+	occupiedBy = &colour;
 	numberOfPieces = pieces;
 	diesRolled = 0;
 }
@@ -62,7 +62,7 @@ Country::Country(string n, int positionX, int positionY, string cont, string sur
 
 	surrounding = surround; //this variable keeps stores nearby territories/territories
 
-	occupiedBy = Player(playerid);
+	occupiedBy = &Player(playerid);
 	numberOfPieces = numOfArmies;
 }
 
@@ -129,7 +129,7 @@ string Country::listTargets(string separator) {
 }
 
 void Country::conquer(Player* player, int armySize) {
-	this->occupiedBy = *player;
+	this->occupiedBy = player;
 	this->armySize = armySize;
 }
 

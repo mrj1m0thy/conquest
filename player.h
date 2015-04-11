@@ -31,8 +31,10 @@ private:
 
 	Colours _colour;
 
-	vector<Country*> _countriesOwned;	//List of Countires occupied by the Player object.
+	vector<Country*> _countriesOwned;		//List of Countires occupied by the Player object.
 	vector<Continent*> _continentsOwned;	//List of Continents controled by the Player object.
+
+	void updateContinents();
 
 public:
 	string name = "";

@@ -11,7 +11,7 @@ class gameDriver
 public:
 	void start();
 	gameDriver();
-	gameDriver(map, Player*, AI*, int, int, int);
+	gameDriver(map, vector<Player>, vector<AI>, int, int, int);
 	~gameDriver();
 	class Builder;
 
@@ -34,14 +34,14 @@ private:
 	void mainMenu();
 	void startMenu();
 	void clearScreen();
-
-	bool end;
+	void gameOver();
+	void updatePlayerContinents();
 	map myMap;
 	int whosTurn;
 	int phaseNum;
 	int numberOfPlayers;
-	Player* players;
-	AI* computers;
+	vector<Player> players;
+	vector<AI> computers;
 
 	Country Canada;
 	Country USA;
@@ -51,8 +51,8 @@ private:
 class gameDriver::Builder{
 	private:
 		map builderMap;
-		Player* players;
-		AI* computers;
+		vector<Player> players;
+		vector<AI> computers;
 		int numberOfPlayers;
 		int whosTurn;
 		int phaseNum;
@@ -65,8 +65,8 @@ class gameDriver::Builder{
 		Builder();
 
 		Builder& setMap(const string);
-		Builder& setPlayers(Player*);
-		Builder& setComputers(AI*);
+		Builder& setPlayers(vector<Player>);
+		Builder& setComputers(vector<AI>);
 		Builder& setNumberOfPlayers(const int);
 		Builder& setWhosTurn(const int);
 		Builder& setPhaseNum(const int);

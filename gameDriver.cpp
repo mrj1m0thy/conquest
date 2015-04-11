@@ -36,7 +36,7 @@ gameDriver::gameDriver()
 	Mexico = Country("Mexico", Green, 3);
 }
 
-gameDriver::gameDriver(map myMap, Player* players, AI* computers, int numberOfPlayers, int whosTurn, int phaseNum)
+gameDriver::gameDriver(map myMap, vector<Player> players, vector<AI> computers, int numberOfPlayers, int whosTurn, int phaseNum)
 {
 	this->myMap = myMap;
 	this->players = players;
@@ -97,21 +97,44 @@ void gameDriver::startPhase()
 		cin >> numberOfPlayers;
 	} while (numberOfPlayers > 6 || numberOfPlayers < 2);
 
-	computers = new AI[6 - numberOfPlayers]();
+	vector<Country*> countryRefs;
+
+	for (int i = 0; i < sizeof(myMap.countries) / sizeof(myMap.countries[0]); i++){
+		countryRefs.push_back(&myMap.countries[i]);
+	}
+
 	for (int i = 0; i < 6 - numberOfPlayers; i++)
 	{
 		computers[i] = AI(i + 1);
+		for (int j = 0; j < 7; j++){
+			int rng = rand() % countryRefs.size();
+			countryRefs[rng]->occupiedBy = &computers[i];
+			computers[i].AddCountry(countryRefs[rng]);
+			countryRefs.erase(countryRefs.begin() + rng);
+		}
 	}
-
-	players = new Player[numberOfPlayers];
 
 	for (int i = 0; i < numberOfPlayers; i++)
 	{
+		int infantry = 20;
 		players[i] = Player(i + 1);
+		for (int j = 0; j < 7; j++){
+			int rng = rand() % countryRefs.size();
+			countryRefs[rng]->occupiedBy = &players[i];
+
+			if (j != 6){
+				countryRefs[rng]->numberOfPieces += rand() % infantry;
+				infantry -= countryRefs[rng]->numberOfPieces;
+			}
+			else
+				countryRefs[rng]->numberOfPieces += infantry;
+
+			players[i].AddCountry(countryRefs[rng]);
+			countryRefs.erase(countryRefs.begin() + rng);
+		}
 	}
 
 	phaseNum++;
-	//randomly assign countries (Probably something that will have to be done in maps section...)
 }
 
 /*
@@ -125,9 +148,7 @@ void gameDriver::mainPhase()
 		 << "-----------------------------------------\n\n";
 	system("pause");
 
-	end = false;
-
-	while (end == false){
+	while (true){
 		if (whosTurn < numberOfPlayers){
 			for (int id = whosTurn; id < numberOfPlayers; id++, whosTurn++){
 				cout << "\nPlayer " << players[id].getID() << " turn\n";
@@ -139,7 +160,8 @@ void gameDriver::mainPhase()
 					phaseNum++;
 				case 2:
 					attackPhase(players[id]);
-					//add break somewhere here if the player wins
+					if (myMap.isWinner())
+						gameOver();
 					phaseNum++;
 				case 3:
 					fortification(players[id]);
@@ -157,7 +179,8 @@ void gameDriver::mainPhase()
 				phaseNum++;
 			case 2:
 				attackPhase(computers[id]);
-				//add break somewhere here if the computer wins
+				if (myMap.isWinner())
+					gameOver();
 				phaseNum++;
 			case 3:
 				fortification(computers[id]);
@@ -166,15 +189,28 @@ void gameDriver::mainPhase()
 		}
 
 		whosTurn = 0;
-		end = true;	//For testing
 		clearScreen();
-		cout << "Game is over!\n\n";
 	}
+}
+
+void gameDriver::gameOver(){
+	cout << "Congratulations " << myMap.countries[0].occupiedBy->name << " you are the winner!\n\n";
+
+	cout << "Game is over!\n\n";
+
+	system("pause");
+	exit(0);
 }
 
 //a) reinforcement phase (where a player is given some armies and places them on some if the countries he owns)
 void gameDriver::reinforcementPhase(Player user){
 	clearScreen();
+
+	if (int(user.GetCountries().size() / 3) > 3)
+		user.SetRenforcements(user.GetCountries().size() / 3);
+	else
+		user.SetRenforcements(3);
+
 	cout << "This is the reinforcement phase for player " << user.getID() << endl;
 	cout << "---------------------------------------------------------\n\n";
 	mainMenu();
@@ -289,15 +325,13 @@ void gameDriver::loadGame(string load){
 		int numberOfPlayers;
 		int whosTurn;
 		int phaseNum;
-		AI* comps;
+		vector<AI> comps;
 
 		getline(inStream, line);
 		thisMap = line.substr(line.find('=') + 1);
 
 		getline(inStream, line);
 		numberOfPlayers = stoi(line.substr(line.find('=') + 1));
-
-		comps = new AI[6-numberOfPlayers];
 
 		getline(inStream, line);
 		whosTurn = stoi(line.substr(line.find('=') + 1));
@@ -328,17 +362,22 @@ void gameDriver::loadGame(string load){
 	}
 }
 
+void gameDriver::updatePlayerContinents()
+{
+	/*for (int i = 0; i < players.size(); i++)
+	{
+
+	}*/
+}
+
 gameDriver::Builder::Builder(): numberOfPlayers(defaultNumberOfPlayers), whosTurn(defaultWhosTurn), phaseNum(defaultPhaseNum)
 {
-	if (computers == nullptr){
-		computers = new AI[6 - numberOfPlayers]();
+	if (computers.size() == 0){
 		for (int i = 0; i < 6 - numberOfPlayers; i++)
 		{
 			computers[i] = AI(i + 1);		//
 		}
 	}
-
-	players = new Player[numberOfPlayers];
 
 	for (int i = 0; i < numberOfPlayers; i++)
 	{
@@ -347,12 +386,12 @@ gameDriver::Builder::Builder(): numberOfPlayers(defaultNumberOfPlayers), whosTur
 
 }
 
-gameDriver::Builder& gameDriver::Builder::setComputers(AI* computers){
+gameDriver::Builder& gameDriver::Builder::setComputers(vector<AI> computers){
 	this->computers = computers;
 	return *this;
 }
 
-gameDriver::Builder& gameDriver::Builder::setPlayers(Player* players){
+gameDriver::Builder& gameDriver::Builder::setPlayers(vector<Player> players){
 	this->players = players;
 	return *this;
 }

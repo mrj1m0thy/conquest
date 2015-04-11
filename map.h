@@ -18,6 +18,7 @@ public:
 	void getCountryList();
 	void getContinentsList();
 	string getFilename();
+	void createContinents();
 
 	void setAuthor(string);
 	void setFilename(string);
@@ -26,6 +27,7 @@ public:
 	void setScroll(string);
 	void setWarn(string);
 
+	bool isWinner();
 	bool continentExists(string);
 	Continent getContinent(string);
 
@@ -33,13 +35,14 @@ public:
 	void saveMap(string);
 	void createMap();
 
+	Country countries[42];
+
 	~map();
 
 private:
 	int numOfCountries;
 	string countryList[42];
 	Continent continents[6];
-	Country countries[42];
 	string author;
 	string filename;
 	string image;
