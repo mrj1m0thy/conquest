@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Country.h"
 #include <string>
 #include <iostream>
 
@@ -69,4 +70,13 @@ void Player::RemoveContinent(Continent* c)
 			break;
 		}
 	}
+}
+
+bool Player::hasCountry(string country){
+	for (int i = 0; i < _countriesOwned.size(); i++){
+		
+		if (_countriesOwned[i]->getName() == country)
+			return true;
+	}
+	return false;
 }

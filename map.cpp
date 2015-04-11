@@ -9,6 +9,7 @@ using namespace std;
 map::map()
 {
 	numOfCountries = 0; // initialize countries
+	numOfContinents = 0;
 }
 
 void map::getFileDetails(ifstream& mapFile)
@@ -290,7 +291,7 @@ void map::createMap()
 
 		Continent con(continent, 0);
 
-		con.addCountry(c);
+		con.addCountry(&c);
 		addContinent(con);
 
 		cout << "Are there any other countries you would like to add?: (Y/N)";
@@ -347,7 +348,8 @@ void map::addCountry(Country c)
 }
 void map::addContinent(Continent c)
 {
-	continents[numOfCountries] = Continent(c);
+	continents[numOfContinents] = Continent(c);
+	numOfContinents++;
 }
 
 void map::setAuthor(string a)
@@ -399,4 +401,8 @@ bool map::isWinner()
 			return false;
 	}
 	return true;
+}
+
+int map::getNumOfContinents(){
+	return numOfContinents;
 }

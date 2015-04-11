@@ -212,15 +212,32 @@ void gameDriver::gameOver(){
 
 //a) reinforcement phase (where a player is given some armies and places them on some if the countries he owns)
 void gameDriver::reinforcementPhase(Player user){
+	int total = 0;
 	clearScreen();
+	updatePlayerContinents();
 
 	if (int(user.GetCountries().size() / 3) > 3)
 		user.SetRenforcements(user.GetCountries().size() / 3);
 	else
 		user.SetRenforcements(3);
 
+	for (int i = 0; i < user.GetContinents().size(); i++)
+		total += user.GetContinents().at(i)->getArmyNum();
+
+	//Add reinforcements from cards
+
+	user.SetRenforcements(user.GetRenforcements() + total);
+
+	
 	cout << "This is the reinforcement phase for player " << user.getID() << endl;
 	cout << "---------------------------------------------------------\n\n";
+	int remaining = user.GetRenforcements();
+
+	for (int i = 0; i < user.GetRenforcements(); i++){
+		//Use output class to show table for choices
+		cout << "Remaining armies: " << remaining;
+	}
+
 	mainMenu();
 }
 
@@ -370,10 +387,18 @@ void gameDriver::loadGame(string load){
 
 void gameDriver::updatePlayerContinents()
 {
-	/*for (int i = 0; i < players.size(); i++)
-	{
-
-	}*/
+	for (int i = 0; i < numberOfPlayers; i++){
+		for (int j = 0; j < myMap.getNumOfContinents(); j++){
+			int k;
+			for (k = 0; k < myMap.continents[j].getNumCountries(); k++){
+				if (!players[i].hasCountry(myMap.continents[j].countryArray[k]->getName()))
+					break;
+			}
+			if (k == myMap.continents[j].getNumCountries() - 1){
+				players[i].AddContinent(&myMap.continents[j]);
+			}
+		}
+	}
 }
 
 gameDriver::Builder::Builder(): numberOfPlayers(defaultNumberOfPlayers), whosTurn(defaultWhosTurn), phaseNum(defaultPhaseNum)

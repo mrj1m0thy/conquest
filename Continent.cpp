@@ -28,17 +28,13 @@ int Continent::getArmyNum()
 	return armyNum;
 }
 
-//set country to a continent
-void Continent::addCountry(Country c)
-{
-	countryArray[numCountries] = new Country(c);
-	numCountries++;
+int Continent::getNumCountries(){
+	return numCountries;
 }
 
 void Continent::addCountry(Country* newTerritory) {
-	this->countryArray[this->numCountries] = newTerritory;
-	this->numCountries++;
-	return;
+	countryArray[numCountries] = newTerritory;
+	numCountries++;
 }
 
 Player* Continent::getOwningPlayer() {

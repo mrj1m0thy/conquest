@@ -34,8 +34,6 @@ private:
 	vector<Country*> _countriesOwned;		//List of Countires occupied by the Player object.
 	vector<Continent*> _continentsOwned;	//List of Continents controled by the Player object.
 
-	void updateContinents();
-
 public:
 	string name = "";
 	int playerID;
@@ -50,7 +48,7 @@ public:
 	Player(string, int, int);
 
 
-	void GetCountry(); //The string is the name of the country and not the country itself.
+	bool hasCountry(string);
 
 	void AddCountry(Country*); //The string is the name of the country and not the country itself.
 	void RemoveCountry(Country*);
