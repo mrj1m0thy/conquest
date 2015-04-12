@@ -48,7 +48,7 @@ void gameDriver::startPhase()
 
 	map myMap; //create a map
 
-	myMap.loadMap(); //load contents from sample file downloaded from given website
+	myMap.loadMap(""); //load contents from sample file downloaded from given website
 
 	cout << endl;
 
@@ -61,7 +61,7 @@ void gameDriver::startPhase()
 	myMap.getCountryList();
 
 	cout << endl;
-	myMap.saveMap(); // save content from continent/country classes to a .map (in this case, it is "test.map")
+	myMap.saveMap(""); // save content from continent/country classes to a .map (in this case, it is "test.map")
 
 	system("pause");
 
@@ -98,7 +98,7 @@ move). The sub-phases of the main phase are:
 void gameDriver::mainPhase(int numberOfPlayers)
 {
 	cout << "This is the beginning of the main phase\n\n\n";
-	system("pause");
+	//system("pause");
 
 	bool end = false;
 	//Passing player to the functions for their phase

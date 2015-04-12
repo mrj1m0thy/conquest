@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Battle.h"
+#include "map.h"
 #include "AI.h"
 
 using namespace std;
@@ -25,6 +26,8 @@ private:
 
 	void fortification(Player);
 	void fortification(AI);
+
+	void assignCountriesToPlayers(map);
 
 
 	int numberOfPlayers;
