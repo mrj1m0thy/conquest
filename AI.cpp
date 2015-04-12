@@ -1,24 +1,83 @@
 #include "AI.h"
-
-const string AI::Strategy[3] = { "Aggressive", "Defensive", "Random" };
+#include "strategy.h"
+#include "aggressive.h"
+#include "defensive.h"
+#include "random.h"
 
 AI::AI(int id)
 {
 	isComputer = true;
 	playerID = id;
-	name = "CPU";
+	name = "CPU"+to_string(id);
+
+	int num = strat->getStrategy();
+
+	switch (num)
+	{
+	case 0:
+		strat = new aggressive();
+		stratType = "aggressive";
+		break;
+	case 1:
+		strat = new defensive();
+		stratType = "defensive";
+		break;
+	case 2:
+		strat = new random();
+		stratType = "random";
+		break;
+	}
+}
+
+AI::AI(int id, string inStrat)
+{
+	int result;
+	isComputer = true;
+	playerID = id;
+	name = "CPU"+to_string(id);
+
+	if (inStrat == "aggressive")
+		result = 0;
+	else if (inStrat == "defensive")
+		result = 1;
+	else
+		result = 2;
+
+
+	switch (result)
+	{
+	case 0:
+		strat = new aggressive();
+		stratType = "aggressive";
+		break;
+	case 1:
+		strat = new defensive();
+		stratType = "defensive";
+		break;
+	case 2:
+		strat = new random();
+		stratType = "random";
+		break;
+	}
 }
 
 AI::AI()
 {
 	isComputer = true;
 	name = "CPU";
-}
 
-void AI::deterStrat(){
-	//TODO: Currently random. Will be replaced with functionality on determining which
-	//		Strategy to use.
-	//For this to be completed, it will need access to all of the countries owned by this computer
-	//to check all of its possible moves to see what his position is.
-	strat = Strategy[((rand() % 3))];
+	int num = strat->getStrategy();
+
+	switch (num)
+	{
+	case 0:
+		strat = new aggressive();
+		break;
+	case 1:
+		strat = new defensive();
+		break;
+	case 2:
+		strat = new random();
+		break;
+	}
 }

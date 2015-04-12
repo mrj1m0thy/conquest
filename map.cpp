@@ -9,6 +9,7 @@ using namespace std;
 map::map()
 {
 	numOfCountries = 0; // initialize countries
+	numOfContinents = 0;
 }
 
 void map::getFileDetails(ifstream& mapFile)
@@ -57,7 +58,6 @@ void map::getCountries(ifstream& mapFile) //extract countries
 	int adjacentCount = 0;
 	string continent; //Country class variable
 	string surrounding; //Country class variable
-	string adjacentCountries;
 	int playerid = 0;
 	int numOfArmies = 0;
 
@@ -74,105 +74,37 @@ void map::getCountries(ifstream& mapFile) //extract countries
 
 			terri = terri.substr(terri.find(terrdel) + 1);
 			continent = terri.substr(0, terri.find(terrdel));
+			terri = terri.substr(terri.find(terrdel) + 1);
+			playerid = stoi(terri.substr(0, terri.find(terrdel)));
+			terri = terri.substr(terri.find(terrdel) + 1);
+			numOfArmies = stoi(terri.substr(0, terri.find(terrdel)));
+			terri = terri.substr(terri.find(terrdel) + 1);
 			surrounding = terri.substr(terri.find(terrdel) + 1);
 
-			for (int i = 0; i < 6; i++)
-			{
-				if (continents[i].getName() == continent)
-					continents[i].addCountry(new Country(name, positionX, positionY, continent, surrounding, 0,0));
-			}
-			Country c = Country(name, positionX, positionY, continent, surrounding, 0,0); //create country/territory from the obtained information
+			Country c = Country(name, positionX, positionY, continent, surrounding, playerid, numOfArmies); //create country/territory from the obtained information
 			countries[countListNum] = c; //add country to list
 			countryList[countListNum] = name; // store a list of country name
-			countListNum++;
-			numOfCountries++; //increment country count
+			countListNum++; //increment country count
+			numOfCountries++;
 		}
+	}
+	createContinents();
+}
 
-		assignAdjacentCountries();
+void map::createContinents()
+{
+	for (int i = 0; i < 6; i++){
+		for (int j = 0; j < numOfCountries; j++){
+			if (continents[i].getName() == countries[j].getContinent())
+				continents[i].addCountry(&countries[j]);
+		}
 	}
 }
 
-void map::assignAdjacentCountries()
-{
-	string adjacentCountries;
-	int size;
-	string* a = nullptr;
-	
-	for (int i = 0; i < numOfCountries; i++)
-	{
-
-		adjacentCountries = countries[i].getSurrounding();
-		size = countries[i].getAdjacentCount();
-		a = new string[size];
-
-		for (int i = 0; i < size; i++)
-		{
-			a[i] = adjacentCountries.substr(0, adjacentCountries.find(','));
-			adjacentCountries = adjacentCountries.substr(adjacentCountries.find(',') + 1);
-		}
-
-		for (int c = 0; c < size; c++)
-		{
-			for (int count = 0; count < numOfCountries; count++)
-			{
-				if (countries[count].getName() == a[c])
-				{
-					countries[i].addAdjacent(&countries[count]);
-					break;
-				}	
-			}
-		}
-		delete[] a;
-		a = NULL;
-	}
-	delete a;
-}
-
-Country map::getCountry(string name)
-{
-	for (int index = 0; index < numOfCountries; index++)
-	{
-		if (countries[index].getName() == name)
-			return countries[index];
-	}
-	return NULL;
-}
-
-
-string map::getAuthor()
-{
-	return author;
-}
-
-string map::getFilename()
-{
-	return filename;
-}
-
-string map::getImage()
-{
-	return image;
-}
-
-string map::getWrap()
-{
-	return wrap;
-}
-
-string map::getScroll()
-{
-	return scroll;
-}
-
-string map::getWarn()
-{
-	return warn;
-}
 void map::loadMap(string file)
 {
 	ifstream mapFile;
 	string output;
-
 	if (file != ""){
 		this->setFilename(file);
 		mapFile.open(file);
@@ -224,31 +156,10 @@ void map::getCountryList()
 		cout << "Country " << index + 1 << ": " << countryList[index] << endl;	//output country list to user
 }
 
-Country map::getCountryElement(int i)
-{
-	return countries[i];
-}
-
-void map::outputAllCountries()
-{
-	for (int index = 0; index < sizeof(countryList) / sizeof(countryList[0]); index++)
-		cout << "Country " << index + 1 << ": " << countryList[index] << endl;	//output country list to user
-}
-
 void map::getContinentsList()
 {
 	for (int index = 0; index < sizeof(continents) / sizeof(continents[0]); index++)
 		cout << continents[index].getName() << endl; //output continent list to user
-}
-
-int map::getContinentSize()
-{
-	return sizeof(continents) / sizeof(continents[0]);
-}
-
-int map::getCountrySize()
-{
-	return sizeof(countries) / sizeof(countries[0]);
 }
 
 //void map::saveMap(string filename, string author, string image, string wrap, string scroll, string warn)
@@ -258,7 +169,7 @@ void map::saveMap(string file)
 
 	ofstream mapFile;
 	if (file != ""){
-		mapFile.open(file);
+		mapFile.open(file); 
 	}
 	else{
 		mapFile.open(filename); //save content to test file
@@ -286,7 +197,7 @@ void map::saveMap(string file)
 			mapFile << countries[index].getX() << ",";
 			mapFile << countries[index].getY() << ",";
 			mapFile << countries[index].getContinent() << ",";
-			mapFile << countries[index].occupiedBy.getID() << ",";
+			mapFile << countries[index].occupiedBy->getID() << ",";
 			mapFile << countries[index].numberOfPieces << ",";
 			mapFile << countries[index].getSurrounding() << endl;
 		}
@@ -350,7 +261,8 @@ void map::createMap()
 		getline(cin, continent);
 
 		cout << "Position X: ";
-		cin >> posX;
+		cin >> posX;	//_x-coordinate
+						//_xpos
 
 		cout << "Position Y: ";
 		cin >> posY;
@@ -380,7 +292,7 @@ void map::createMap()
 
 		Continent con(continent, 0);
 
-		con.addCountry(c);
+		con.addCountry(&c);
 		addContinent(con);
 
 		cout << "Are there any other countries you would like to add?: (Y/N)";
@@ -427,16 +339,6 @@ void map::addCountry(string name, int positionX, int positionY, string continent
 	numOfCountries++;
 }
 
-string map::getContinentOutputInfo(int index)
-{
-	return (continents[index].getName() + "=" + to_string(continents[index].getArmyNum()));
-}
-
-string map::getCountryOutputInfo(int index)
-{
-	return countries[index].getName() + "," + to_string(countries[index].getX()) + "," + to_string(countries[index].getY()) + "," + countries[index].getContinent() + "," + countries[index].getSurrounding();
-}
-
 
 void map::addCountry(Country c)
 {
@@ -447,7 +349,8 @@ void map::addCountry(Country c)
 }
 void map::addContinent(Continent c)
 {
-	continents[numOfCountries] = Continent(c);
+	continents[numOfContinents] = Continent(c);
+	numOfContinents++;
 }
 
 void map::setAuthor(string a)
@@ -480,7 +383,32 @@ void map::setWrap(string w)
 	wrap = w;
 }
 
+void map::Update(Subject* s)
+{
+	Notify(s);
+}
+
 map::~map()
 {
 
+}
+
+string map::getFilename(){
+	return filename;
+}
+
+bool map::isWinner()
+{
+	Player* winner = countries[0].occupiedBy;
+
+	for (int i = 1; i < numOfCountries; i++)
+	{
+		if (winner->playerID != countries[i].occupiedBy->playerID)
+			return false;
+	}
+	return true;
+}
+
+int map::getNumOfContinents(){
+	return numOfContinents;
 }

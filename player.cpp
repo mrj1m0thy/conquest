@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Country.h"
 #include <string>
 #include <iostream>
 
@@ -15,13 +16,22 @@ Player::Player(Colours colour, string playername)
 	name = playername;
 }
 
-Player::Player(int id)
+Player::Player(int id, string playername)
 {
+	name = playername;
 	playerID = id;
 	_colour = Blue;
 	_renforcements = 10;
 	_armiesOwned = 10;
 	_battlesWon = 10;
+}
+
+Player::Player(Colours c, int r, int a, int b)
+{
+	_colour = c;
+	_renforcements = r;
+	_armiesOwned = a;
+	_battlesWon = b;
 }
 
 Player::Player(string name, int color, int turnOrder)
@@ -32,18 +42,20 @@ Player::Player(string name, int color, int turnOrder)
 }
 
 int Player::getID()
-{ 
+{
 	return playerID;
 }
 
-void Player::AddCountry(string* c)
+void Player::AddCountry(Country* c)
 {
 	_countriesOwned.push_back(c);
+
+	Notify(this);
 }
 
-void Player::RemoveCountry(string* c)
-{	
-	for (int i = 0; i < _countriesOwned.size(); i++)
+void Player::RemoveCountry(Country* c)
+{
+	for (int i = 0; i < int(_countriesOwned.size()); i++)
 	{
 		if (_countriesOwned[i] == c)
 		{
@@ -51,16 +63,20 @@ void Player::RemoveCountry(string* c)
 			break;
 		}
 	}
+
+	Notify(this);
 }
 
-void Player::AddContinent(string* c)
+void Player::AddContinent(Continent* c)
 {
 	_continentsOwned.push_back(c);
+
+	Notify(this);
 }
- 
-void Player::RemoveContinent(string* c)
+
+void Player::RemoveContinent(Continent* c)
 {
-	for (int i = 0; i < _continentsOwned.size(); i++)
+	for (int i = 0; i < int(_continentsOwned.size()); i++)
 	{
 		if (_continentsOwned[i] == c)
 		{
@@ -68,4 +84,26 @@ void Player::RemoveContinent(string* c)
 			break;
 		}
 	}
+
+	Notify(this);
+}
+
+void Player::Notify(Player* p)
+{
+	//cout << "Notify" << endl;
+
+	for (int i = 0; i < _observers.size(); i++)
+	{
+		//TODO check if observer is of type player.
+		_observers[i]->Update(p);
+	}
+}
+
+bool Player::hasCountry(string country){
+	for (int i = 0; i < _countriesOwned.size(); i++){
+		
+		if (_countriesOwned[i]->getName() == country)
+			return true;
+	}
+	return false;
 }

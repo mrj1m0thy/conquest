@@ -18,7 +18,7 @@ Observer::Observer()
 	type = "Observer";
 }
 
-void Observer::Update()
+void Observer::Update(Subject* s)
 {
 	cout << "Observable has changed!" << endl; 
 }

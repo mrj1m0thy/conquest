@@ -1,91 +1,91 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="AI" Collapsed="true">
-    <Position X="0.5" Y="3.25" Width="1.5" />
+  <Class Name="AI">
+    <Position X="4.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAAAAAAAABABAAAAAAAAAAAAAAABAAAAA=</HashCode>
       <FileName>AI.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Battle" Collapsed="true">
-    <Position X="7.25" Y="0.5" Width="1.5" />
+  <Class Name="Battle">
+    <Position X="4" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIAAAAAQAIAAAAACAACAAAAQAAAAEAAABAEAEABAA=</HashCode>
       <FileName>Battle.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Continent" Collapsed="true">
-    <Position X="9" Y="0.5" Width="1.5" />
+  <Class Name="Continent">
+    <Position X="5.75" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAgAAACQAAAAAAEAAQBgAAkIAAgAAA=</HashCode>
       <FileName>Continent.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Country">
-    <Position X="11.25" Y="0.5" Width="1.5" />
+    <Position X="9.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAQAQgAACAAAQAAAAAAAgAAACMEkICBAQAV0GAAAAA=</HashCode>
       <FileName>Country.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="gameDriver" Collapsed="true">
-    <Position X="7.25" Y="1.5" Width="1.5" />
+  <Class Name="gameDriver">
+    <Position X="7.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEAQAAAABggAAAAAAAEAAAAAAgIABAAACACMA=</HashCode>
       <FileName>gameDriver.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="map" Collapsed="true">
-    <Position X="9" Y="1.5" Width="1.5" />
+  <Class Name="map">
+    <Position X="11.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>GAAAEBFAIABAAQEABRAACIAIFAEBACQAAigxAAAQAAA=</HashCode>
+      <HashCode>GAAAEBFAIABAAQEABRAACIAIEAEBACQAAigxAAAQAAA=</HashCode>
       <FileName>map.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MapView" Collapsed="true">
-    <Position X="2.5" Y="1.75" Width="1.5" />
+  <Class Name="MapView">
+    <Position X="5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MapView.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Observer" Collapsed="true">
-    <Position X="3.75" Y="0.5" Width="1.5" />
+  <Class Name="Observer">
+    <Position X="6" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAACAA=</HashCode>
       <FileName>Observer.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Player" Collapsed="true">
-    <Position X="0.5" Y="1.75" Width="1.5" />
+  <Class Name="Player">
+    <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AiAgAAggAAAQgACBABgAAAAgARAMgACAAAYEAREgAAA=</HashCode>
       <FileName>Player.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="PlayerView" Collapsed="true">
-    <Position X="4.75" Y="1.75" Width="1.5" />
+  <Class Name="PlayerView">
+    <Position X="7" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>PlayerView.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Subject" Collapsed="true">
+  <Class Name="Subject">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAQAAAAAAAAAIAAIAAAAAAAIAAAABAAAAAAAQAAAA=</HashCode>
       <FileName>Subject.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Struct Name="Die" Collapsed="true">
-    <Position X="7.25" Y="2.75" Width="1.5" />
+  <Struct Name="Die">
+    <Position X="0.5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Battle.h</FileName>
     </TypeIdentifier>
   </Struct>
-  <Enum Name="Colours" Collapsed="true">
-    <Position X="7.25" Y="4" Width="1.5" />
+  <Enum Name="Colours">
+    <Position X="0.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAGAAAAAACAAgAAAAAAAAAAAAAAAAAAAAAAADAAAAA=</HashCode>
       <FileName>Player.h</FileName>

@@ -4,7 +4,7 @@
 #define Continent_H
 using namespace std;
 
-class Continent
+class Continent: public Subject
 {
 public:
 	Continent();
@@ -12,18 +12,18 @@ public:
 
 	string getName();
 	int getArmyNum();
-	void addCountry(Country);
+	int getNumCountries();
 	void addCountry(Country*);
 	Player* getOwningPlayer();
 	string getOwnerName();
-
+	Country* countryArray[42];
 	~Continent();
 
 private:
 	string name;
 	int armyNum;
 	int numCountries;
-	Country* countryArray[42];
+	
 
 };
 

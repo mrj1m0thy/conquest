@@ -20,7 +20,7 @@ Battle::Battle(Country& attack, Country& defend)
 
 	cout << "Battle!!!" << endl << endl;
 	cout << attack.name << " Vs. " << defend.name << endl << endl;
-	cout << "Player " << attack.occupiedBy.name << " Vs. Player " << defend.occupiedBy.name << endl << endl;
+	cout << "Player " << attack.occupiedBy->name << " Vs. Player " << defend.occupiedBy->name << endl << endl;
 	cout << attack.numberOfPieces << " Armies Vs. " << defend.numberOfPieces  << " Armies" << endl << endl;
 	
 	if (CanBattle(attack, defend))  
@@ -152,7 +152,7 @@ void Battle::Roll(Country& attack, Country& defend)
 	{
 		do
 		{
-			cout << attack.occupiedBy.name << " Player How Many Die Would You Like To Roll? (1";
+			cout << attack.occupiedBy->name << " Player How Many Die Would You Like To Roll? (1";
 
 			for (int i = 1; i < attackRoll; i++)
 			{
@@ -168,7 +168,7 @@ void Battle::Roll(Country& attack, Country& defend)
 
 		do
 		{
-			cout << defend.occupiedBy.name << " Player How Many Die Would You Like To Roll? (1";
+			cout << defend.occupiedBy->name << " Player How Many Die Would You Like To Roll? (1";
 
 			for (int i = 1; i < defendRoll; i++)
 			{
@@ -183,7 +183,7 @@ void Battle::Roll(Country& attack, Country& defend)
 		defendRoll = tempRoll;
 	}
 
-	srand(time(NULL));
+	srand(static_cast<int>(time(0)));
 	
 	Die att;
 	Die def;
@@ -272,13 +272,13 @@ void Battle::Conquer(Country& attack, Country& defend)
 		//Transfer of ownership.
 		attack.numberOfPieces -= ans;
 		defend.numberOfPieces += ans;
-		defend.occupiedBy.name = attack.occupiedBy.name;
+		defend.occupiedBy->name = attack.occupiedBy->name;
 	}
 	else	//Attacker only has 2 pieces. One stays the other captures.
 	{
 		//Transfer of ownership.
 		attack.numberOfPieces -= 1;
 		defend.numberOfPieces += 1;
-		defend.occupiedBy.name = attack.occupiedBy.name;
+		defend.occupiedBy->name = attack.occupiedBy->name;
 	}
 }

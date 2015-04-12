@@ -79,40 +79,58 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Adapter.cpp" />
+    <ClCompile Include="aggressive.cpp" />
     <ClCompile Include="AI.cpp" />
     <ClCompile Include="Battle.cpp" />
+    <ClCompile Include="Card.cpp" />
     <ClCompile Include="Continent.cpp" />
     <ClCompile Include="Country.cpp" />
+    <ClCompile Include="Deck.cpp" />
+    <ClCompile Include="defensive.cpp" />
     <ClCompile Include="gameDriver.cpp" />
-    <ClCompile Include="LoadAdaptee.cpp" />
+    <ClCompile Include="Hand.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="MapView.cpp" />
     <ClCompile Include="Observer.cpp" />
+    <ClCompile Include="Output.cpp" />
+    <ClCompile Include="PercentOfWorld.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerView.cpp" />
-    <ClCompile Include="SaveAdaptee.cpp" />
+    <ClCompile Include="random.cpp" />
+    <ClCompile Include="SimpleStats.cpp" />
+    <ClCompile Include="strategy.cpp" />
     <ClCompile Include="Subject.cpp" />
+    <ClCompile Include="WinLoss.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\nick%27s master\Adapter.h" />
+    <ClInclude Include="aggressive.h" />
     <ClInclude Include="AI.h" />
     <ClInclude Include="Battle.h" />
+    <ClInclude Include="Card.h" />
     <ClInclude Include="Continent.h" />
     <ClInclude Include="Country.h" />
+    <ClInclude Include="Deck.h" />
+    <ClInclude Include="defensive.h" />
     <ClInclude Include="gameDriver.h" />
-    <ClInclude Include="LoadAdaptee.h" />
+    <ClInclude Include="Hand.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="MapView.h" />
     <ClInclude Include="Observer.h" />
+    <ClInclude Include="Output.h" />
+    <ClInclude Include="PercentOfWorld.h" />
     <ClInclude Include="PlayerView.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="SaveAdaptee.h" />
+    <ClInclude Include="random.h" />
+    <ClInclude Include="SimpleStats.h" />
+    <ClInclude Include="Statistics.h" />
+    <ClInclude Include="StatsDecorator.h" />
+    <ClInclude Include="strategy.h" />
     <ClInclude Include="Subject.h" />
+    <ClInclude Include="WinLoss.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\nick%27s master\ClassDiagram.cd" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
