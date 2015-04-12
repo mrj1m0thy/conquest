@@ -94,6 +94,7 @@
     <ClCompile Include="MapView.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Output.cpp" />
+    <ClCompile Include="Outputt.cpp" />
     <ClCompile Include="PercentOfWorld.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerView.cpp" />
@@ -118,6 +119,7 @@
     <ClInclude Include="MapView.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Output.h" />
+    <ClInclude Include="Outputt.h" />
     <ClInclude Include="PercentOfWorld.h" />
     <ClInclude Include="PlayerView.h" />
     <ClInclude Include="Player.h" />

@@ -19,9 +19,10 @@ public:
 	void addContinent(Continent);
 	void getCountryList();
 	void getContinentsList();
-	string getFilename();
 	void createContinents();
 	int getNumOfContinents();
+	void assignAdjacentCountries();
+	int getAdjacentCount();
 
 	void setAuthor(string);
 	void setFilename(string);
@@ -30,9 +31,25 @@ public:
 	void setScroll(string);
 	void setWarn(string);
 
+	string getAuthor();
+	string getFilename();
+	string getImage();
+	string getWrap();
+	string getScroll();
+	string getWarn();
+
 	bool isWinner();
 	bool continentExists(string);
 	Continent getContinent(string);
+
+	string getContinentOutputInfo(int);
+	string getCountryOutputInfo(int);
+	void outputAllCountries();
+	Country getCountryElement(int);
+	int getContinentSize();
+	int getCountrySize();
+	Country getCountry(string);
+
 
 	void loadMap(string);
 	void saveMap(string);

@@ -51,13 +51,13 @@ Country::Country(string n, int positionX, int positionY, string cont, string sur
 			adjacentCount++;
 	}
 
-	adjacent = new Country[adjacentCount];
+	adjacent = new Country*[adjacentCount];
 
-	for (int i = 0; i < adjacentCount; i++)
-	{
-		adjacent[i] = Country(surround.substr(0, surround.find(',')));
-		surround = surround.substr(surround.find(',') + 1);
-	}
+	//for (int i = 0; i < adjacentCount; i++)
+	//{
+	//	adjacent[i] = Country(surround.substr(0, surround.find(',')));
+	//	surround = surround.substr(surround.find(',') + 1);
+	//}
 
 	surrounding = surround; //this variable keeps stores nearby territories/territories
 
@@ -66,10 +66,21 @@ Country::Country(string n, int positionX, int positionY, string cont, string sur
 	diesRolled = 0;
 }
 
+void Country::addAdjacent(Country* c)
+{
+	adjacent[adjacentCounter] = c;
+	adjacentCounter++;
+}
+
 //getters for all local variables
 string Country::getName()
 {
 	return name;
+}
+
+int Country::getAdjacentCount()
+{
+	return adjacentCount;
 }
 
 void Country::setContinent(string c)
@@ -94,16 +105,16 @@ string Country::getContinent()
 
 string Country::getSurrounding()
 {
-	//return surrounding;
-	string adjacentCountries = "";
+	return surrounding;
+	//string adjacentCountries = "";
 
-	for (int i = 0; i < adjacentCount; i++)
-		if (i == 0)
-			adjacentCountries = adjacentCountries + adjacent[i].getName();
-		else
-			adjacentCountries = adjacentCountries + "," + adjacent[i].getName();
+	//for (int i = 0; i < adjacentCount; i++)
+	//	if (i == 0)
+	//		adjacentCountries = adjacentCountries + adjacent[i].getName();
+	//	else
+	//		adjacentCountries = adjacentCountries + "," + adjacent[i].getName();
 
-	return adjacentCountries;
+	//return adjacentCountries;
 }
 
 void Country::addTarget(Country* newTarget) {

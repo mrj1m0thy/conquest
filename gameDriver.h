@@ -29,10 +29,11 @@ private:
 	void fortification(Player);
 	void fortification(AI);
 
-	void saveGame(string);
-	void loadGame(string);
+	void showPlayerStats(Player);
 
 	void mainMenu();
+	void loadGame(string);
+	void saveGame(string);
 	void startMenu();
 	void clearScreen();
 	void gameOver();

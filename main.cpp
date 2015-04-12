@@ -2,7 +2,7 @@
 #include <time.h>
 #include "gameDriver.h"
 #include "AI.h"
-#include "Output.h"
+#include "Outputt.h"
 
 //Used in assign 3
 #include "Player.h"	
@@ -23,7 +23,7 @@ void main()
 	bool quit = false;
 	string answer;
 
-	Output output;
+	Outputt output;
 
 	while (!quit)
 	{

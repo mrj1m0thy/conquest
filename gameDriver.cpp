@@ -240,6 +240,7 @@ void gameDriver::reinforcementPhase(Player user){
 	while (remaining > 0){
 		clearScreen();
 		cout << "Remaining armies: " << remaining;
+
 		//Use output class to show table for choices
 		do{
 			cout << "\n\nWhere would you like to place your armies? (Must be between 0 and " << user.GetCountries().size()-1 << ") ";
@@ -271,8 +272,20 @@ void gameDriver::attackPhase(Player user){
 
 	cout << "This is the attack phase for player " << user.getID() << endl;
 	cout << "---------------------------------------------------------\n\n";
+
+	showPlayerStats(user);
+	
 	Battle battle1(*user.GetCountries().at(0), *user.GetCountries().at(1));		//Instancies battles to be carried out.
 	mainMenu();
+}
+
+void gameDriver::showPlayerStats(Player p)
+{
+	vector<Country*> a = p.GetCountries();
+
+	Country b = a.pop_back;
+
+	cout << b.getName();
 }
 
 void gameDriver::attackPhase(AI comp){

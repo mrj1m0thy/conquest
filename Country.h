@@ -16,7 +16,7 @@ private:
 	int adjacentCount;
 	string continent;
 
-	Country* adjacent;
+	Country** adjacent;
 	string surrounding;
 	Country* targetArray[20];
 public:
@@ -30,11 +30,12 @@ public:
 	string getName();
 	int getX();
 	int getY();
+	int getAdjacentCount();
 	string listTargets(string);
 	string getContinent();
 	string getSurrounding();
 
-	void addAdjacent(Country);
+	void addAdjacent(Country*);
 	void setContinent(string);
 	void addTarget(Country*);
 	void conquer(Player*, int);
@@ -44,6 +45,7 @@ public:
 	bool occupied;
 	int numberOfPieces;		//Keeps track of how many pieces are on this instance of Country.
 	int diesRolled;			//Keeps track of how many dies rolled per attack. Used in calculations.  
+	int adjacentCounter = 0;
 
 	~Country();
 };
