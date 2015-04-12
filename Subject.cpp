@@ -17,7 +17,7 @@ void Subject::Attach(Observer* s)
 {
 	_observers.push_back(s);
 
-	cout << s->type << " Subscribed" << endl;
+	//cout << s->type << " Subscribed" << endl;
 }
 
 void Subject::Detach(Observer* s)
@@ -36,10 +36,20 @@ void Subject::Detach(Observer* s)
 
 void Subject::Notify()
 {
-	cout << "Notify" << endl;
+	//cout << "Notify" << endl;
 
 	for (int i = 0; i < int(_observers.size()); i++)
 	{
-		_observers[i]->Update();
+		_observers[i]->Update(this);
+	}
+}
+
+void Subject::Notify(Subject* s)
+{
+	//cout << "Notify" << endl;
+
+	for (int i = 0; i < _observers.size(); i++)
+	{
+		_observers[i]->Update(s);
 	}
 }

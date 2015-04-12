@@ -5,7 +5,7 @@
 #ifndef map_H
 #define map_H
 
-class map
+class map : public Observer, public Subject
 {
 public:
 	map();
@@ -37,6 +37,8 @@ public:
 	void loadMap(string);
 	void saveMap(string);
 	void createMap();
+
+	void Update(Subject* s) override;	//Updates the Observer
 
 	Country countries[42];
 	Continent continents[6];

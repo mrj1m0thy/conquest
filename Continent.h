@@ -4,7 +4,7 @@
 #define Continent_H
 using namespace std;
 
-class Continent
+class Continent: public Subject
 {
 public:
 	Continent();

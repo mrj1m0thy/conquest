@@ -142,8 +142,10 @@ void gameDriver::startPhase()
 	}
 
 	phaseNum++;
-}
 
+	//Create the deck.
+	_deck = new Deck(); 
+}
 
 /*
 the main play phase (a round-robin turn-based phase where the players are allowed to reinforce, attack and

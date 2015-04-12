@@ -261,7 +261,8 @@ void map::createMap()
 		getline(cin, continent);
 
 		cout << "Position X: ";
-		cin >> posX;
+		cin >> posX;	//_x-coordinate
+						//_xpos
 
 		cout << "Position Y: ";
 		cin >> posY;
@@ -380,6 +381,11 @@ void map::setWarn(string w)
 void map::setWrap(string w)
 {
 	wrap = w;
+}
+
+void map::Update(Subject* s)
+{
+	Notify(s);
 }
 
 map::~map()

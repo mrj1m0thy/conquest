@@ -51,10 +51,22 @@
     <ClCompile Include="MapView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AI.cpp">
+    <ClCompile Include="SimpleStats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="strategy.cpp">
+    <ClCompile Include="PercentOfWorld.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WinLoss.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Card.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Deck.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="aggressive.cpp">
@@ -64,6 +76,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="random.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="strategy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Output.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,21 +104,6 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="strategy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="defensive.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="aggressive.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="random.h">
-		<Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -114,6 +117,45 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MapView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StatsDecorator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PercentOfWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleStats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WinLoss.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Card.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Deck.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="aggressive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="defensive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="strategy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Output.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

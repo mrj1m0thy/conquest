@@ -2,6 +2,7 @@
 #include "Battle.h"
 #include "map.h"
 #include "AI.h"
+#include "Deck.h"
 using namespace std;
 #ifndef gameDriver_H
 #define gameDriver_H
@@ -42,6 +43,8 @@ private:
 	int numberOfPlayers;
 	Player* players;
 	AI* computers;
+
+	Deck* _deck;
 };
 
 class gameDriver::Builder{

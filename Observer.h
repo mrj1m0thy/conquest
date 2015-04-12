@@ -12,14 +12,17 @@ This file defines the base Obsever class.
 
 using namespace std;
 
+class Subject;
+class Player;
+
 class Observer
 {
 public:
 	string type = "";
 
 	Observer();				//Constructor
-	virtual void Update();	//Updates the Observer
-
+	virtual void Update(Subject* s);	//Updates the Observer
+	virtual void Update(Player*) {};
 };
 
 #endif
