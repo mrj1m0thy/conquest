@@ -3,7 +3,6 @@ February 1, 2015
 Nicholas Sabelli
 COMP 345 Section SI
 Assignement #1
-
 This file defines the Player class. It is an observabled object, extending the Subject class.
 */
 
@@ -40,21 +39,23 @@ private:
 	vector<Country*> _countriesOwned;	//List of Countires occupied by the Player object.
 	vector<Continent*> _continentsOwned;	//List of Continents controlled by the Player object.
 
-public:	
+public:
 	string name = "";
 	int playerID;
 	bool isComputer = false;
 	int getID();
 	int color;
 	int turnOrder;
-	
+
 	Player();
 	Player(Colours, string);
-	Player(int id);
+	Player(int, string);
 	Player(string, int, int);
+
 	Player(Colours, int, int, int);
 	
 	void AddCountry(Country*); 
+	bool hasCountry(string);
 	void RemoveCountry(Country*);
 	vector<Country*> GetCountries() { return _countriesOwned; }
 	int GetNumCountries() { return _countriesOwned.size(); }
@@ -62,6 +63,9 @@ public:
 	void AddContinent(Continent*); 
 	void RemoveContinent(Continent*);
 	vector<Continent*> GetContinents() { return _continentsOwned; }
+
+	void SetColour(Colours c) { _colour = c; Notify(); }
+	Colours GetColour(Colours) { return _colour; }
 
 	/*
 	void AddCard(Card*); 
@@ -78,8 +82,9 @@ public:
 
 	void SetArmiesOwned(int a) { _armiesOwned = a; Notify(this); }
 	int GetArmiesOwned() { return _armiesOwned; }
-	
+
 	void SetBattlesWon(int b) { _battlesWon = b; Notify(this); }
+
 	int GetBattlesWon() { return _battlesWon; }
 
 	void SetBattlesLost(int b) { _battlesLost = b; Notify(this); }

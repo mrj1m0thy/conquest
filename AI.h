@@ -1,16 +1,18 @@
 #include <iostream>
 #include "Player.h"
+#include "strategy.h"
 #ifndef AI_H
 #define AI_H
 
 class AI : public Player
 {
 	public:
+		Strategy* strat;
+		string stratType;
 		AI();
 		AI(int);
-		string strat;
-		static const string Strategy[3];
-		void deterStrat();
+		AI(int, string);
+		
 };
 
 #endif

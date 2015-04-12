@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Country.h"
 #include <string>
 #include <iostream>
 
@@ -15,8 +16,9 @@ Player::Player(Colours colour, string playername)
 	name = playername;
 }
 
-Player::Player(int id)
+Player::Player(int id, string playername)
 {
+	name = playername;
 	playerID = id;
 	_colour = Blue;
 	_renforcements = 10;
@@ -40,7 +42,7 @@ Player::Player(string name, int color, int turnOrder)
 }
 
 int Player::getID()
-{ 
+{
 	return playerID;
 }
 
@@ -52,8 +54,8 @@ void Player::AddCountry(Country* c)
 }
 
 void Player::RemoveCountry(Country* c)
-{	
-	for (int i = 0; i < _countriesOwned.size(); i++)
+{
+	for (int i = 0; i < int(_countriesOwned.size()); i++)
 	{
 		if (_countriesOwned[i] == c)
 		{
@@ -71,10 +73,10 @@ void Player::AddContinent(Continent* c)
 
 	Notify(this);
 }
- 
+
 void Player::RemoveContinent(Continent* c)
 {
-	for (int i = 0; i < _continentsOwned.size(); i++)
+	for (int i = 0; i < int(_continentsOwned.size()); i++)
 	{
 		if (_continentsOwned[i] == c)
 		{
@@ -95,4 +97,13 @@ void Player::Notify(Player* p)
 		//TODO check if observer is of type player.
 		_observers[i]->Update(p);
 	}
+}
+
+bool Player::hasCountry(string country){
+	for (int i = 0; i < _countriesOwned.size(); i++){
+		
+		if (_countriesOwned[i]->getName() == country)
+			return true;
+	}
+	return false;
 }

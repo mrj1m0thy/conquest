@@ -1,10 +1,7 @@
-﻿#include <iostream>
+#include <iostream>
 #include <time.h>
 #include "gameDriver.h"
 #include "AI.h"
-#include <fstream>
-#include "Continent.h"
-#include "map.h"
 
 //Used in assign 3
 #include "Player.h"	
@@ -48,18 +45,22 @@ void main()
 
 		cout << "Would you like to quit? (Y/N): ";
 		cin >> answer;
-
-		if (toupper(answer[0]) == 'Y')
-		{
-			quit = true;
-			cout << "Thank You for Playing!" << endl;
-
-			system("pause");
-		}
-		system("cls");
-	}
 }
+/*
+void main(){
+	srand(static_cast<int>(time(0)));
 
+	//Assignment 3 example of the builder class for gameDriver.
+	//By: Tyler Lauzon
+	//ID: 7396708
+	//Team: J
+	//Note: We have yet to implement cards for the player so i wasn't able to save those.
+	gameDriver game;
+	
+	game.start();
+
+
+*/
 /*
 void main() // Used for Nick's Assignment 3
 {
@@ -104,3 +105,4 @@ three->Notify(three);
 system("pause");
 }
 */
+

@@ -22,7 +22,7 @@ void Subject::Attach(Observer* s)
 
 void Subject::Detach(Observer* s)
 {
-	for (int i = 0; i < _observers.size(); i++) 
+	for (int i = 0; i < int(_observers.size()); i++) 
 	{ 
 		if (_observers[i] == s)
 		{
@@ -38,7 +38,7 @@ void Subject::Notify()
 {
 	//cout << "Notify" << endl;
 
-	for (int i = 0; i < _observers.size(); i++)
+	for (int i = 0; i < int(_observers.size()); i++)
 	{
 		_observers[i]->Update(this);
 	}
