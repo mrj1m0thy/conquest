@@ -2,6 +2,7 @@
 #include <time.h>
 #include "gameDriver.h"
 #include "AI.h"
+#include "Output.h"
 
 //Used in assign 3
 #include "Player.h"	
@@ -22,8 +23,12 @@ void main()
 	bool quit = false;
 	string answer;
 
+	Output output;
+
 	while (!quit)
 	{
+		output.StartMenu();
+
 		cout << "Welcome to Risk!\n***********************\n" << endl;
 
 		cout << "What would you like to do?:" << endl;
@@ -45,6 +50,7 @@ void main()
 
 		cout << "Would you like to quit? (Y/N): ";
 		cin >> answer;
+	}
 }
 /*
 void main(){

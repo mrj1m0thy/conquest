@@ -64,8 +64,8 @@ public:
 	void RemoveContinent(Continent*);
 	vector<Continent*> GetContinents() { return _continentsOwned; }
 
-	void SetColour(Colours c) { _colour = c; Notify(); }
-	Colours GetColour(Colours) { return _colour; }
+	void SetColour(Colours c) { _colour = c; Notify(this); }
+	Colours GetColour() { return _colour; }
 
 	/*
 	void AddCard(Card*); 
@@ -73,9 +73,6 @@ public:
 	vector<Card*> GetHand() { return _hand; }	
 	*/
 	int HandSize() { return _hand.Size(); }
-
-	void SetColour(Colours c) { _colour = c; }
-	Colours GetColour() { return _colour; }
 
 	void SetRenforcements(int r) { _renforcements = r; Notify(this); }
 	int GetRenforcements() { return _renforcements; }
