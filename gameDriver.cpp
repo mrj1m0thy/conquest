@@ -231,11 +231,26 @@ void gameDriver::reinforcementPhase(Player user){
 	
 	cout << "This is the reinforcement phase for player " << user.getID() << endl;
 	cout << "---------------------------------------------------------\n\n";
+	
 	int remaining = user.GetRenforcements();
-
-	for (int i = 0; i < user.GetRenforcements(); i++){
-		//Use output class to show table for choices
+	int countryNum;
+	int armyNum;
+	while (remaining > 0){
+		clearScreen();
 		cout << "Remaining armies: " << remaining;
+		//Use output class to show table for choices
+		do{
+			cout << "\n\nWhere would you like to place your armies? (Must be between 0 and " << user.GetCountries().size()-1 << ") ";
+			cin >> countryNum;
+		} while (countryNum > user.GetCountries().size());
+
+		do{
+			cout << "\n\nHow many armies would you like to place here? (Must be less than " << remaining << ") ";
+			cin >> armyNum;
+		} while (armyNum > remaining);
+
+		user.GetCountries()[countryNum]->numberOfPieces += armyNum;
+		remaining -= armyNum;
 	}
 
 	mainMenu();
