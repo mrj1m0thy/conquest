@@ -9,10 +9,9 @@ class Country
 {
 public:
 	Country();
-	Country(string, int, int, string, string);
+	Country(string, int, int, string, string, int, int);
 	Country(string);				//Constructor
 	Country(string, Player, int);	//Constructor
-	Player* player;
 
 	string getName();
 	int getX();
@@ -20,8 +19,9 @@ public:
 	string listTargets(string);
 	string getContinent();
 	string getSurrounding();
+	int getAdjacentCount();
 
-	void addAdjacent(Country);
+	void addAdjacent(Country*);
 	void setContinent(string);
 	void addTarget(Country*);
 	void conquer(Player*, int);
@@ -41,8 +41,9 @@ private:
 	int armySize;
 	int adjacentCount;
 	string continent;
+	int adjacentCounter = 0;
 
-	Country* adjacent;
+	Country** adjacent;
 	string surrounding;
 	Country* targetArray[20];
 };

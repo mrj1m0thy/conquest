@@ -9,7 +9,7 @@ Country::Country()
 	posX = 0;
 	posY = 0;
 	continent = "";
-	surrounding = "";
+	surrounding = ""; // not needed anymore
 	targetCount = 0;
 	armySize = 0;
 	name = "Neverland";
@@ -26,6 +26,9 @@ Country::Country(string cName)
 	occupiedBy = nil;
 	numberOfPieces = 0;
 	diesRolled = 0;
+	armySize = 0;
+	continent = "";
+	targetCount = 0;
 }
 
 Country::Country(string cName, Player colour, int pieces)
@@ -35,15 +38,18 @@ Country::Country(string cName, Player colour, int pieces)
 	occupiedBy = colour;
 	numberOfPieces = pieces;
 	diesRolled = 0;
+	armySize = 0;
+	continent = "";
+	targetCount = 0;
 }
 
-Country::Country(string n, int positionX, int positionY, string cont, string surround)
+Country::Country(string n, int positionX, int positionY, string cont, string surround, int playerid, int numOfArmies)
 {
 	name = n;
 	posX = positionX;
 	posY = positionY;
 	continent = cont;
-
+	targetCount = 0;
 	adjacentCount = 1;
 
 	for (int s = 0; s < surround.size(); s++)
@@ -52,15 +58,28 @@ Country::Country(string n, int positionX, int positionY, string cont, string sur
 			adjacentCount++;
 	}
 
-	adjacent = new Country[adjacentCount];
+	adjacent = new Country*[adjacentCount];
 
-	for (int i = 0; i < adjacentCount; i++)
-	{
-		adjacent[i] = Country(surround.substr(0, surround.find(',')));
-		surround = surround.substr(surround.find(',') + 1);
-	}
+	//for (int i = 0; i < adjacentCount; i++)
+	//{
+	//	adjacent[i] = Country(surround.substr(0, surround.find(',')));
+	//	surround = surround.substr(surround.find(',') + 1);
+	//}
 
+	occupiedBy = Player(playerid);
+	numberOfPieces = numOfArmies;
 	surrounding = surround; //this variable keeps stores nearby territories/territories
+}
+
+void Country::addAdjacent(Country* c)
+{
+	adjacent[adjacentCounter] = c;
+	adjacentCounter++;
+}
+
+int Country::getAdjacentCount()
+{
+	return adjacentCount;
 }
 
 //getters for all local variables
@@ -91,16 +110,16 @@ string Country::getContinent()
 
 string Country::getSurrounding()
 {
-	//return surrounding;
-	string adjacentCountries = "";
+	return surrounding;
+	//string adjacentCountries = "";
 
-	for (int i = 0; i < adjacentCount; i++)
-		if (i == 0)
-			adjacentCountries = adjacentCountries + adjacent[i].getName();
-		else
-			adjacentCountries = adjacentCountries + "," + adjacent[i].getName();
+	//for (int i = 0; i < adjacentCount; i++)
+	//	if (i == 0)
+	//		adjacentCountries = adjacentCountries + adjacent[i].getName();
+	//	else
+	//		adjacentCountries = adjacentCountries + "," + adjacent[i].getName();
 
-	return adjacentCountries;
+	//return adjacentCountries;
 }
 
 void Country::addTarget(Country* newTarget) {
@@ -126,7 +145,7 @@ string Country::listTargets(string separator) {
 }
 
 void Country::conquer(Player* player, int armySize) {
-	this->player = player;
+	this->occupiedBy = *player;
 	this->armySize = armySize;
 }
 

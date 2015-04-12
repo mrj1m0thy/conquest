@@ -51,6 +51,15 @@
     <ClCompile Include="MapView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LoadAdaptee.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveAdaptee.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Adapter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameDriver.h">
@@ -86,5 +95,17 @@
     <ClInclude Include="MapView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\nick%27s master\Adapter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadAdaptee.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveAdaptee.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\nick%27s master\ClassDiagram.cd" />
   </ItemGroup>
 </Project>
