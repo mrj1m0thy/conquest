@@ -22,6 +22,7 @@ public:
 	string getFilename();
 	void createContinents();
 	int getNumOfContinents();
+	void assignAdjacentCountries();
 
 	void setAuthor(string);
 	void setFilename(string);

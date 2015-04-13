@@ -137,3 +137,14 @@ Country::~Country()
 {
 
 }
+
+int Country::getAdjacentCount()
+{
+	return adjacentCount;
+}
+
+void Country::addAdjacent(Country* c)
+{
+	adjacent[adjacentCounter] = *c;
+	adjacentCounter++;
+}

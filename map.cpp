@@ -89,6 +89,7 @@ void map::getCountries(ifstream& mapFile) //extract countries
 		}
 	}
 	createContinents();
+	assignAdjacentCountries();
 }
 
 void map::createContinents()
@@ -411,4 +412,40 @@ bool map::isWinner()
 
 int map::getNumOfContinents(){
 	return numOfContinents;
+}
+
+void map::assignAdjacentCountries()
+{
+	string adjacentCountries;
+	int size;
+	string* a = nullptr;
+
+	for (int i = 0; i < numOfCountries; i++)
+	{
+
+		adjacentCountries = countries[i].getSurrounding();
+		size = countries[i].getAdjacentCount();
+		a = new string[size];
+
+		for (int j = 0; j < size; j++)
+		{
+			a[j] = adjacentCountries.substr(0, adjacentCountries.find(','));
+			adjacentCountries = adjacentCountries.substr(adjacentCountries.find(',') + 1);
+		}
+
+		for (int c = 0; c < size; c++)
+		{
+			for (int count = 0; count < numOfCountries; count++)
+			{
+				if (countries[count].getName() == a[c])
+				{
+					countries[i].addAdjacent(&countries[count]);
+					break;
+				}
+			}
+		}
+		delete[] a;
+		a = NULL;
+	}
+	delete a;
 }

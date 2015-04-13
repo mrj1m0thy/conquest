@@ -216,7 +216,10 @@ void  Battle::Compare(Die& att, Die& def, int attackRoll, int defendRoll, int& a
 	{
 		for (int j = 1; j < attackRoll; j++)
 		{
-			att.roles[i] < att.roles[j];
+			if (att.roles[i] < att.roles[j])
+			{
+				swap(att.roles[i], att.roles[j]);
+			}
 		}
 	}
 
@@ -224,7 +227,8 @@ void  Battle::Compare(Die& att, Die& def, int attackRoll, int defendRoll, int& a
 	{
 		for (int j = 1; j < defendRoll; j++)
 		{
-			def.roles[i] < def.roles[j];
+			if (def.roles[i] < def.roles[j])
+				swap(def.roles[i], def.roles[j]);
 		}
 	}
 

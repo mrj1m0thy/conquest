@@ -15,6 +15,7 @@ public:
 	gameDriver(map, Player*, AI*, int, int, int);
 	~gameDriver();
 	class Builder;
+	int getCardUnits();
 
 private:
 	void startPhase();
@@ -43,6 +44,9 @@ private:
 	int numberOfPlayers;
 	Player* players;
 	AI* computers;
+
+	int cardSetNum = 1;
+	int cardReturns = 4;
 
 	Deck* _deck;
 };

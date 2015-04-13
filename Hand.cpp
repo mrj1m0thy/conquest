@@ -14,7 +14,7 @@ void Hand::AddCard(Card* c)
 
 void Hand::RemoveCard(Card* c)
 {
-	for (int i = 0; i < _hand.size(); i++)
+	for (size_t i = 0; i < _hand.size(); i++)
 	{
 		if (_hand[i] == c)
 		{
@@ -30,7 +30,7 @@ void Hand::ViewHand()
 {
 	if (!IsEmpty())
 	{
-		for (int i = 0; i < _hand.size(); i++)
+		for (size_t i = 0; i < _hand.size(); i++)
 		{
 			cout << "[Card " << i + 1 << "]: ";
 
@@ -45,88 +45,71 @@ void Hand::ViewHand()
 	}
 }
 
-bool Hand::TradeIn()
+bool Hand::TradeIn(bool isComp)
 {
-	int InfantryCards = 0;
-	int CavalryCards = 0;
-	int ArtilleryCards = 0;
-	int WildCards = 0;
+	vector<Card**> trades;
+	for (size_t i = 0; i < _hand.size() - 2; i++){
+		for (size_t j = i + 1; j < _hand.size() - 1; j++){
+			for (size_t k = j + 1; k < _hand.size(); k++){
+				if (_hand[i] == _hand[j] && _hand[j] == _hand[k])
+				{
+					Card* tmp[3] = { _hand[i], _hand[j], _hand[k] };
+					trades.push_back(tmp);
+				}
 
-	int trades[3] = {};
+				else if (_hand[i] != _hand[j] && _hand[i] != _hand[k] && _hand[j] != _hand[k])
+				{
+					Card* tmp[3] = { _hand[i], _hand[j], _hand[k] };
+					trades.push_back(tmp);
+				}
 
-	bool goodTrade = false;
-
-	string trade = "";
-
-	if (!IsEmpty())
-	{
-		for (int i = 0; i < _hand.size(); i++)
-		{
-			cout << "[Card " << i + 1 << "]: ";
-
-			_hand[i]->Print();
-
-			cout << endl;
-		}
-
-		cout << "Select 3 cards to trade in (";
-
-		for (int i = 0; i < _hand.size(); i++)
-		{
-			if (i != 0)
-			{
-				cout << ", ";
+				else if (_hand[i]->GetFaceValue() == Wild || _hand[j]->GetFaceValue() == Wild || _hand[k]->GetFaceValue() == Wild)
+				{
+					Card* tmp[3] = { _hand[i], _hand[j], _hand[k] };
+					trades.push_back(tmp);
+				}
 			}
-
-			cout << i + 1;
-		}
-
-		cout << "): ";
-		
-		getline(cin, trade);
-
-		for (int i = 0; i < 3; i++)
-		{
-			trades[i] = stoi(trade.substr(0, trade.find(" ")));
-			trade = trade.substr(trade.find(" ") + 1);
-		}
-
-		if (_hand[trades[0]] == _hand[trades[1]] && _hand[trades[1]] == _hand[trades[2]])
-		{
-			goodTrade = true;
-		}
-
-		else if (_hand[trades[0]] != _hand[trades[1]] && _hand[trades[0]] != _hand[trades[2]] && _hand[trades[1]] != _hand[trades[2]])
-		{
-			goodTrade = true;
-		}
-
-		else if (_hand[trades[0]]->GetFaceValue() == Wild || _hand[trades[1]]->GetFaceValue() == Wild && _hand[trades[2]]->GetFaceValue() == Wild)
-		{
-			goodTrade = true;
-		}
-
-		else
-		{
-			cout << "Invlaid Trade" << endl; 
-
-			return false; //Trade not accepted.
-		}
-
-		if (goodTrade)
-		{
-			for (int i = 0; i < 3; i++)
-			{
-				RemoveCard(_hand[trades[0]]);
-			}
-
-			return true; //Trade accepted.
 		}
 	}
-	else
-	{
-		cout << "You have no cards" << endl;
+	if (trades.size() > 0){
+		if (isComp){
+			for (int i = 0; i < 3; i++){
+				for (size_t j = 0; j < _hand.size(); j++){
+					if (trades[0][i] == _hand[j])
+						_hand.erase(_hand.begin() + j);
+				}
+			}
+			return true;
+		}
+		else{
+			cout << "Choose one of the following sets of cards to discard: \n\n";
+			for (size_t i = 0; i < trades.size(); i++)
+			{
+				cout << "[" << trades[i][0]->GetFaceValue() << ", " << trades[i][1]->GetFaceValue() << ", " << trades[i][2]->GetFaceValue() << "]: " << i + 1 << endl;
+			}
+			string response;
+			do{
+				cin.ignore();
+				getline(cin, response);
+			} while (!isNumber(response) || stoi(response) > int(trades.size()));
 
-		return false; //Trade not accepted.
+			for (int i = 0; i < 3; i++){
+				for (size_t j = 0; j < _hand.size(); j++){
+					if (trades[stoi(response)-1][i] == _hand[j])
+						_hand.erase(_hand.begin() + j);
+				}
+			}
+			return true;
+		}
 	}
+	else{
+		cout << "No valid trade options.\n";
+		return false;
+	}
+}
+
+bool Hand::isNumber(string s){
+	string::const_iterator it = s.begin();
+	while (it != s.end() && isdigit(*it)) ++it;
+	return !s.empty() && it == s.end();
 }
