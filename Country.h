@@ -36,6 +36,9 @@ public:
 	string getSurrounding();
 
 	void addAdjacent(Country*);
+	int getNumberOfPieces();
+	Country** getAdjacent();
+	Player* getOccupiedBy();
 	void setContinent(string);
 	void addTarget(Country*);
 	void conquer(Player*, int);

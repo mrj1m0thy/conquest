@@ -2,6 +2,7 @@
 #include "Battle.h"
 #include "map.h"
 #include "AI.h"
+#include "Output.h"
 #include "Deck.h"
 using namespace std;
 #ifndef gameDriver_H
@@ -15,6 +16,7 @@ public:
 	gameDriver(map, Player*, AI*, int, int, int);
 	~gameDriver();
 	class Builder;
+	Output output;
 
 private:
 	void startPhase();
@@ -28,8 +30,6 @@ private:
 
 	void fortification(Player);
 	void fortification(AI);
-
-	void showPlayerStats(Player);
 
 	void mainMenu();
 	void loadGame(string);

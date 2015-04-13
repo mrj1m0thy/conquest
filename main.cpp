@@ -2,7 +2,7 @@
 #include <time.h>
 #include "gameDriver.h"
 #include "AI.h"
-#include "Outputt.h"
+#include "Output.h"
 
 //Used in assign 3
 #include "Player.h"	
@@ -23,7 +23,7 @@ void main()
 	bool quit = false;
 	string answer;
 
-	Outputt output;
+	Output output;
 
 	while (!quit)
 	{
@@ -35,6 +35,7 @@ void main()
 		cout << "1. Start Game with Default Map" << endl;
 		cout << "2. Create Map" << endl;
 		cout << "Choice: ";
+		
 		cin >> answer;
 
 		if (answer[0] == '1')

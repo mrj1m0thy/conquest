@@ -66,6 +66,15 @@ Country::Country(string n, int positionX, int positionY, string cont, string sur
 	diesRolled = 0;
 }
 
+Player* Country::getOccupiedBy()
+{
+	return occupiedBy;
+}
+int Country::getNumberOfPieces()
+{
+	return numberOfPieces;
+}
+
 void Country::addAdjacent(Country* c)
 {
 	adjacent[adjacentCounter] = c;
@@ -101,6 +110,11 @@ int Country::getY()
 string Country::getContinent()
 {
 	return continent;
+}
+
+Country** Country::getAdjacent()
+{
+	return adjacent;
 }
 
 string Country::getSurrounding()

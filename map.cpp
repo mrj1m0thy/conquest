@@ -376,6 +376,7 @@ void map::createMap()
 		do
 		{
 			cout << "Adjacent Country #" << counter + 1 << ": ";
+			//getline(cin, answer);
 			cin >> answer;
 
 			if (counter == 0)
@@ -397,6 +398,7 @@ void map::createMap()
 		addContinent(con);
 
 		cout << "Are there any other countries you would like to add?: (Y/N)";
+		//getline(cin, answer);
 		cin >> answer;
 
 		if (toupper(answer[0]) == 'N')
