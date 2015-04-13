@@ -22,7 +22,13 @@ public:
 	T OutputData(string, T, string);
 
 	template <typename T>
-	T OutIn(string, T);
+	inline T OutIn(string out1, T in)
+	{
+		cout << out1;
+		cin >> in;
+
+		return in;
+	};
 
 	void PlayerStats(Player);
 

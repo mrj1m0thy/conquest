@@ -108,12 +108,12 @@ void map::createContinents()
 	}
 }
 
-Country map::getCountry(string name)
+Country* map::getCountry(string name)
 {
 	for (int index = 0; index < numOfCountries; index++)
 	{
 		if (countries[index].getName() == name)
-			return countries[index];
+			return &countries[index];
 	}
 	return NULL;
 }
@@ -393,11 +393,12 @@ bool map::continentExists(string con)
 	return false;
 }
 
-Continent map::getContinent(string con)
+Continent* map::getContinent(string con)
 {
 	for (int i = 0; i < sizeof(continents) / sizeof(continents[0]); i++)
 		if (continents[i].getName() == con)
-			return continents[i];
+			return &continents[i];
+	return NULL;
 }
 
 void map::addCountry(string name, int positionX, int positionY, string continent, string surrounding)

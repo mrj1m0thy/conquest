@@ -15,19 +15,12 @@ template <typename T>
 T Output::OutputData(string out1, T varout, string out2 = "")
 {
 	cout << out1;
-	cout << t;
+	cout << varout;
 	cout << out2;
 	cout << endl;
 }
 
-template <typename T>
-T Output::OutIn(string out1, T in)
-{
-	cout << out1;
-	cin >> in;
 
-	return t;
-}
 
 void Output::PlayerStats(Player p)
 {
@@ -39,7 +32,7 @@ void Output::PlayerStats(Player p)
 			cout << setw(15) << "| Country (Number of Armies)|	Surrounding Countries -> Player (Number of Armies)|" << endl;
 			cout << left << "\n-----------------------------------------------------------------------------------------------------------------------" << endl << endl;
 		}
-		cout << "| " << right << setw(20) << p.GetCountries().at(i)->getName() << " (" << p.GetCountries().at(i)->getNumberOfPieces() << ") | ";
+		cout << setw(2) << i << setw(8) << "| " << right << setw(20) << p.GetCountries().at(i)->getName() << " (" << p.GetCountries().at(i)->getNumberOfPieces() << ") | ";
 		
 		Country** a = p.GetCountries().at(i)->getAdjacent();
 

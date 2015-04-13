@@ -346,8 +346,6 @@ void gameDriver::attackPhase(AI comp){
 
 	cout << "This is the attack phase for computer " << comp.getID() << " using the " << comp.stratType << " strategy." << endl;
 	cout << "--------------------------------------------------------------------------\n\n";
-	
-	//output.PlayerStats(comp);
 
 	comp.strat->execute();
 
@@ -361,6 +359,28 @@ void gameDriver::fortification(Player user){
 	clearScreen();
 	cout << "This is the fortification phase for player " << user.getID() << endl;
 	cout << "---------------------------------------------------------\n\n";
+
+	string answer;
+	output.PlayerStats(user);
+
+	answer = output.OutIn("Would you like to move any armies?", answer);
+
+	if (toupper(answer[0]) == 'Y')
+	{
+		int country1 = 0;
+		int country2 = 0;
+		int armies = 0;
+
+		country1 = output.OutIn("Which country would you like to take armies from?", country1);
+		country2 = output.OutIn("Which country would you like to move the armies?", country2);
+
+		do
+		{
+			armies = output.OutIn("How many armies?", armies);
+		} while (!(armies > 1 || (armies < user.GetCountries().at(country1)->getNumberOfPieces())));
+		
+	}
+
 	mainMenu();
 }
 
