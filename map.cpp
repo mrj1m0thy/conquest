@@ -9,6 +9,7 @@ using namespace std;
 map::map()
 {
 	numOfCountries = 0; // initialize countries
+	numOfContinents = 0;
 }
 
 void map::getFileDetails(ifstream& mapFile)
@@ -92,12 +93,12 @@ void map::getCountries(ifstream& mapFile) //extract countries
 			countListNum++;
 			numOfCountries++; //increment country count
 		}
-
+		createContinents();
 		assignAdjacentCountries();
 	}
 }
 
-void map::assignAdjacentCountries()
+void map::createContinents()
 {
 	string adjacentCountries;
 	int size;
@@ -110,9 +111,9 @@ void map::assignAdjacentCountries()
 		size = countries[i].getAdjacentCount();
 		a = new string[size];
 
-		for (int index = 0; index < size; index++)
+		for (int i = 0; i < size; i++)
 		{
-			a[index] = adjacentCountries.substr(0, adjacentCountries.find(','));
+			a[i] = adjacentCountries.substr(0, adjacentCountries.find(','));
 			adjacentCountries = adjacentCountries.substr(adjacentCountries.find(',') + 1);
 		}
 
@@ -127,10 +128,7 @@ void map::assignAdjacentCountries()
 				}
 			}
 		}
-		delete[] a;
-		a = NULL;
 	}
-	delete a;
 }
 
 Country map::getCountry(string name)
@@ -169,17 +167,6 @@ string map::getWarn()
 {
 	return warn;
 }
-
-
-//void map::loadMap()
-//{
-//	for (int i = 0; i < 6; i++){
-//		for (int j = 0; j < numOfCountries; j++){
-//			if (continents[i].getName() == countries[j].getContinent())
-//				continents[i].addCountry(&countries[j]);
-//		}
-//	}
-//}
 
 void map::loadMap(string file)
 {
@@ -300,6 +287,8 @@ void map::saveMap(string file)
 			mapFile << countries[index].getX() << ",";
 			mapFile << countries[index].getY() << ",";
 			mapFile << countries[index].getContinent() << ",";
+			mapFile << countries[index].occupiedBy->getID() << ",";
+			mapFile << countries[index].numberOfPieces << ",";
 			mapFile << countries[index].getSurrounding() << endl;
 		}
 
@@ -524,4 +513,40 @@ bool map::isWinner()
 
 int map::getNumOfContinents(){
 	return numOfContinents;
+}
+
+void map::assignAdjacentCountries()
+{
+	string adjacentCountries;
+	int size;
+	string* a = nullptr;
+
+	for (int i = 0; i < numOfCountries; i++)
+	{
+
+		adjacentCountries = countries[i].getSurrounding();
+		size = countries[i].getAdjacentCount();
+		a = new string[size];
+
+		for (int j = 0; j < size; j++)
+		{
+			a[j] = adjacentCountries.substr(0, adjacentCountries.find(','));
+			adjacentCountries = adjacentCountries.substr(adjacentCountries.find(',') + 1);
+		}
+
+		for (int c = 0; c < size; c++)
+		{
+			for (int count = 0; count < numOfCountries; count++)
+			{
+				if (countries[count].getName() == a[c])
+				{
+					countries[i].addAdjacent(&countries[count]);
+					break;
+				}
+			}
+		}
+		delete[] a;
+		a = NULL;
+	}
+	delete a;
 }

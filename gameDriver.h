@@ -16,6 +16,7 @@ public:
 	gameDriver(map, Player*, AI*, int, int, int);
 	~gameDriver();
 	class Builder;
+	int getCardUnits();
 	Output output;
 
 private:
@@ -31,9 +32,10 @@ private:
 	void fortification(Player);
 	void fortification(AI);
 
-	void mainMenu();
-	void loadGame(string);
 	void saveGame(string);
+	void loadGame(string);
+
+	void mainMenu();
 	void startMenu();
 	void clearScreen();
 	void gameOver();
@@ -44,6 +46,9 @@ private:
 	int numberOfPlayers;
 	Player* players;
 	AI* computers;
+
+	int cardSetNum = 1;
+	int cardReturns = 4;
 
 	Deck* _deck;
 };

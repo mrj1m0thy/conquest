@@ -26,7 +26,8 @@ public:
 
 	void ViewHand();
 
-	bool TradeIn();
+	bool TradeIn(bool);
+	bool isNumber(string);
 };
 
 #endif

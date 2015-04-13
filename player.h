@@ -73,6 +73,7 @@ public:
 	vector<Card*> GetHand() { return _hand; }	
 	*/
 	int HandSize() { return _hand.Size(); }
+	Hand GetHand() { return _hand; }
 
 	void SetRenforcements(int r) { _renforcements = r; Notify(this); }
 	int GetRenforcements() { return _renforcements; }

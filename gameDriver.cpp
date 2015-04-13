@@ -159,7 +159,6 @@ void gameDriver::mainPhase()
 	clearScreen();
 	cout << "This is the beginning of the main phase\n"
 		 << "-----------------------------------------\n\n";
-	system("pause");
 
 	while (true){
 		if (whosTurn < numberOfPlayers){
@@ -226,11 +225,24 @@ void gameDriver::reinforcementPhase(Player user){
 	else
 		user.SetRenforcements(3);
 
-	for (int i = 0; i < user.GetContinents().size(); i++)
+	for (size_t i = 0; i < user.GetContinents().size(); i++)
 		total += user.GetContinents().at(i)->getArmyNum();
 
-	//Add reinforcements from cards
-
+	if (user.GetHand().Size() > 3){
+		string input;
+		do{
+			cout << "Do you want to trade in some cards for units? (" << cardReturns << " available) Y/N: ";
+			cin.ignore();
+			getline(cin, input);
+			cout << endl;
+			for (size_t i = 0; i < input.length(); i++)
+				input[i] = toupper(input[i]);
+		} while (input != "Y" || input != "N");
+		clearScreen();
+		if (input == "Y")
+		if (user.GetHand().TradeIn(user.isComputer))
+			total += getCardUnits();
+	}
 	user.SetRenforcements(user.GetRenforcements() + total);
 
 	
@@ -244,12 +256,12 @@ void gameDriver::reinforcementPhase(Player user){
 		clearScreen();
 		cout << "Remaining armies: " << remaining;
 
-		//Use output class to show table for choices
+		output.PlayerStats(user);
 		do{
 			cout << "\n\nWhere would you like to place your armies? (Must be between 0 and " << user.GetCountries().size()-1 << ") ";
 			//(cin, countryNum);
 			cin >> countryNum;
-		} while (countryNum > user.GetCountries().size());
+		} while (countryNum > int(user.GetCountries().size()));
 
 		do{
 			cout << "\n\nHow many armies would you like to place here? (Must be less than " << remaining << ") ";
@@ -265,9 +277,54 @@ void gameDriver::reinforcementPhase(Player user){
 }
 
 void gameDriver::reinforcementPhase(AI comp){
+	int total = 0;
 	clearScreen();
+	updatePlayerContinents();
+
+	if (int(comp.GetCountries().size() / 3) > 3)
+		comp.SetRenforcements(comp.GetCountries().size() / 3);
+	else
+		comp.SetRenforcements(3);
+
+	for (size_t i = 0; i < comp.GetContinents().size(); i++)
+		total += comp.GetContinents().at(i)->getArmyNum();
+
+	if (comp.GetHand().Size() > 2){
+		if (comp.GetHand().TradeIn(comp.isComputer))
+			total += getCardUnits();
+	}
+
+	comp.SetRenforcements(comp.GetRenforcements() + total);
+
+
+
 	cout << "This is the reinforcement phase for computer " << comp.getID() << endl;
 	cout << "---------------------------------------------------------\n\n";
+
+	int remaining = comp.GetRenforcements();
+	int countryNum;
+	int armyNum;
+	while (remaining > 0){
+		clearScreen();
+
+		comp.strat->reinforce(&comp);
+
+		cout << "Remaining armies: " << remaining;
+		//Use output class to show table for choices
+		do{
+			cout << "\n\nWhere would you like to place your armies? (Must be between 0 and " << comp.GetCountries().size() - 1 << ") ";
+			cin >> countryNum;
+		} while (countryNum > int(comp.GetCountries().size()));
+
+		do{
+			cout << "\n\nHow many armies would you like to place here? (Must be less than " << remaining << ") ";
+			cin >> armyNum;
+		} while (armyNum > remaining);
+
+		comp.GetCountries()[countryNum]->numberOfPieces += armyNum;
+		remaining -= armyNum;
+	}
+
 	mainMenu();
 }
 
@@ -335,7 +392,6 @@ void gameDriver::mainMenu()
 		cout << "What would you like to save it as?\n";
 		cin.ignore();
 		getline(cin, save);
-		system("pause");
 		saveGame(save);
 		exit(0);
 	}
@@ -478,4 +534,23 @@ gameDriver::Builder& gameDriver::Builder::setWhosTurn(int whosTurn){
 
 gameDriver gameDriver::Builder::build(){
 	return gameDriver(builderMap, players, computers, numberOfPlayers, whosTurn, phaseNum);
+}
+
+int gameDriver::getCardUnits(){
+	int tmp = cardReturns;
+
+	if (cardSetNum < 5){
+		cardReturns += 2;
+		cardSetNum++;
+	}
+	else if (cardSetNum == 5){
+		cardReturns += 3;
+		cardSetNum++;
+	}
+	else{
+		cardReturns += 5;
+		cardSetNum++;
+	}
+
+	return tmp;
 }

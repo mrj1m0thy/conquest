@@ -15,6 +15,7 @@ private:
 	int armySize;
 	int adjacentCount;
 	string continent;
+	int adjacentCounter = 0;
 
 	Country** adjacent;
 	string surrounding;
@@ -47,7 +48,6 @@ public:
 	bool occupied;
 	int numberOfPieces;		//Keeps track of how many pieces are on this instance of Country.
 	int diesRolled;			//Keeps track of how many dies rolled per attack. Used in calculations.  
-	int adjacentCounter = 0;
 
 	~Country();
 };

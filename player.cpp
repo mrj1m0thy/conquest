@@ -92,7 +92,7 @@ void Player::Notify(Player* p)
 {
 	//cout << "Notify" << endl;
 
-	for (int i = 0; i < _observers.size(); i++)
+	for (size_t i = 0; i < _observers.size(); i++)
 	{
 		//TODO check if observer is of type player.
 		_observers[i]->Update(p);
@@ -100,7 +100,7 @@ void Player::Notify(Player* p)
 }
 
 bool Player::hasCountry(string country){
-	for (int i = 0; i < _countriesOwned.size(); i++){
+	for (size_t i = 0; i < _countriesOwned.size(); i++){
 		
 		if (_countriesOwned[i]->getName() == country)
 			return true;

@@ -17,3 +17,8 @@ int Strategy::getStrategy(){
 
 	
 }
+
+int Strategy::reinforce(Player* user) 
+{
+	return rand() % user->GetCountries().size();
+}
