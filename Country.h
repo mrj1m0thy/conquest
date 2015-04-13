@@ -36,6 +36,7 @@ public:
 	string getContinent();
 	string getSurrounding();
 
+	Country* findAdjacent(string);
 	void addAdjacent(Country*);
 	Country* getAdjacentCountry(int);
 	int getNumberOfPieces();
@@ -43,6 +44,7 @@ public:
 	void setContinent(string);
 	void addTarget(Country*);
 	void conquer(Player*, int);
+	string toupperCase(string);
 
 	string name;
 	Player* occupiedBy;		//Keeps track of which player controls this instance of Country.

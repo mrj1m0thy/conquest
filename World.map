@@ -14,45 +14,45 @@ Asia=7
 Australia=2
 
 [Territories]
-Alaska,70,126,North America,0,0,Alberta,Kamchatka
-Northwest Territory,148,127,North America,0,0,Alberta,Ontario,Greenland
-Alberta,147,163,North America,0,0,Northwest Territory,Ontario,Western United States
-Greenland,324,76,North America,0,0,Ontario,Quebec,Iceland
-Ontario,199,167,North America,0,0,Alberta,Greenland,Quebec,Western United States,Eastern United States
-Quebec,253,166,North America,0,0,Ontario,Eastern United States
-Western United States,159,204,North America,0,0,Ontario,Eastern United States,Central America
-Eastern United States,219,216,North America,0,0,Quebec,Western United States,Central America
-Central America,183,262,North America,0,0,Eastern United States,Venezuala
-Venezuala,259,303,South America,0,0,Peru,Brazil
-Peru,262,349,South America,0,0,Brazil,Argentina
-Argentina,263,407,South America,0,0,Brazil
-Brazil,308,337,South America,0,0,Peru,Argentina,North Africa
-North Africa,420,264,Africa,0,0,Western Europe,Southern Europe,Egypt,East Africa,Congo
-Congo,475,318,Africa,0,0,East Africa,South Africa
-South Africa,483,371,Africa,0,0,East Africa,Madagascar
-Madagascar,536,361,Africa,0,0,South Africa
-East Africa,517,298,Africa,0,0,Middle East,Congo,North Africa,South Africa,Madagascar
-Egypt,480,249,Africa,0,0,North Africa,Middle East,East Africa
-Iceland,380,126,Europe,0,0,Great Britain,Scandinavia
-Great Britain,419,169,Europe,0,0,Scandinavia,Western Europe,Northern Europe
-Western Europe,423,202,Europe,0,0,Northern Europe,Southern Europe,North Africa
-Scandinavia,463,127,Europe,0,0,Great Britain,Northern Europe,Ukraine
-Northern Europe,460,173,Europe,0,0,Scandinavia,Ukraine,Southern Europe,Western Europe
-Southern Europe,473,197,Europe,0,0,Ukraine,Middle East,Egypt,North Africa,Western Europe
-Ukraine,524,157,Europe,0,0,Afghanistan,Middle East,Southern Europe,Northern Europe,Scandinavia
-Middle East,530,234,Asia,0,0,Afghanistan,India,Southern Europe,Egypt,East Africa
-Ural,613,136,Asia,0,0,China,Afghanistan,Ukraine
-Afghanistan,585,192,Asia,0,0,China,India,Middle East,Ukraine
-India,612,249,Asia,0,0,Siam,Afghanistan,Middle East
-Siberia,666,110,Asia,0,0,Irkutsk,Mongolia,China,Ural
-China,662,217,Asia,0,0,Siberia,Mongolia,Siam,India,Afghanistan
-Siam,671,270,Asia,0,0,India,Indonesia
-Mongolia,707,188,Asia,0,0,Irkutsk,Japan,China,Kamchatka
-Irkutsk,698,152,Asia,0,0,Yatusk,Kamchatka,Mongolia
-Yatusk,738,118,Asia,0,0,Irkutsk,Kamchatka
-Kamchatka,806,125,Asia,0,0,Irkutsk,Japan,Alaska,Mongolia
-Japan,759,220,Asia,0,0,Mongolia
-Indonesia,698,314,Australia,0,0,New Guinea,Western Australia
-New Guinea,768,325,Australia,0,0,Western Australia,Eastern Australia
-Western Australia,729,373,Australia,0,0,New Guinea,Eastern Australia
-Eastern Australia,779,381,Australia,0,0,New Guinea
+Alaska,70,126,North America,0,0,Northwest Territory,Alberta,Kamchatka
+Northwest Territory,148,127,North America,0,0,Alaska,Alberta,Ontario,Greenland
+Alberta,147,163,North America,0,0,Alaska,Northwest Territory,Ontario,Western United States
+Greenland,324,76,North America,0,0,Northwest Territory,Ontario,Quebec,Iceland
+Ontario,199,167,North America,0,0,Northwest Territory,Alberta,Greenland,Quebec,Western United States,Eastern United States
+Quebec,253,166,North America,0,0,Greenland,Ontario,Eastern United States
+Western United States,159,204,North America,0,0,Alberta,Ontario,Eastern United States,Central America
+Eastern United States,219,216,North America,0,0,Ontario,Quebec,Western United States,Central America
+Central America,183,262,North America,0,0,Western United States,Eastern United States,Venezuala
+Venezuala,259,303,South America,0,0,Central America,Peru,Brazil
+Peru,262,349,South America,0,0,Venezuala,Brazil,Argentina
+Argentina,263,407,South America,0,0,Peru,Brazil
+Brazil,308,337,South America,0,0,Venezuala,Peru,Argentina,North Africa
+North Africa,420,264,Africa,0,0,Brazil,Western Europe,Southern Europe,Egypt,East Africa,Congo
+Congo,475,318,Africa,0,0,North Africa,East Africa,South Africa
+South Africa,483,371,Africa,0,0,Congo,East Africa,Madagascar
+Madagascar,536,361,Africa,0,0,East Africa,South Africa
+East Africa,517,298,Africa,0,0,Egypt,Middle East,Congo,North Africa,South Africa,Madagascar
+Egypt,480,249,Africa,0,0,Southern Europe,North Africa,Middle East,East Africa
+Iceland,380,126,Europe,0,0,Greenland,Great Britain,Scandinavia
+Great Britain,419,169,Europe,0,0,Iceland,Scandinavia,Western Europe,Northern Europe
+Western Europe,423,202,Europe,0,0,Great Britain,Northern Europe,Southern Europe,North Africa
+Scandinavia,463,127,Europe,0,0,Iceland,Great Britain,Northern Europe,Ukraine
+Northern Europe,460,173,Europe,0,0,Great Britain,Scandinavia,Ukraine,Southern Europe,Western Europe
+Southern Europe,473,197,Europe,0,0,Northern Europe,Ukraine,Middle East,Egypt,North Africa,Western Europe
+Ukraine,524,157,Europe,0,0,Ural,Afghanistan,Middle East,Southern Europe,Northern Europe,Scandinavia
+Middle East,530,234,Asia,0,0,Ukraine,Afghanistan,India,Southern Europe,Egypt,East Africa
+Ural,613,136,Asia,0,0,Siberia,China,Afghanistan,Ukraine
+Afghanistan,585,192,Asia,0,0,Ural,China,India,Middle East,Ukraine
+India,612,249,Asia,0,0,China,Siam,Afghanistan,Middle East
+Siberia,666,110,Asia,0,0,Yatusk,Irkutsk,Mongolia,China,Ural
+China,662,217,Asia,0,0,Ural,Siberia,Mongolia,Siam,India,Afghanistan
+Siam,671,270,Asia,0,0,China,India,Indonesia
+Mongolia,707,188,Asia,0,0,Siberia,Irkutsk,Japan,China,Kamchatka
+Irkutsk,698,152,Asia,0,0,Siberia,Yatusk,Kamchatka,Mongolia
+Yatusk,738,118,Asia,0,0,Siberia,Irkutsk,Kamchatka
+Kamchatka,806,125,Asia,0,0,Yatusk,Irkutsk,Japan,Alaska,Mongolia
+Japan,759,220,Asia,0,0,Kamchatka,Mongolia
+Indonesia,698,314,Australia,0,0,Siam,New Guinea,Western Australia
+New Guinea,768,325,Australia,0,0,Indonesia,Western Australia,Eastern Australia
+Western Australia,729,373,Australia,0,0,Indonesia,New Guinea,Eastern Australia
+Eastern Australia,779,381,Australia,0,0,Western Australia,New Guinea

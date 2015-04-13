@@ -13,7 +13,7 @@ class gameDriver
 public:
 	void start();
 	gameDriver();
-	gameDriver(map, Player*, AI*, int, int, int);
+	gameDriver(map, Player**, AI**, int, int, int);
 	~gameDriver();
 	class Builder;
 	int getCardUnits();
@@ -23,18 +23,19 @@ private:
 	void startPhase();
 	void mainPhase();
 
-	void reinforcementPhase(Player);
-	void reinforcementPhase(AI);
+	void reinforcementPhase(Player*);
+	void reinforcementPhase(AI*);
 
-	void attackPhase(Player);
-	void attackPhase(AI);
+	void attackPhase(Player*);
+	void attackPhase(AI*);
 
-	void fortification(Player);
-	void fortification(AI);
+	void fortification(Player*);
+	void fortification(AI*);
 
 	void saveGame(string);
 	void loadGame(string);
 
+	bool isNumber(string);
 	void mainMenu();
 	void startMenu();
 	void clearScreen();
@@ -44,8 +45,10 @@ private:
 	int whosTurn;
 	int phaseNum;
 	int numberOfPlayers;
-	Player* players;
-	AI* computers;
+	Player** players;
+	AI** computers;
+
+	string toupperCase(string);
 
 	int cardSetNum = 1;
 	int cardReturns = 4;
@@ -56,8 +59,8 @@ private:
 class gameDriver::Builder{
 	private:
 		map builderMap;
-		Player* players;
-		AI* computers;
+		Player** players;
+		AI** computers;
 		int numberOfPlayers;
 		int whosTurn;
 		int phaseNum;
@@ -70,8 +73,8 @@ class gameDriver::Builder{
 		Builder();
 
 		Builder& setMap(const string);
-		Builder& setPlayers(Player*);
-		Builder& setComputers(AI*);
+		Builder& setPlayers(Player**);
+		Builder& setComputers(AI**);
 		Builder& setNumberOfPlayers(const int);
 		Builder& setWhosTurn(const int);
 		Builder& setPhaseNum(const int);

@@ -79,7 +79,6 @@ void map::getCountries(ifstream& mapFile) //extract countries
 			playerid = stoi(terri.substr(0, terri.find(terrdel)));
 			terri = terri.substr(terri.find(terrdel) + 1);
 			numOfArmies = stoi(terri.substr(0, terri.find(terrdel)));
-			terri = terri.substr(terri.find(terrdel) + 1);
 			surrounding = terri.substr(terri.find(terrdel) + 1);
 
 			for (int i = 0; i < 6; i++)

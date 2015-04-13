@@ -31,10 +31,13 @@ public:
 	};
 
 	void PlayerStats(Player);
+	void fortificationPlayerStats(Player);
+	void attackPlayerStats(Player);
 
 	void NewLine();
 
 	void StartMenu();
+
 	
 };
 

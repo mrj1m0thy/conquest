@@ -163,3 +163,23 @@ Country::~Country()
 {
 
 }
+
+Country* Country::findAdjacent(string s){
+	string aname;
+	for (int i = 0; i < adjacentCount; i++)
+	{
+		aname = toupperCase(adjacent[i]->name);
+		if (aname == s)
+			return adjacent[i];
+	}
+	cout << "Not found.\n\n";
+	return nullptr;
+}
+
+string Country::toupperCase(string input)
+{
+	for (size_t i = 0; i < input.length(); i++)
+		input[i] = toupper(input[i]);
+
+	return input;
+}

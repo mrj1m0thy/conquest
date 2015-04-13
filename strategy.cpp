@@ -8,7 +8,7 @@ Strategy::Strategy(){
 
 }
 
-void Strategy::execute(){
+void Strategy::execute(Player* user){
 	std::cout << "No strategy selected.\n";
 }
 
@@ -21,4 +21,8 @@ int Strategy::getStrategy(){
 int Strategy::reinforce(Player* user) 
 {
 	return rand() % user->GetCountries().size();
+}
+
+void Strategy::fortification(Player* user){
+	std::cout << "No strategy selected.\n";
 }
