@@ -1,8 +1,22 @@
 #include "aggressive.h"
 #include <iostream>
 
-void aggressive::execute(){
-	std::cout << "Aggressive strategy executed!\n";
+void aggressive::execute(Player* user){
+	vector<Country*> countries = user->GetCountries();
+	for (size_t i = 0; i < countries.size(); i++)
+	{
+		Country** a = countries[i]->getAdjacent();
+		for (int j = 0; j < countries[i]->getAdjacentCount(); j++)
+		{
+			if (a[j]->occupiedBy->name != user->name)
+			{
+				if (countries[i]->getNumberOfPieces() > a[j]->getNumberOfPieces())
+				{
+					Battle battle(countries[i], a[j]);
+				}
+			}
+		}
+	}
 }
 
 int aggressive::reinforce(Player* user)
@@ -16,7 +30,7 @@ int aggressive::reinforce(Player* user)
 		for (int j = 0; j < countries[i]->getAdjacentCount(); j++)
 		{
 			Country** a = countries.at(i)->getAdjacent();
-			if ((*a)->occupiedBy->name == user->name)
+			if ((*a)->occupiedBy->name != user->name)
 				tmp++;
 		}
 		if (tmp > max)

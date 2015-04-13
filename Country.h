@@ -36,6 +36,7 @@ public:
 	string getContinent();
 	string getSurrounding();
 
+	Country* findAdjacent(string);
 	void addAdjacent(Country*);
 	int getNumberOfPieces();
 	Country** getAdjacent();

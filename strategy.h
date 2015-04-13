@@ -5,7 +5,7 @@
 class Strategy {
 	public:
 		int getStrategy();
-		virtual void execute();
+		virtual void execute(Player*);
 		virtual int reinforce(Player*);
 		Strategy();
 };

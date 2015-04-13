@@ -158,3 +158,13 @@ Country::~Country()
 {
 
 }
+
+Country* Country::findAdjacent(string s){
+	for (int i = 0; i < adjacentCount; i++)
+	{
+		if (adjacent[i]->name == s)
+			return adjacent[i];
+	}
+	cout << "Not found.\n\n";
+	return nullptr;
+}

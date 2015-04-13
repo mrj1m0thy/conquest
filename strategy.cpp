@@ -8,7 +8,7 @@ Strategy::Strategy(){
 
 }
 
-void Strategy::execute(){
+void Strategy::execute(Player* user){
 	std::cout << "No strategy selected.\n";
 }
 

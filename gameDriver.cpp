@@ -33,7 +33,7 @@ gameDriver::gameDriver()
 	phaseNum = 0;
 }
 
-gameDriver::gameDriver(map myMap, Player* players, AI* computers, int numberOfPlayers, int whosTurn, int phaseNum)
+gameDriver::gameDriver(map myMap, Player** players, AI** computers, int numberOfPlayers, int whosTurn, int phaseNum)
 {
 	this->myMap = myMap;
 	this->players = players;
@@ -102,35 +102,35 @@ void gameDriver::startPhase()
 		countryRefs.push_back(i);
 	}
 
-	computers = new AI[6 - numberOfPlayers];
+	computers = new AI*[6 - numberOfPlayers];
 
 	for (int i = 0; i < 6 - numberOfPlayers; i++)
 	{
 		int infantry = 20;
-		computers[i] = (AI(i + 1));
+		computers[i] = new AI(i + 1);
 		for (int j = 0; j < 7; j++){
 			int rng = rand() % countryRefs.size();
-			myMap.countries[countryRefs[rng]].occupiedBy = &computers[i];
+			myMap.countries[countryRefs[rng]].occupiedBy = computers[i];
 			if (j != 6){
 				myMap.countries[countryRefs[rng]].numberOfPieces += rand() % infantry;
 				infantry -= myMap.countries[countryRefs[rng]].numberOfPieces;
 			}
 			else
 				myMap.countries[countryRefs[rng]].numberOfPieces += infantry;
-			computers[i].AddCountry(&myMap.countries[countryRefs[rng]]);
+			computers[i]->AddCountry(&myMap.countries[countryRefs[rng]]);
 			countryRefs.erase(countryRefs.begin() + rng);
 		}
 	}
 
-	players = new Player[numberOfPlayers];
+	players = new Player*[numberOfPlayers];
 
 	for (int i = 0; i < numberOfPlayers; i++)
 	{
 		int infantry = 20;
-		players[i] = Player((i + 1), "player " + to_string(i + 1));
+		players[i] = new Player((i + 1), "player " + to_string(i + 1));
 		for (int j = 0; j < 7; j++){
 			int rng = rand() % countryRefs.size();
-			myMap.countries[countryRefs[rng]].occupiedBy = &players[i];
+			myMap.countries[countryRefs[rng]].occupiedBy = players[i];
 
 			if (j != 6){
 				myMap.countries[countryRefs[rng]].numberOfPieces += rand() % infantry;
@@ -139,7 +139,7 @@ void gameDriver::startPhase()
 			else
 				myMap.countries[countryRefs[rng]].numberOfPieces += infantry;
 
-			players[i].AddCountry(&myMap.countries[countryRefs[rng]]);
+			players[i]->AddCountry(&myMap.countries[countryRefs[rng]]);
 			countryRefs.erase(countryRefs.begin() + rng);
 		}
 	}
@@ -163,7 +163,7 @@ void gameDriver::mainPhase()
 	while (true){
 		if (whosTurn < numberOfPlayers){
 			for (int id = whosTurn; id < numberOfPlayers; id++, whosTurn++){
-				cout << "\nPlayer " << players[id].getID() << " turn\n";
+				cout << "\nPlayer " << players[id]->getID() << " turn\n";
 				cout << "------------------------------------------\n";
 
 				switch (phaseNum){
@@ -182,7 +182,7 @@ void gameDriver::mainPhase()
 			}
 		}
 		for (int id = (whosTurn-numberOfPlayers); id < 6 - numberOfPlayers; id++, whosTurn++){
-			cout << "\nComputer " << computers[id].getID() << " turn\n";
+			cout << "\nComputer " << computers[id]->getID() << " turn\n";
 			cout << "------------------------------------------\n";
 
 			switch (phaseNum){
@@ -215,20 +215,20 @@ void gameDriver::gameOver(){
 }
 
 //a) reinforcement phase (where a player is given some armies and places them on some if the countries he owns)
-void gameDriver::reinforcementPhase(Player user){
+void gameDriver::reinforcementPhase(Player* user){
 	int total = 0;
 	clearScreen();
 	updatePlayerContinents();
 
-	if (int(user.GetCountries().size() / 3) > 3)
-		user.SetRenforcements(user.GetCountries().size() / 3);
+	if (int(user->GetCountries().size() / 3) > 3)
+		user->SetRenforcements(user->GetCountries().size() / 3);
 	else
-		user.SetRenforcements(3);
+		user->SetRenforcements(3);
 
-	for (size_t i = 0; i < user.GetContinents().size(); i++)
-		total += user.GetContinents().at(i)->getArmyNum();
+	for (size_t i = 0; i < user->GetContinents().size(); i++)
+		total += user->GetContinents().at(i)->getArmyNum();
 
-	if (user.GetHand().Size() > 3){
+	if (user->GetHand().Size() > 3){
 		string input;
 		do{
 			cout << "Do you want to trade in some cards for units? (" << cardReturns << " available) Y/N: ";
@@ -240,28 +240,28 @@ void gameDriver::reinforcementPhase(Player user){
 		} while (input != "Y" || input != "N");
 		clearScreen();
 		if (input == "Y")
-		if (user.GetHand().TradeIn(user.isComputer))
+		if (user->GetHand().TradeIn(user->isComputer))
 			total += getCardUnits();
 	}
-	user.SetRenforcements(user.GetRenforcements() + total);
+	user->SetRenforcements(user->GetRenforcements() + total);
 
 	
-	cout << "This is the reinforcement phase for player " << user.getID() << endl;
+	cout << "This is the reinforcement phase for player " << user->getID() << endl;
 	cout << "---------------------------------------------------------\n\n";
 	
-	int remaining = user.GetRenforcements();
+	int remaining = user->GetRenforcements();
 	int countryNum;
 	int armyNum;
 	while (remaining > 0){
 		clearScreen();
 		cout << "Remaining armies: " << remaining;
 
-		output.PlayerStats(user);
+		output.PlayerStats(*user);
 		do{
-			cout << "\n\nWhere would you like to place your armies? (Must be between 0 and " << user.GetCountries().size()-1 << ") ";
+			cout << "\n\nWhere would you like to place your armies? (Must be between 0 and " << user->GetCountries().size()-1 << ") ";
 			//(cin, countryNum);
 			cin >> countryNum;
-		} while (countryNum > int(user.GetCountries().size()));
+		} while (countryNum > int(user->GetCountries().size()));
 
 		do{
 			cout << "\n\nHow many armies would you like to place here? (Must be less than " << remaining << ") ";
@@ -269,104 +269,121 @@ void gameDriver::reinforcementPhase(Player user){
 			cin >> armyNum;
 		} while (armyNum > remaining);
 
-		user.GetCountries()[countryNum]->numberOfPieces += armyNum;
+		user->GetCountries()[countryNum]->numberOfPieces += armyNum;
 		remaining -= armyNum;
 	}
 
 	mainMenu();
 }
 
-void gameDriver::reinforcementPhase(AI comp){
+void gameDriver::reinforcementPhase(AI* comp){
 	int total = 0;
 	clearScreen();
 	updatePlayerContinents();
 
-	if (int(comp.GetCountries().size() / 3) > 3)
-		comp.SetRenforcements(comp.GetCountries().size() / 3);
+	if (int(comp->GetCountries().size() / 3) > 3)
+		comp->SetRenforcements(comp->GetCountries().size() / 3);
 	else
-		comp.SetRenforcements(3);
+		comp->SetRenforcements(3);
 
-	for (size_t i = 0; i < comp.GetContinents().size(); i++)
-		total += comp.GetContinents().at(i)->getArmyNum();
+	for (size_t i = 0; i < comp->GetContinents().size(); i++)
+		total += comp->GetContinents().at(i)->getArmyNum();
 
-	if (comp.GetHand().Size() > 2){
-		if (comp.GetHand().TradeIn(comp.isComputer))
+	if (comp->GetHand().Size() > 2){
+		if (comp->GetHand().TradeIn(comp->isComputer))
 			total += getCardUnits();
 	}
 
-	comp.SetRenforcements(comp.GetRenforcements() + total);
+	if (comp->GetHand().TradeIn(comp->isComputer))
+		total += getCardUnits();
+
+	comp->SetRenforcements(comp->GetRenforcements() + total);
 
 
 
-	cout << "This is the reinforcement phase for computer " << comp.getID() << endl;
+	cout << "This is the reinforcement phase for computer " << comp->getID() << endl;
 	cout << "---------------------------------------------------------\n\n";
 
-	int remaining = comp.GetRenforcements();
-	int countryNum;
-	int armyNum;
-	while (remaining > 0){
-		clearScreen();
+	int remaining = comp->GetRenforcements();
+	
+	clearScreen();
 
-		comp.strat->reinforce(&comp);
-
-		cout << "Remaining armies: " << remaining;
-		//Use output class to show table for choices
-		do{
-			cout << "\n\nWhere would you like to place your armies? (Must be between 0 and " << comp.GetCountries().size() - 1 << ") ";
-			cin >> countryNum;
-		} while (countryNum > int(comp.GetCountries().size()));
-
-		do{
-			cout << "\n\nHow many armies would you like to place here? (Must be less than " << remaining << ") ";
-			cin >> armyNum;
-		} while (armyNum > remaining);
-
-		comp.GetCountries()[countryNum]->numberOfPieces += armyNum;
-		remaining -= armyNum;
+	comp->GetCountries()[comp->strat->reinforce(comp)]->numberOfPieces += (int)floor(remaining*0.75);
+	remaining -= (int)floor(remaining*0.75);
+	
+	while (remaining > 0)
+	{
+		comp->GetCountries()[rand() % comp->GetCountries().size()]->numberOfPieces++;
+		remaining--;
 	}
 
 	mainMenu();
 }
 
 //b) attack phase(where a player may declare a series of attacks	from one of his countries to one of its adjacent countries owned by another player)
-void gameDriver::attackPhase(Player user){
+void gameDriver::attackPhase(Player* user){
 	clearScreen();
 
-	cout << "This is the attack phase for player " << user.getID() << endl;
+	cout << "This is the attack phase for player " << user->getID() << endl;
 	cout << "---------------------------------------------------------\n\n";
 
-	output.PlayerStats(user); ///////////////////////////////////////////////
-	
-	Battle battle1(*user.GetCountries().at(0), *user.GetCountries().at(1));		//Instancies battles to be carried out.
+	output.PlayerStats(*user); ///////////////////////////////////////////////
+
+	string response;
+	do{
+		cout << "Do you want to attack? (Y or N) ";
+		cin.ignore();
+		getline(cin, response);
+		for (size_t i = 0; i < response.length(); i++)
+			response[i] = toupper(response[i]);
+	} while (response != "Y" || response != "N" );
+
+	if (response == "Y")
+	{
+		string from;
+		string to;
+		
+		do{
+			cout << "Where would you like to attack from? (1 - " << user->GetCountries().size() << ") ";
+			cin.ignore();
+			getline(cin, from);
+		} while (!isNumber(from) || stoi(from) > int(user->GetCountries().size()));
+
+		Country* att;
+		do{
+			cout << "Which country would you like to attack? (Type the name of the country) ";
+			cin.ignore();
+			getline(cin, to);
+			att = user->GetCountries()[stoi(from)]->findAdjacent(to);
+		} while (att == nullptr);
+
+		Battle battle1(user->GetCountries().at(stoi(from)-1), att);
+	}
 	mainMenu();
 }
 
-void gameDriver::attackPhase(AI comp){
+void gameDriver::attackPhase(AI* comp){
 	clearScreen();
 
-	cout << "This is the attack phase for computer " << comp.getID() << " using the " << comp.stratType << " strategy." << endl;
+	cout << "This is the attack phase for computer " << comp->getID() << " using the " << comp->stratType << " strategy." << endl;
 	cout << "--------------------------------------------------------------------------\n\n";
-	
-	//output.PlayerStats(comp);
 
-	comp.strat->execute();
+	comp->strat->execute(comp);
 
-	//These battles will have to become dynamic before the strategies can be used.
-	Battle battle1(*comp.GetCountries().at(0), *comp.GetCountries().at(1));		//Instancies battles to be carried out.
 	mainMenu();
 }
 
 //c) fortification phase (where a player may move some armies from one of his countries to another of his countries)
-void gameDriver::fortification(Player user){
+void gameDriver::fortification(Player* user){
 	clearScreen();
-	cout << "This is the fortification phase for player " << user.getID() << endl;
+	cout << "This is the fortification phase for player " << user->getID() << endl;
 	cout << "---------------------------------------------------------\n\n";
 	mainMenu();
 }
 
-void gameDriver::fortification(AI comp){
+void gameDriver::fortification(AI* comp){
 	clearScreen();
-	cout << "This is the fortification phase for computer " << comp.getID() << endl;
+	cout << "This is the fortification phase for computer " << comp->getID() << endl;
 	cout << "---------------------------------------------------------\n\n";
 	mainMenu();
 }
@@ -415,7 +432,7 @@ void gameDriver::saveGame(string save){
 		<< "phaseNum=" << phaseNum << endl
 		<< "computers=";
 	for (int i = 0; i < 6 - numberOfPlayers; i++)
-		outStream << computers[i].stratType << ",";
+		outStream << computers[i]->stratType << ",";
 
 	outStream.close();
 }
@@ -431,7 +448,7 @@ void gameDriver::loadGame(string load){
 		int numberOfPlayers;
 		int whosTurn;
 		int phaseNum;
-		AI* comps;
+		AI** comps;
 
 		getline(inStream, line);
 		thisMap = line.substr(line.find('=') + 1);
@@ -439,7 +456,7 @@ void gameDriver::loadGame(string load){
 		getline(inStream, line);
 		numberOfPlayers = stoi(line.substr(line.find('=') + 1));
 
-		comps = new AI[6 - numberOfPlayers];
+		comps = new AI*[6 - numberOfPlayers];
 
 		getline(inStream, line);
 		whosTurn = stoi(line.substr(line.find('=') + 1));
@@ -450,7 +467,7 @@ void gameDriver::loadGame(string load){
 		getline(inStream, line);
 		line = line.substr(line.find('=') + 1);
 		for (int i = 0; i < 6-numberOfPlayers; i++){
-			comps[i] = AI(i+1, line.substr(0, line.find(',')));
+			comps[i] = new AI(i+1, line.substr(0, line.find(',')));
 			line = line.substr(line.find(',') + 1);
 		}
 		
@@ -476,11 +493,11 @@ void gameDriver::updatePlayerContinents()
 		for (int j = 0; j < myMap.getNumOfContinents(); j++){
 			int k;
 			for (k = 0; k < myMap.continents[j].getNumCountries(); k++){
-				if (!players[i].hasCountry(myMap.continents[j].countryArray[k]->getName()))
+				if (!players[i]->hasCountry(myMap.continents[j].countryArray[k]->getName()))
 					break;
 			}
 			if (k == myMap.continents[j].getNumCountries() - 1){
-				players[i].AddContinent(&myMap.continents[j]);
+				players[i]->AddContinent(&myMap.continents[j]);
 			}
 		}
 	}
@@ -491,23 +508,23 @@ gameDriver::Builder::Builder(): numberOfPlayers(defaultNumberOfPlayers), whosTur
 	if (computers == nullptr){
 		for (int i = 0; i < 6 - numberOfPlayers; i++)
 		{
-			computers[i] = AI(i + 1);		//
+			computers[i] = new AI(i + 1);		//
 		}
 	}
 
 	for (int i = 0; i < numberOfPlayers; i++)
 	{
-		players[i] = Player(i + 1, "player "+(i+1)); //TODO: Required player parameters 
+		players[i] = new Player(i + 1, "player "+(i+1)); //TODO: Required player parameters 
 	}
 
 }
 
-gameDriver::Builder& gameDriver::Builder::setComputers(AI* computers){
+gameDriver::Builder& gameDriver::Builder::setComputers(AI** computers){
 	this->computers = computers;
 	return *this;
 }
 
-gameDriver::Builder& gameDriver::Builder::setPlayers(Player* players){
+gameDriver::Builder& gameDriver::Builder::setPlayers(Player** players){
 	this->players = players;
 	return *this;
 }
@@ -553,4 +570,10 @@ int gameDriver::getCardUnits(){
 	}
 
 	return tmp;
+}
+
+bool gameDriver::isNumber(string s){
+	string::const_iterator it = s.begin();
+	while (it != s.end() && isdigit(*it)) ++it;
+	return !s.empty() && it == s.end();
 }
