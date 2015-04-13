@@ -113,6 +113,11 @@ Country** Country::getAdjacent()
 	return adjacent;
 }
 
+Country* Country::getAdjacentCountry(int i)
+{
+	return adjacent[i];
+}
+
 string Country::getSurrounding()
 {
 	return surrounding;

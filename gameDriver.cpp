@@ -335,7 +335,7 @@ void gameDriver::attackPhase(Player user){
 	cout << "This is the attack phase for player " << user.getID() << endl;
 	cout << "---------------------------------------------------------\n\n";
 
-	output.PlayerStats(user); ///////////////////////////////////////////////
+	output.PlayerStats(user);
 	
 	Battle battle1(*user.GetCountries().at(0), *user.GetCountries().at(1));		//Instancies battles to be carried out.
 	mainMenu();
@@ -361,25 +361,53 @@ void gameDriver::fortification(Player user){
 	cout << "---------------------------------------------------------\n\n";
 
 	string answer;
+	bool quit = false;
 	output.PlayerStats(user);
 
 	answer = output.OutIn("Would you like to move any armies?", answer);
 
-	if (toupper(answer[0]) == 'Y')
+	while (!quit)
 	{
-		int country1 = 0;
-		int country2 = 0;
-		int armies = 0;
-
-		country1 = output.OutIn("Which country would you like to take armies from?", country1);
-		country2 = output.OutIn("Which country would you like to move the armies?", country2);
-
-		do
+		if (toupper(answer[0]) == 'Y')
 		{
-			armies = output.OutIn("How many armies?", armies);
-		} while (!(armies > 1 || (armies < user.GetCountries().at(country1)->getNumberOfPieces())));
-		
+			int country1 = 0;
+			int country2 = 0;
+			int armies = 0;
+
+			country1 = output.OutIn("Which country would you like to take armies from?", country1);
+			country2 = output.OutIn("Which country would you like to move the armies?", country2);
+
+			Country* start = user.GetCountries().at(country1);
+			Country* end = user.GetCountries().at(country2);
+
+			if (start->occupiedBy->name == end->occupiedBy->name)
+			{
+				do
+				{
+					armies = output.OutIn("How many armies?", armies);
+				} while (!((armies > 0 || (armies < user.GetCountries().at(country1)->numberOfPieces)) && (user.GetCountries().at(country1)->numberOfPieces - armies) != 0));
+
+				int sizeStart = start->getAdjacentCount();
+				int sizeEnd = end->getAdjacentCount();
+
+				for (int i = 0; i < sizeStart; i++)
+				{
+					if (start->getAdjacentCountry(i)->name == end->getAdjacentCountry(i)->name || start->getAdjacentCountry(i)->name == end->name)
+					{
+						start->getAdjacentCountry(i)->numberOfPieces = start->getAdjacentCountry(i)->numberOfPieces -armies;
+						end->getAdjacentCountry(i)->numberOfPieces = end->getAdjacentCountry(i)->numberOfPieces + armies;
+						quit = true;
+						break;
+					}
+				}
+			}
+		}
+		else
+			quit = true;
 	}
+	
+
+	output.PlayerStats(user);
 
 	mainMenu();
 }
@@ -388,6 +416,58 @@ void gameDriver::fortification(AI comp){
 	clearScreen();
 	cout << "This is the fortification phase for computer " << comp.getID() << endl;
 	cout << "---------------------------------------------------------\n\n";
+
+	output.PlayerStats(comp);
+	
+	comp.strat->fortification();
+
+	vector<Country*> countries = comp.GetCountries();
+
+	comp
+
+	while (!quit)
+	{
+		if (toupper(answer[0]) == 'Y')
+		{
+			int country1 = 0;
+			int country2 = 0;
+			int armies = 0;
+
+			country1 = output.OutIn("Which country would you like to take armies from?", country1);
+			country2 = output.OutIn("Which country would you like to move the armies?", country2);
+
+			Country* start = user.GetCountries().at(country1);
+			Country* end = user.GetCountries().at(country2);
+
+			if (start->occupiedBy->name == end->occupiedBy->name)
+			{
+				do
+				{
+					armies = output.OutIn("How many armies?", armies);
+				} while (!((armies > 0 || (armies < user.GetCountries().at(country1)->numberOfPieces)) && (user.GetCountries().at(country1)->numberOfPieces - armies) != 0));
+
+				int sizeStart = start->getAdjacentCount();
+				int sizeEnd = end->getAdjacentCount();
+
+				for (int i = 0; i < sizeStart; i++)
+				{
+					if (start->getAdjacentCountry(i)->name == end->getAdjacentCountry(i)->name || start->getAdjacentCountry(i)->name == end->name)
+					{
+						start->getAdjacentCountry(i)->numberOfPieces = start->getAdjacentCountry(i)->numberOfPieces - armies;
+						end->getAdjacentCountry(i)->numberOfPieces = end->getAdjacentCountry(i)->numberOfPieces + armies;
+						quit = true;
+						break;
+					}
+				}
+			}
+		}
+		else
+			quit = true;
+	}
+
+
+	output.PlayerStats(comp);
+
 	mainMenu();
 }
 

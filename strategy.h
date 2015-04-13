@@ -7,6 +7,7 @@ class Strategy {
 		int getStrategy();
 		virtual void execute();
 		virtual int reinforce(Player*);
+		virtual int fortification(Player*);
 		Strategy();
 };
 

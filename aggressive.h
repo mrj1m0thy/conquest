@@ -9,7 +9,7 @@ class aggressive : public Strategy
 public:
 	virtual void execute();
 	virtual int reinforce(Player*);
-
+	virtual int fortification(Player*);
 };
 
 #endif

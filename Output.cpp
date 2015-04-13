@@ -33,12 +33,10 @@ void Output::PlayerStats(Player p)
 			cout << left << "\n-----------------------------------------------------------------------------------------------------------------------" << endl << endl;
 		}
 		cout << setw(2) << i << setw(8) << "| " << right << setw(20) << p.GetCountries().at(i)->getName() << " (" << p.GetCountries().at(i)->getNumberOfPieces() << ") | ";
-		
-		Country** a = p.GetCountries().at(i)->getAdjacent();
 
 		for (int index = 0; index < p.GetCountries().at(i)->getAdjacentCount(); index++)
 		{
-			cout << setw(10) << (*a)->getName() << " - > " << (*a)->occupiedBy->name << " (" << (*a)->getNumberOfPieces() << ") | ";
+			cout << setw(10) << p.GetCountries().at(i)->getAdjacentCountry(index)->getName() << " - > " << p.GetCountries().at(i)->getAdjacentCountry(index)->occupiedBy->name << " (" << p.GetCountries().at(i)->getAdjacentCountry(index)->getNumberOfPieces() << ") | ";
 		}
 		
 		cout << left << "\n-----------------------------------------------------------------------------------------------------------------------" << endl << endl;
