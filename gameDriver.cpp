@@ -21,6 +21,7 @@ a continent or Risk card) in order to keep the games equal for all.
 #include "Player.h"
 #include <iostream>
 #include "aggressive.h"
+#include <string>
 #include <fstream>
 
 using namespace std;
@@ -56,6 +57,7 @@ void gameDriver::startMenu(){
 		<< "1: Load a game\n\n"
 		<< "What would you like to do? ";
 	cin >> response;
+	//getline(cin, response);
 
 	if (response == 1)
 	{
@@ -91,6 +93,7 @@ void gameDriver::startPhase()
 	do{
 		cout << "How many players will be participating in this game? (max: 6)";
 		cin >> numberOfPlayers;
+		//getline(cin, numberOfPlayers);
 	} while (numberOfPlayers > 6 || numberOfPlayers < 2);
 
 	vector<int> countryRefs;
@@ -252,14 +255,17 @@ void gameDriver::reinforcementPhase(Player user){
 	while (remaining > 0){
 		clearScreen();
 		cout << "Remaining armies: " << remaining;
+
 		//Use output class to show table for choices
 		do{
 			cout << "\n\nWhere would you like to place your armies? (Must be between 0 and " << user.GetCountries().size()-1 << ") ";
+			//(cin, countryNum);
 			cin >> countryNum;
 		} while (countryNum > int(user.GetCountries().size()));
 
 		do{
 			cout << "\n\nHow many armies would you like to place here? (Must be less than " << remaining << ") ";
+			//getline(cin, armyNum);
 			cin >> armyNum;
 		} while (armyNum > remaining);
 
@@ -328,6 +334,9 @@ void gameDriver::attackPhase(Player user){
 
 	cout << "This is the attack phase for player " << user.getID() << endl;
 	cout << "---------------------------------------------------------\n\n";
+
+	output.PlayerStats(user); ///////////////////////////////////////////////
+	
 	Battle battle1(*user.GetCountries().at(0), *user.GetCountries().at(1));		//Instancies battles to be carried out.
 	mainMenu();
 }
@@ -338,6 +347,8 @@ void gameDriver::attackPhase(AI comp){
 	cout << "This is the attack phase for computer " << comp.getID() << " using the " << comp.stratType << " strategy." << endl;
 	cout << "--------------------------------------------------------------------------\n\n";
 	
+	//output.PlayerStats(comp);
+
 	comp.strat->execute();
 
 	//These battles will have to become dynamic before the strategies can be used.
@@ -370,6 +381,7 @@ void gameDriver::mainMenu()
 		<< "2: Continue\n"
 		<< "-----------------------------------------------------\n";
 	cin >> response;
+	//getline(cin, response);
 
 	if (response == 0)
 		exit(0);

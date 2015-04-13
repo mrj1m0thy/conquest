@@ -58,6 +58,7 @@ void map::getCountries(ifstream& mapFile) //extract countries
 	int adjacentCount = 0;
 	string continent; //Country class variable
 	string surrounding; //Country class variable
+	string adjacentCountries;
 	int playerid = 0;
 	int numOfArmies = 0;
 
@@ -81,31 +82,65 @@ void map::getCountries(ifstream& mapFile) //extract countries
 			terri = terri.substr(terri.find(terrdel) + 1);
 			surrounding = terri.substr(terri.find(terrdel) + 1);
 
-			Country c = Country(name, positionX, positionY, continent, surrounding, playerid, numOfArmies); //create country/territory from the obtained information
+			for (int i = 0; i < 6; i++)
+			{
+				if (continents[i].getName() == continent)
+					continents[i].addCountry(new Country(name, positionX, positionY, continent, surrounding, 0, 0));
+			}
+			Country c = Country(name, positionX, positionY, continent, surrounding, 0, 0); //create country/territory from the obtained information
 			countries[countListNum] = c; //add country to list
 			countryList[countListNum] = name; // store a list of country name
-			countListNum++; //increment country count
-			numOfCountries++;
+			countListNum++;
+			numOfCountries++; //increment country count
 		}
+		createContinents();
+		assignAdjacentCountries();
 	}
-	createContinents();
-	assignAdjacentCountries();
 }
 
-void map::createContinents()
+
+Country map::getCountry(string name)
 {
-	for (int i = 0; i < 6; i++){
-		for (int j = 0; j < numOfCountries; j++){
-			if (continents[i].getName() == countries[j].getContinent())
-				continents[i].addCountry(&countries[j]);
-		}
+	for (int index = 0; index < numOfCountries; index++)
+	{
+		if (countries[index].getName() == name)
+			return countries[index];
 	}
+	return NULL;
+}
+
+
+string map::getAuthor()
+{
+	return author;
+}
+
+
+string map::getImage()
+{
+	return image;
+}
+
+string map::getWrap()
+{
+	return wrap;
+		}
+
+string map::getScroll()
+{
+	return scroll;
+	}
+
+string map::getWarn()
+{
+	return warn;
 }
 
 void map::loadMap(string file)
 {
 	ifstream mapFile;
 	string output;
+
 	if (file != ""){
 		this->setFilename(file);
 		mapFile.open(file);
@@ -114,6 +149,7 @@ void map::loadMap(string file)
 		this->setFilename("World.map");
 		mapFile.open("World.map"); //template used to create class
 	}
+
 
 	if (mapFile.is_open())
 	{
@@ -157,10 +193,31 @@ void map::getCountryList()
 		cout << "Country " << index + 1 << ": " << countryList[index] << endl;	//output country list to user
 }
 
+Country map::getCountryElement(int i)
+{
+	return countries[i];
+}
+
+void map::outputAllCountries()
+{
+	for (int index = 0; index < sizeof(countryList) / sizeof(countryList[0]); index++)
+		cout << "Country " << index + 1 << ": " << countryList[index] << endl;	//output country list to user
+}
+
 void map::getContinentsList()
 {
 	for (int index = 0; index < sizeof(continents) / sizeof(continents[0]); index++)
 		cout << continents[index].getName() << endl; //output continent list to user
+}
+
+int map::getContinentSize()
+{
+	return sizeof(continents) / sizeof(continents[0]);
+}
+
+int map::getCountrySize()
+{
+	return sizeof(countries) / sizeof(countries[0]);
 }
 
 //void map::saveMap(string filename, string author, string image, string wrap, string scroll, string warn)
@@ -276,6 +333,7 @@ void map::createMap()
 		do
 		{
 			cout << "Adjacent Country #" << counter + 1 << ": ";
+			//getline(cin, answer);
 			cin >> answer;
 
 			if (counter == 0)
@@ -297,6 +355,7 @@ void map::createMap()
 		addContinent(con);
 
 		cout << "Are there any other countries you would like to add?: (Y/N)";
+		//getline(cin, answer);
 		cin >> answer;
 
 		if (toupper(answer[0]) == 'N')
@@ -338,6 +397,16 @@ void map::addCountry(string name, int positionX, int positionY, string continent
 	countries[numOfCountries] = Country(name, positionX, positionY, continent, surrounding, 0, 0);
 	countryList[numOfCountries] = name;
 	numOfCountries++;
+}
+
+string map::getContinentOutputInfo(int index)
+{
+	return (continents[index].getName() + "=" + to_string(continents[index].getArmyNum()));
+}
+
+string map::getCountryOutputInfo(int index)
+{
+	return countries[index].getName() + "," + to_string(countries[index].getX()) + "," + to_string(countries[index].getY()) + "," + countries[index].getContinent() + "," + countries[index].getSurrounding();
 }
 
 

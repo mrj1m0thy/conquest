@@ -35,6 +35,7 @@ void main()
 		cout << "1. Start Game with Default Map" << endl;
 		cout << "2. Create Map" << endl;
 		cout << "Choice: ";
+		
 		cin >> answer;
 
 		if (answer[0] == '1')

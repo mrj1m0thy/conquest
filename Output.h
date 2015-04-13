@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include "player.h"
 
 using namespace std;
 
@@ -23,9 +24,12 @@ public:
 	template <typename T>
 	T OutIn(string, T);
 
+	void PlayerStats(Player);
+
 	void NewLine();
 
 	void StartMenu();
+	
 };
 
 #endif

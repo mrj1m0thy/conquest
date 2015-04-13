@@ -17,6 +17,7 @@ private:
 	string continent;
 	int adjacentCounter = 0;
 
+	Country** adjacent;
 	string surrounding;
 	Country* targetArray[20];
 public:
@@ -27,19 +28,21 @@ public:
 	Country(string, Player, int);	//Constructor
 	Player* player;
 
-	Country* adjacent;
 	string getName();
 	int getX();
 	int getY();
+	int getAdjacentCount();
 	string listTargets(string);
 	string getContinent();
 	string getSurrounding();
 
 	void addAdjacent(Country*);
+	int getNumberOfPieces();
+	Country** getAdjacent();
+	Player* getOccupiedBy();
 	void setContinent(string);
 	void addTarget(Country*);
 	void conquer(Player*, int);
-	int getAdjacentCount();
 
 	string name;
 	Player* occupiedBy;		//Keeps track of which player controls this instance of Country.

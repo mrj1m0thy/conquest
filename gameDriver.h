@@ -2,6 +2,7 @@
 #include "Battle.h"
 #include "map.h"
 #include "AI.h"
+#include "Output.h"
 #include "Deck.h"
 using namespace std;
 #ifndef gameDriver_H
@@ -16,6 +17,7 @@ public:
 	~gameDriver();
 	class Builder;
 	int getCardUnits();
+	Output output;
 
 private:
 	void startPhase();
