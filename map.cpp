@@ -98,6 +98,15 @@ void map::getCountries(ifstream& mapFile) //extract countries
 	}
 }
 
+void map::createContinents()
+{
+	for (int i = 0; i < 6; i++){
+		for (int j = 0; j < numOfCountries; j++){
+			if (continents[i].getName() == countries[j].getContinent())
+				continents[i].addCountry(&countries[j]);
+		}
+	}
+}
 
 Country map::getCountry(string name)
 {

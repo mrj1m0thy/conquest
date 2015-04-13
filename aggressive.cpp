@@ -15,7 +15,8 @@ int aggressive::reinforce(Player* user)
 		int tmp = 0;
 		for (int j = 0; j < countries[i]->getAdjacentCount(); j++)
 		{
-			if (countries[i]->adjacent[j].occupiedBy->name == user->name)
+			Country** a = countries.at(i)->getAdjacent();
+			if ((*a)->occupiedBy->name == user->name)
 				tmp++;
 		}
 		if (tmp > max)

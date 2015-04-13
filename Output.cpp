@@ -32,7 +32,7 @@ T Output::OutIn(string out1, T in)
 void Output::PlayerStats(Player p)
 {
 	cout << "Player: " << p.getID() << endl << endl;
-	for (int i = 0; i < p.GetCountries().size(); i++)
+	for (size_t i = 0; i < p.GetCountries().size(); i++)
 	{
 		if (i == 0)
 		{

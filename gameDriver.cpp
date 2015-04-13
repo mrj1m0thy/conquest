@@ -256,7 +256,7 @@ void gameDriver::reinforcementPhase(Player user){
 		clearScreen();
 		cout << "Remaining armies: " << remaining;
 
-		//Use output class to show table for choices
+		output.PlayerStats(user);
 		do{
 			cout << "\n\nWhere would you like to place your armies? (Must be between 0 and " << user.GetCountries().size()-1 << ") ";
 			//(cin, countryNum);
