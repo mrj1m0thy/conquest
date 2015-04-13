@@ -45,7 +45,7 @@ void Output::PlayerStats(Player p)
 
 		for (int index = 0; index < p.GetCountries().at(i)->getAdjacentCount(); index++)
 		{
-			cout << setw(10) << (*a)->getName() << " - > " << (*a)->getOccupiedBy()->name << " (" << (*a)->getNumberOfPieces() << ") | ";
+			cout << setw(10) << (*a)->getName() << " - > " << (*a)->occupiedBy->name << " (" << (*a)->getNumberOfPieces() << ") | ";
 		}
 		
 		cout << left << "\n-----------------------------------------------------------------------------------------------------------------------" << endl << endl;

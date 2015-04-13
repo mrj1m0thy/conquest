@@ -1,8 +1,9 @@
 #include <iostream>
 #include <time.h>
-#include "gameDriver.h"
+#include "map.h"
 #include "AI.h"
 #include "Output.h"
+#include "GameSingleton.h"
 
 //Used in assign 3
 #include "Player.h"	
@@ -40,8 +41,9 @@ void main()
 
 		if (answer[0] == '1')
 		{
-			gameDriver game;
-			game.start();
+			GameSingleton *game;
+			game = GameSingleton::getInstance();
+			game->startGame();
 		}
 		else
 		{

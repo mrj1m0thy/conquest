@@ -84,7 +84,7 @@ void map::getCountries(ifstream& mapFile) //extract countries
 			for (int i = 0; i < 6; i++)
 			{
 				if (continents[i].getName() == continent)
-					continents[i].addCountry(new Country(name, positionX, positionY, continent, surrounding, 0, 0));
+					continents[i].addCountry(new Country(name, positionX, positionY, continent, surrounding, playerid, numOfArmies));
 			}
 			Country c = Country(name, positionX, positionY, continent, surrounding, 0, 0); //create country/territory from the obtained information
 			countries[countListNum] = c; //add country to list
@@ -110,9 +110,9 @@ void map::assignAdjacentCountries()
 		size = countries[i].getAdjacentCount();
 		a = new string[size];
 
-		for (int i = 0; i < size; i++)
+		for (int index = 0; index < size; index++)
 		{
-			a[i] = adjacentCountries.substr(0, adjacentCountries.find(','));
+			a[index] = adjacentCountries.substr(0, adjacentCountries.find(','));
 			adjacentCountries = adjacentCountries.substr(adjacentCountries.find(',') + 1);
 		}
 

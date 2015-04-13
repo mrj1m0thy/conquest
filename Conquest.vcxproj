@@ -99,6 +99,7 @@
     <ClCompile Include="PlayerView.cpp" />
     <ClCompile Include="random.cpp" />
     <ClCompile Include="SimpleStats.cpp" />
+    <ClCompile Include="GameSingleton.cpp" />
     <ClCompile Include="strategy.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="WinLoss.cpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="SimpleStats.h" />
+    <ClInclude Include="GameSingleton.h" />
     <ClInclude Include="Statistics.h" />
     <ClInclude Include="StatsDecorator.h" />
     <ClInclude Include="strategy.h" />
