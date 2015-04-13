@@ -40,7 +40,7 @@ public:
 
 	bool isWinner();
 	bool continentExists(string);
-	Continent getContinent(string);
+	Continent* getContinent(string);
 
 	string getContinentOutputInfo(int);
 	string getCountryOutputInfo(int);
@@ -48,7 +48,7 @@ public:
 	Country getCountryElement(int);
 	int getContinentSize();
 	int getCountrySize();
-	Country getCountry(string);
+	Country* getCountry(string);
 
 
 	void loadMap(string);

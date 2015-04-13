@@ -306,11 +306,11 @@ void gameDriver::reinforcementPhase(AI* comp){
 
 	int remaining = comp->GetRenforcements();
 	
-	clearScreen();
+		clearScreen();
 
 	comp->GetCountries()[comp->strat->reinforce(comp)]->numberOfPieces += (int)floor(remaining*0.75);
 	remaining -= (int)floor(remaining*0.75);
-	
+
 	while (remaining > 0)
 	{
 		comp->GetCountries()[rand() % comp->GetCountries().size()]->numberOfPieces++;
@@ -356,7 +356,7 @@ void gameDriver::attackPhase(Player* user){
 			getline(cin, to);
 			att = user->GetCountries()[stoi(from)]->findAdjacent(to);
 		} while (att == nullptr);
-
+	
 		Battle battle1(user->GetCountries().at(stoi(from)-1), att);
 	}
 	mainMenu();
@@ -367,7 +367,7 @@ void gameDriver::attackPhase(AI* comp){
 
 	cout << "This is the attack phase for computer " << comp->getID() << " using the " << comp->stratType << " strategy." << endl;
 	cout << "--------------------------------------------------------------------------\n\n";
-
+	
 	comp->strat->execute(comp);
 
 	mainMenu();
@@ -378,6 +378,28 @@ void gameDriver::fortification(Player* user){
 	clearScreen();
 	cout << "This is the fortification phase for player " << user->getID() << endl;
 	cout << "---------------------------------------------------------\n\n";
+
+	string answer;
+	output.PlayerStats(user);
+
+	answer = output.OutIn("Would you like to move any armies?", answer);
+
+	if (toupper(answer[0]) == 'Y')
+	{
+		int country1 = 0;
+		int country2 = 0;
+		int armies = 0;
+
+		country1 = output.OutIn("Which country would you like to take armies from?", country1);
+		country2 = output.OutIn("Which country would you like to move the armies?", country2);
+
+		do
+		{
+			armies = output.OutIn("How many armies?", armies);
+		} while (!(armies > 1 || (armies < user.GetCountries().at(country1)->getNumberOfPieces())));
+		
+	}
+
 	mainMenu();
 }
 
