@@ -40,6 +40,7 @@ public:
 	void addAdjacent(Country*);
 	Country* getAdjacentCountry(int);
 	int getNumberOfPieces();
+	void setNumberOfPieces(int);
 	Country** getAdjacent();
 	void setContinent(string);
 	void addTarget(Country*);

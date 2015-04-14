@@ -10,6 +10,7 @@ public:
 	virtual void execute(Player*);
 	
 	virtual int reinforce(Player*);
+	virtual void fortification(Player*);
 
 };
 

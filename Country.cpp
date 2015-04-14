@@ -71,6 +71,11 @@ int Country::getNumberOfPieces()
 	return numberOfPieces;
 }
 
+void Country::setNumberOfPieces(int num)
+{
+	numberOfPieces = num;
+}
+
 void Country::addAdjacent(Country* c)
 {
 	adjacent[adjacentCounter] = c;
