@@ -54,6 +54,7 @@ public:
 
 	Player(Colours, int, int, int);
 	
+	bool canPlay();
 	void AddCountry(Country*); 
 	bool hasCountry(string);
 	void RemoveCountry(Country*);

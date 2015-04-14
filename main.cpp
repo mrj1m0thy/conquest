@@ -30,8 +30,6 @@ void main()
 	{
 		output.StartMenu();
 
-		cout << "Welcome to Risk!\n***********************\n" << endl;
-
 		cout << "What would you like to do?:" << endl;
 		cout << "1. Start Game with Default Map" << endl;
 		cout << "2. Create Map" << endl;

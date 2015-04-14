@@ -51,9 +51,7 @@ void gameDriver::startMenu(){
 	int response;
 
 	clearScreen();
-	cout << "Welcome to the game of Risk\n"
-		<< "----------------------------------------\n"
-		<< "0: Start a new game\n"
+	cout << "0: Start a new game\n"
 		<< "1: Load a game\n\n"
 		<< "What would you like to do? ";
 	cin >> response;
@@ -337,7 +335,7 @@ void gameDriver::reinforcementPhase(AI* comp){
 //b) attack phase(where a player may declare a series of attacks	from one of his countries to one of its adjacent countries owned by another player)
 void gameDriver::attackPhase(Player* user){
 	string response = "Y";
-	while (response == "Y"){
+	while (response == "Y" && user->canPlay()){
 		clearScreen();
 
 		cout << "This is the attack phase for player " << user->getID() << endl;
@@ -392,37 +390,90 @@ void gameDriver::attackPhase(AI* comp){
 
 //c) fortification phase (where a player may move some armies from one of his countries to another of his countries)
 void gameDriver::fortification(Player* user){
+	struct validation{
+		Country* country;
+		vector<string> adjacent;
+		validation(Country* c){
+			country = c;
+		}
+		bool findAdj(string a){
+			for (size_t i = 0; i < adjacent.size(); i++)
+				if (adjacent[i] == a)
+					return true;
+			return false;
+		}
+	}
+
 	clearScreen();
-	cout << "This is the fortification phase for player " << user->getID() << endl;
-	cout << "---------------------------------------------------------\n\n";
+	if (user->canPlay()){
+		cout << "This is the fortification phase for player " << user->getID() << endl;
+		cout << "---------------------------------------------------------\n\n";
 
-	string answer;
-	bool quit = false;
-	output.fortificationPlayerStats(*user);
+		string answer;
+		bool quit = false;
+		output.fortificationPlayerStats(*user);
 
-	answer = output.OutIn("Would you like to move any armies?", answer);
+		answer = output.OutIn("Would you like to move any armies?", answer);
 
-	while (!quit)
-	{
-		if (toupper(answer[0]) == 'Y')
+		while (toupper(answer[0]) == 'Y')
 		{
-			int country1 = 0;
-			int country2 = 0;
+			string country1;
+			string country2;
 			int armies = 0;
 
-			country1 = output.OutIn("Which country would you like to take armies from?", country1);
-			country2 = output.OutIn("Which country would you like to move the armies?", country2);
+			vector<validation> validC;
 
-			Country* start = (*user).GetCountries().at(country1-1);
-			Country* end = (*user).GetCountries().at(country2-1);
+			for (size_t i = 0; i < user->GetCountries().size(); i++){
+				for (int j = 0; j < user->GetCountries()[i]->getAdjacentCount(); j++){
+					if (user->GetCountries()[i]->getAdjacent()[j]->occupiedBy->name == user->GetCountries()[i]->occupiedBy->name){
+						validC.push_back(validation(user->GetCountries()[i]));
+						break;
+					}
+				}
+			}
+			for (size_t i = 0; i < validC.size(); i++){
+				for (int j = 0; j < validC[i].country->getAdjacentCount(); j++){
+					if (validC[i].country->getAdjacent()[j]->occupiedBy->name == validC[i].country->occupiedBy->name){
+						validC[i].adjacent.push_back(validC[i].country->getAdjacent()[j]->name);
+					}
+				}
+			}
 
+			bool good;
+			int pos;
+			do{
+				cout << "Which country would you like to take armies from? (1 - " << to_string(user->GetCountries().size()) << ")";
+				getline(cin, country1);
+				good = false;
+				if (isNumber(country1)){
+					for (size_t i = 0; i < validC.size(); i++){
+						if (validC[i].country->name == user->GetCountries()[stoi(country1) - 1]->name){
+							good = true;
+							pos = i;
+							break;
+						}
+					}
+				}
+
+			} while (!good || user->GetCountries()[stoi(country1)-1]->numberOfPieces < 2 || stoi(country1) > user->GetCountries().size());
+			Country* reciever;
+			do{
+				cout << "Which country would you like to move the armies to? (Type the name of the country) ";
+				getline(cin, country2);
+				country2 = toupperCase(country2);
+				reciever = user->GetCountries()[stoi(country1) - 1]->findAdjacent(country2);
+			} while (reciever == nullptr || !validC[pos].findAdj(reciever->name));
+
+			Country* start = (*user).GetCountries().at(stoi(country1) - 1);
+			Country* end = reciever;
+			//Stopped refactor here
 			if (start->occupiedBy->name == end->occupiedBy->name)
 			{
 				do
 				{
-					armies = output.OutIn("How many armies?", armies);
-				} while (!((armies > 0 || (armies < (*user).GetCountries().at(country1-1)->getNumberOfPieces())) && (((*user).GetCountries().at(country1-1)->getNumberOfPieces()) - armies) != 0));
-		
+					armies = output.OutIn("How many armies? (Max " + to_string(user->GetCountries()[country1-1]->numberOfPieces - 1)+")", armies);
+				} while (!((armies > 0 || (armies < (*user).GetCountries()[country1 - 1]->getNumberOfPieces())) && (((*user).GetCountries().at(country1 - 1)->getNumberOfPieces()) - armies) != 0));
+
 				int sizeStart = start->getAdjacentCount();
 				int sizeEnd = end->getAdjacentCount();
 
@@ -437,14 +488,12 @@ void gameDriver::fortification(Player* user){
 					}
 				}
 			}
+			clearScreen();
+			output.fortificationPlayerStats(*user);
+			answer = output.OutIn("Would you like to move more armies?", answer);
 		}
-		else
-			quit = true;
 	}
-
-
-	output.fortificationPlayerStats(*user);
-
+	
 	mainMenu();
 }
 

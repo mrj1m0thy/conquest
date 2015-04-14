@@ -276,8 +276,9 @@ void Battle::Conquer(Country* attack, Country* defend)
 		//Transfer of ownership.
 		attack->numberOfPieces -= ans;
 		defend->numberOfPieces += ans;
-		defend->occupiedBy->name = attack->occupiedBy->name;
+		defend->occupiedBy->RemoveCountry(defend);
 		attack->occupiedBy->AddCountry(defend);
+		defend->occupiedBy = attack->occupiedBy;
 
 	}
 	else	//Attacker only has 2 pieces. One stays the other captures.
@@ -285,6 +286,8 @@ void Battle::Conquer(Country* attack, Country* defend)
 		//Transfer of ownership.
 		attack->numberOfPieces -= 1;
 		defend->numberOfPieces += 1;
-		defend->occupiedBy->name = attack->occupiedBy->name;
+		attack->occupiedBy->AddCountry(defend);
+		defend->occupiedBy->RemoveCountry(defend);
+		defend->occupiedBy = attack->occupiedBy;
 	}
 }

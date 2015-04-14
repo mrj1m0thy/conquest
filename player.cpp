@@ -107,3 +107,12 @@ bool Player::hasCountry(string country){
 	}
 	return false;
 }
+
+bool Player::canPlay(){
+	for (int i = 0; i < _countriesOwned.size(); i++)
+	{
+		if (_countriesOwned[i]->numberOfPieces > 1)
+			return true;
+	}
+	return false;
+}

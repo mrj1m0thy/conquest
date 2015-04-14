@@ -32,11 +32,11 @@ void Output::PlayerStats(Player p)
 			cout << setw(15) << "| Country (Number of Armies)|	Surrounding Countries -> Player (Number of Armies)|" << endl;
 			cout << left << "\n-----------------------------------------------------------------------------------------------------------------------" << endl << endl;
 		}
-		cout << setw(2) << i+1 << setw(8) << "| " << right << setw(20) << p.GetCountries().at(i)->getName() << " (" << p.GetCountries().at(i)->getNumberOfPieces() << ") | ";
+		cout << setw(2) << i+1 << " | " << right << setw(21) << p.GetCountries().at(i)->getName() << " (" << p.GetCountries().at(i)->getNumberOfPieces() << ") | ";
 
 		for (int index = 0; index < p.GetCountries().at(i)->getAdjacentCount(); index++)
 		{
-			cout << setw(10) << p.GetCountries().at(i)->getAdjacentCountry(index)->getName() << " - > " << p.GetCountries().at(i)->getAdjacentCountry(index)->occupiedBy->name << " (" << p.GetCountries().at(i)->getAdjacentCountry(index)->getNumberOfPieces() << ") | ";
+			cout << p.GetCountries().at(i)->getAdjacentCountry(index)->getName() << "->" << p.GetCountries().at(i)->getAdjacentCountry(index)->occupiedBy->name << " (" << p.GetCountries().at(i)->getAdjacentCountry(index)->getNumberOfPieces() << ") | ";
 		}
 		
 		cout << left << "\n-----------------------------------------------------------------------------------------------------------------------" << endl << endl;
@@ -53,12 +53,12 @@ void Output::attackPlayerStats(Player p)
 			cout << setw(15) << "| Country (Number of Armies)|	Surrounding Countries -> Player (Number of Armies)|" << endl;
 			cout << left << "\n-----------------------------------------------------------------------------------------------------------------------" << endl << endl;
 		}
-		cout << setw(2) << i + 1 << setw(8) << "| " << right << setw(20) << p.GetCountries().at(i)->getName() << " (" << p.GetCountries().at(i)->getNumberOfPieces() << ") | ";
+		cout << setw(2) << i + 1 << " | " << right << setw(21) << p.GetCountries().at(i)->getName() << " (" << p.GetCountries().at(i)->getNumberOfPieces() << ") | ";
 
 		for (int index = 0; index < p.GetCountries().at(i)->getAdjacentCount(); index++)
 		{
 			if (p.name != p.GetCountries().at(i)->getAdjacentCountry(index)->occupiedBy->name)
-				cout << setw(10) << p.GetCountries().at(i)->getAdjacentCountry(index)->getName() << " - > " << p.GetCountries().at(i)->getAdjacentCountry(index)->occupiedBy->name << " (" << p.GetCountries().at(i)->getAdjacentCountry(index)->getNumberOfPieces() << ") | ";
+				cout << p.GetCountries().at(i)->getAdjacentCountry(index)->getName() << "->" << p.GetCountries().at(i)->getAdjacentCountry(index)->occupiedBy->name << " (" << p.GetCountries().at(i)->getAdjacentCountry(index)->getNumberOfPieces() << ") | ";
 		}
 
 		cout << left << "\n-----------------------------------------------------------------------------------------------------------------------" << endl << endl;
@@ -75,12 +75,12 @@ void Output::fortificationPlayerStats(Player p)
 			cout << setw(15) << "| Country (Number of Armies)|	Surrounding Countries -> Player (Number of Armies)|" << endl;
 			cout << left << "\n-----------------------------------------------------------------------------------------------------------------------" << endl << endl;
 		}
-		cout << setw(2) << i + 1 << setw(8) << "| " << right << setw(20) << p.GetCountries().at(i)->getName() << " (" << p.GetCountries().at(i)->getNumberOfPieces() << ") | ";
+		cout << setw(2) << i + 1 << "| " << right << setw(21) << p.GetCountries().at(i)->getName() << " (" << p.GetCountries().at(i)->getNumberOfPieces() << ") | ";
 
 		for (int index = 0; index < p.GetCountries().at(i)->getAdjacentCount(); index++)
 		{
 			if (p.name == p.GetCountries().at(i)->getAdjacentCountry(index)->occupiedBy->name)
-				cout << setw(10) << p.GetCountries().at(i)->getAdjacentCountry(index)->getName() << " - > " << p.GetCountries().at(i)->getAdjacentCountry(index)->occupiedBy->name << " (" << p.GetCountries().at(i)->getAdjacentCountry(index)->getNumberOfPieces() << ") | ";
+				cout << p.GetCountries().at(i)->getAdjacentCountry(index)->getName() << "->" << p.GetCountries().at(i)->getAdjacentCountry(index)->occupiedBy->name << " (" << p.GetCountries().at(i)->getAdjacentCountry(index)->getNumberOfPieces() << ") | ";
 		}
 
 		cout << left << "\n-----------------------------------------------------------------------------------------------------------------------" << endl << endl;
