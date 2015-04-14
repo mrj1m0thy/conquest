@@ -405,7 +405,7 @@ void gameDriver::fortification(Player* user){
 				do
 				{
 					armies = output.OutIn("How many armies?", armies);
-				} while (!((armies > 0 || (armies < (*user).GetCountries().at(country1-1)->numberOfPieces)) && ((*user).GetCountries().at(country1-1)->numberOfPieces - armies) != 0));
+				} while (!((armies > 0 || (armies < (*user).GetCountries().at(country1-1)->getNumberOfPieces())) && (((*user).GetCountries().at(country1-1)->getNumberOfPieces()) - armies) != 0));
 		
 				int sizeStart = start->getAdjacentCount();
 				int sizeEnd = end->getAdjacentCount();
@@ -414,8 +414,8 @@ void gameDriver::fortification(Player* user){
 				{
 					if (start->getAdjacentCountry(i)->name == end->getAdjacentCountry(i)->name || start->getAdjacentCountry(i)->name == end->name)
 					{
-						start->getAdjacentCountry(i)->numberOfPieces = start->getAdjacentCountry(i)->numberOfPieces -armies;
-						end->getAdjacentCountry(i)->numberOfPieces = end->getAdjacentCountry(i)->numberOfPieces + armies;
+						start->getAdjacentCountry(i)->setNumberOfPieces(start->getAdjacentCountry(i)->getNumberOfPieces() - armies);
+						end->getAdjacentCountry(i)->setNumberOfPieces(end->getAdjacentCountry(i)->getNumberOfPieces() + armies);
 						quit = true;
 						break;
 					}
