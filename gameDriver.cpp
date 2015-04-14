@@ -305,9 +305,9 @@ void gameDriver::reinforcementPhase(AI* comp){
 		if (comp->GetHand().TradeIn(comp->isComputer))
 			total += getCardUnits();
 	}
-
-	if (comp->GetHand().TradeIn(comp->isComputer))
-		total += getCardUnits();
+	if (comp->GetHand().Size() > 2)
+		if (comp->GetHand().TradeIn(comp->isComputer))
+			total += getCardUnits();
 
 	comp->SetRenforcements(comp->GetRenforcements() + total);
 
@@ -318,7 +318,7 @@ void gameDriver::reinforcementPhase(AI* comp){
 
 	int remaining = comp->GetRenforcements();
 	
-		clearScreen();
+	//clearScreen();
 
 	comp->GetCountries()[comp->strat->reinforce(comp)]->numberOfPieces += (int)floor(remaining*0.75);
 	remaining -= (int)floor(remaining*0.75);
@@ -402,7 +402,7 @@ void gameDriver::fortification(Player* user){
 					return true;
 			return false;
 		}
-	}
+	};
 
 	clearScreen();
 	if (user->canPlay()){
@@ -412,8 +412,15 @@ void gameDriver::fortification(Player* user){
 		string answer;
 		bool quit = false;
 		output.fortificationPlayerStats(*user);
+		//cin.ignore();
 
-		answer = output.OutIn("Would you like to move any armies?", answer);
+		do{
+			cout << "Would you like to move any armies? (Y or N) ";
+
+			getline(cin, answer);
+			for (size_t i = 0; i < answer.length(); i++)
+				answer[i] = toupper(answer[i]);
+		} while (answer != "Y" && answer != "N");
 
 		while (toupper(answer[0]) == 'Y')
 		{
@@ -464,30 +471,18 @@ void gameDriver::fortification(Player* user){
 				reciever = user->GetCountries()[stoi(country1) - 1]->findAdjacent(country2);
 			} while (reciever == nullptr || !validC[pos].findAdj(reciever->name));
 
-			Country* start = (*user).GetCountries().at(stoi(country1) - 1);
+			Country* start = user->GetCountries()[stoi(country1) - 1];
 			Country* end = reciever;
-			//Stopped refactor here
-			if (start->occupiedBy->name == end->occupiedBy->name)
+		
+			do
 			{
-				do
-				{
-					armies = output.OutIn("How many armies? (Max " + to_string(user->GetCountries()[country1-1]->numberOfPieces - 1)+")", armies);
-				} while (!((armies > 0 || (armies < (*user).GetCountries()[country1 - 1]->getNumberOfPieces())) && (((*user).GetCountries().at(country1 - 1)->getNumberOfPieces()) - armies) != 0));
+				armies = output.OutIn("How many armies? (Max " + to_string(user->GetCountries()[stoi(country1)-1]->numberOfPieces - 1)+")", armies);
+			} while (!((armies > 0 || (armies < (*user).GetCountries()[stoi(country1) - 1]->getNumberOfPieces())) && (((*user).GetCountries()[stoi(country1) - 1]->getNumberOfPieces()) - armies) != 0));
 
-				int sizeStart = start->getAdjacentCount();
-				int sizeEnd = end->getAdjacentCount();
 
-				for (int i = 0; i < sizeStart; i++)
-				{
-					if (start->getAdjacentCountry(i)->name == end->getAdjacentCountry(i)->name || start->getAdjacentCountry(i)->name == end->name)
-					{
-						start->getAdjacentCountry(i)->setNumberOfPieces(start->getAdjacentCountry(i)->getNumberOfPieces() - armies);
-						end->getAdjacentCountry(i)->setNumberOfPieces(end->getAdjacentCountry(i)->getNumberOfPieces() + armies);
-						quit = true;
-						break;
-					}
-				}
-			}
+			start->numberOfPieces -= armies;
+			end->numberOfPieces += armies;
+			
 			clearScreen();
 			output.fortificationPlayerStats(*user);
 			answer = output.OutIn("Would you like to move more armies?", answer);
@@ -549,7 +544,7 @@ void gameDriver::saveGame(string save){
 	ofstream outStream;
 	outStream.open("saves/"+save, ios_base::trunc);
 
-	outStream << "map=" << myMap.getFilename() << endl
+	outStream << "map=" << save << ".map"<< endl
 		<< "numberOfPlayers=" << numberOfPlayers << endl
 		<< "whosTurn=" << whosTurn << endl
 		<< "phaseNum=" << phaseNum << endl
@@ -558,6 +553,8 @@ void gameDriver::saveGame(string save){
 		outStream << computers[i]->stratType << ",";
 
 	outStream.close();
+
+	myMap.saveMap("saves/"+save + ".map");
 }
 
 void gameDriver::loadGame(string load){
@@ -596,8 +593,19 @@ void gameDriver::loadGame(string load){
 		
 		inStream.close();
 
+		Player** players = new Player*[numberOfPlayers];
+		map newMap;
+		newMap.loadMap("saves/" + thisMap);
 
-		*this = gameDriver::Builder().setMap(thisMap).setNumberOfPlayers(numberOfPlayers).setWhosTurn(whosTurn).setPhaseNum(phaseNum).setComputers(comps).build();
+		for (int i = 0; i < newMap.getCountrySize(); i++)
+		{
+			if (!newMap.countries[i].occupiedBy->isComputer){
+				if (players[newMap.countries[i].occupiedBy->playerID - 1]->GetCountries().size() == 0)
+					players[newMap.countries[i].occupiedBy->playerID - 1] = newMap.countries[i].occupiedBy;
+			}
+		}
+
+		*this = gameDriver::Builder().setMap("saves/"+thisMap).setNumberOfPlayers(numberOfPlayers).setWhosTurn(whosTurn).setPhaseNum(phaseNum).setComputers(comps).build();
 
 	}
 	else
@@ -634,10 +642,13 @@ gameDriver::Builder::Builder(): numberOfPlayers(defaultNumberOfPlayers), whosTur
 			computers[i] = new AI(i + 1);		//
 		}
 	}
-
-	for (int i = 0; i < numberOfPlayers; i++)
+	if (players == nullptr)
 	{
-		players[i] = new Player(i + 1, "player "+(i+1)); //TODO: Required player parameters 
+		players = new Player*[numberOfPlayers];
+		for (int i = 0; i < numberOfPlayers; i++)
+		{
+			players[i] = new Player(i + 1, "player " + (i + 1)); //TODO: Required player parameters 
+		}
 	}
 
 }
@@ -652,8 +663,8 @@ gameDriver::Builder& gameDriver::Builder::setPlayers(Player** players){
 	return *this;
 }
 
-gameDriver::Builder& gameDriver::Builder::setMap(string file){
-	this->builderMap.loadMap(file);
+gameDriver::Builder& gameDriver::Builder::setMap(map file){
+	this->builderMap = file;
 	return *this;
 }
 

@@ -25,7 +25,10 @@ Battle::Battle(Country* attack, Country* defend)
 	
 	if (CanBattle(attack, defend))  
 	{
-		allIn = AllIn();	//Are you all in?
+		if (attack->occupiedBy->isComputer)
+			allIn = true;
+		else
+			allIn = AllIn();	//Are you all in?
 	}
 
 	while (CanBattle(attack, defend)) //Verifies if both have enough armies to continue battling. 
@@ -34,13 +37,16 @@ Battle::Battle(Country* attack, Country* defend)
 
 		if (!allIn)	
 		{
-			if (!WillContinue())	//Continue fight? 
+			if (attack->occupiedBy->isComputer || WillContinue())	//Continue fight? 
 			{
-				break;
+				if (attack->occupiedBy->isComputer)
+					allIn = true;
+				else
+					allIn = AllIn();	//Are you all in?
 			}
 			else
 			{
-				allIn = AllIn();	//Are you all in?
+				break;
 			}
 		}
 	}
@@ -265,13 +271,16 @@ void Battle::Conquer(Country* attack, Country* defend)
 
 	if (attack->numberOfPieces > 2)
 	{
-		do
-		{
-			cout << "How many armies would you like to move? (min " << attack->diesRolled << ", max " << attack->numberOfPieces - 1 << "): ";
-			cin >> ans;
-			cout << endl;
-		} 
-		while (ans < attack->diesRolled || ans > attack->numberOfPieces - 1); //Range min and max of pieces to move. 
+		if (attack->occupiedBy->isComputer)
+			ans = attack->numberOfPieces - 1;
+		else{
+			do
+			{
+				cout << "How many armies would you like to move? (min " << attack->diesRolled << ", max " << attack->numberOfPieces - 1 << "): ";
+				cin >> ans;
+				cout << endl;
+			} while (ans < attack->diesRolled || ans > attack->numberOfPieces - 1); //Range min and max of pieces to move. 
+		}
 		
 		//Transfer of ownership.
 		attack->numberOfPieces -= ans;

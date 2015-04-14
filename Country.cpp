@@ -1,4 +1,5 @@
 #include "Country.h"
+#include "AI.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -60,8 +61,12 @@ Country::Country(string n, int positionX, int positionY, string cont, string sur
 	//}
 
 	surrounding = surround; //this variable keeps stores nearby territories/territories
-
-	occupiedBy = &Player(playerid, "player "+(playerid));
+	if (playerid > 10){
+		occupiedBy = new AI(playerid-10);
+	}
+	else{
+		occupiedBy = new Player(playerid, "player " + to_string(playerid));
+	}
 	numberOfPieces = numOfArmies;
 	diesRolled = 0;
 }
