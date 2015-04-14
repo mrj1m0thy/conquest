@@ -9,6 +9,7 @@ class aggressive : public Strategy
 {
 public:
 	virtual void execute(Player*);
+	virtual bool canAttack(Player*);
 	virtual int reinforce(Player*);
 	virtual void fortification(Player*);
 };

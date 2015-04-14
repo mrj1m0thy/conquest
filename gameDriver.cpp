@@ -106,7 +106,7 @@ void gameDriver::startPhase()
 
 	for (int i = 0; i < 6 - numberOfPlayers; i++)
 	{
-		int infantry = 20;
+		int infantry = 13;
 		computers[i] = new AI(i + 1);
 		for (int j = 0; j < 7; j++){
 			int rng = rand() % countryRefs.size();
@@ -122,11 +122,18 @@ void gameDriver::startPhase()
 		}
 	}
 
+	for (int i = 0; i < 6 - numberOfPlayers; i++)
+	{
+		for (int j = 0; j < computers[i]->GetCountries().size(); j++)
+		{
+			computers[i]->GetCountries()[j]->numberOfPieces++;
+		}
+	}
 	players = new Player*[numberOfPlayers];
 
 	for (int i = 0; i < numberOfPlayers; i++)
 	{
-		int infantry = 20;
+		int infantry = 13;
 		players[i] = new Player((i + 1), "player " + to_string(i + 1));
 		for (int j = 0; j < 7; j++){
 			int rng = rand() % countryRefs.size();
@@ -141,6 +148,13 @@ void gameDriver::startPhase()
 
 			players[i]->AddCountry(&myMap.countries[countryRefs[rng]]);
 			countryRefs.erase(countryRefs.begin() + rng);
+		}
+	}
+	for (int i = 0; i < numberOfPlayers; i++)
+	{
+		for (int j = 0; j < players[i]->GetCountries().size(); j++)
+		{
+			players[i]->GetCountries()[j]->numberOfPieces++;
 		}
 	}
 
@@ -322,43 +336,45 @@ void gameDriver::reinforcementPhase(AI* comp){
 
 //b) attack phase(where a player may declare a series of attacks	from one of his countries to one of its adjacent countries owned by another player)
 void gameDriver::attackPhase(Player* user){
-	clearScreen();
+	string response = "Y";
+	while (response == "Y"){
+		clearScreen();
 
-	cout << "This is the attack phase for player " << user->getID() << endl;
-	cout << "---------------------------------------------------------\n\n";
-
-	output.PlayerStats(*user);
-
-	string response;
-	do{
-		cout << "Do you want to attack? (Y or N) ";
+		cout << "This is the attack phase for player " << user->getID() << endl;
+		cout << "---------------------------------------------------------\n\n";
 		cin.ignore();
-		getline(cin, response);
-		for (size_t i = 0; i < response.length(); i++)
-			response[i] = toupper(response[i]);
-	} while (response != "Y" && response != "N" );
+		output.PlayerStats(*user);
 
-	if (response == "Y")
-	{
-		string from;
-		string to;
-
-		output.attackPlayerStats(*user);
-		
 		do{
-			cout << "Where would you like to attack from? (1 - " << user->GetCountries().size() << ") ";
-			getline(cin, from);
-		} while (!isNumber(from) || (stoi(from) > user->GetCountries().size()));
+			cout << "Do you want to attack? (Y or N) ";
 
-		Country* att;
-		do{
-			cout << "Which country would you like to attack? (Type the name of the country) ";
-			getline(cin, to);
-			to = toupperCase(to);
-			att = user->GetCountries()[stoi(from)-1]->findAdjacent(to);
-		} while (att == nullptr);
-	
-		Battle battle1(user->GetCountries().at(stoi(from)-1), att);
+			getline(cin, response);
+			for (size_t i = 0; i < response.length(); i++)
+				response[i] = toupper(response[i]);
+		} while (response != "Y" && response != "N");
+
+		if (response == "Y")
+		{
+			string from;
+			string to;
+
+			output.attackPlayerStats(*user);
+
+			do{
+				cout << "Where would you like to attack from? (1 - " << user->GetCountries().size() << ") ";
+				getline(cin, from);
+			} while (!isNumber(from) || (stoi(from) > user->GetCountries().size()));
+
+			Country* att;
+			do{
+				cout << "Which country would you like to attack? (Type the name of the country) ";
+				getline(cin, to);
+				to = toupperCase(to);
+				att = user->GetCountries()[stoi(from) - 1]->findAdjacent(to);
+			} while (att == nullptr);
+
+			Battle battle1(user->GetCountries().at(stoi(from) - 1), att);
+		}
 	}
 	mainMenu();
 }

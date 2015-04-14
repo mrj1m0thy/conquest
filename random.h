@@ -8,6 +8,7 @@ class random : public Strategy
 {
 public:
 	virtual void execute(Player*);
+	
 	virtual int reinforce(Player*);
 
 };

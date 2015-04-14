@@ -2,6 +2,26 @@
 #include <iostream>
 
 void aggressive::execute(Player* user){
+	while (canAttack(user)){
+		vector<Country*> countries = user->GetCountries();
+		for (size_t i = 0; i < countries.size(); i++)
+		{
+			Country** a = countries[i]->getAdjacent();
+			for (int j = 0; j < countries[i]->getAdjacentCount(); j++)
+			{
+				if (a[j]->occupiedBy->name != user->name)
+				{
+					if (countries[i]->getNumberOfPieces() > a[j]->getNumberOfPieces())
+					{
+						Battle battle(countries[i], a[j]);
+					}
+				}
+			}
+		}
+	}
+}
+
+bool aggressive::canAttack(Player* user){
 	vector<Country*> countries = user->GetCountries();
 	for (size_t i = 0; i < countries.size(); i++)
 	{
@@ -12,7 +32,7 @@ void aggressive::execute(Player* user){
 			{
 				if (countries[i]->getNumberOfPieces() > a[j]->getNumberOfPieces())
 				{
-					Battle battle(countries[i], a[j]);
+					return true;
 				}
 			}
 		}

@@ -1,6 +1,9 @@
 #include "random.h"
 #include <iostream>
 
+//Unlike the other strategies this one will only go through the countries and attack or not 
+//with each only once because if it was to continue till there was no more places to attack 
+//would be exactly the same as the aggressive strategy
 void random::execute(Player* user){
 	vector<Country*> countries = user->GetCountries();
 	for (size_t i = 0; i < countries.size(); i++)

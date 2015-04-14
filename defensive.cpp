@@ -2,6 +2,33 @@
 #include <iostream>
 
 void defensive::execute(Player* user){
+	while (canAttack(user)){
+		vector<Country*> countries = user->GetCountries();
+		for (size_t i = 0; i < countries.size(); i++)
+		{
+			int j;
+			Country** a = countries[i]->getAdjacent();
+			vector<Country*> attAdj;
+			for (j = 0; j < countries[i]->getAdjacentCount(); j++)
+			{
+				if (a[j]->occupiedBy->name != user->name)
+				{
+					if (countries[i]->getNumberOfPieces()*0.4 < a[j]->getNumberOfPieces())
+					{
+						break;
+					}
+					else
+						attAdj.push_back(a[j]);
+				}
+			}
+			if (j == countries[i]->getAdjacentCount()){
+				Battle(countries[i], attAdj[rand() % attAdj.size()]);
+			}
+		}
+	}
+}
+
+bool defensive::canAttack(Player* user){
 	vector<Country*> countries = user->GetCountries();
 	for (size_t i = 0; i < countries.size(); i++)
 	{
@@ -21,7 +48,7 @@ void defensive::execute(Player* user){
 			}
 		}
 		if (j == countries[i]->getAdjacentCount()){
-			Battle(countries[i], attAdj[rand() % attAdj.size()]);
+			return true;
 		}
 	}
 }
