@@ -33,9 +33,9 @@ gameDriver::gameDriver()
 	phaseNum = 0;
 }
 
-gameDriver::gameDriver(map myMap, Player** players, AI** computers, int numberOfPlayers, int whosTurn, int phaseNum)
+gameDriver::gameDriver(map* myMap, Player** players, AI** computers, int numberOfPlayers, int whosTurn, int phaseNum)
 {
-	this->myMap = myMap;
+	this->myMap = *myMap;
 	this->players = players;
 	this->computers = computers;
 	this->numberOfPlayers = numberOfPlayers;
@@ -594,18 +594,29 @@ void gameDriver::loadGame(string load){
 		inStream.close();
 
 		Player** players = new Player*[numberOfPlayers];
-		map newMap;
-		newMap.loadMap("saves/" + thisMap);
+		map* newMap = new map();
+		newMap->loadMap("saves/" + thisMap);
 
-		for (int i = 0; i < newMap.getCountrySize(); i++)
+		for (int i = 0; i < newMap->getCountrySize(); i++)
 		{
-			if (!newMap.countries[i].occupiedBy->isComputer){
-				if (players[newMap.countries[i].occupiedBy->playerID - 1]->GetCountries().size() == 0)
-					players[newMap.countries[i].occupiedBy->playerID - 1] = newMap.countries[i].occupiedBy;
+			if (!newMap->countries[i].occupiedBy->isComputer){
+				if (players[newMap->countries[i].occupiedBy->playerID - 1]->GetCountries().size() == 0)
+					players[newMap->countries[i].occupiedBy->playerID - 1] = newMap->countries[i].occupiedBy;
+			}
+			else
+			{
+				if (comps[newMap->countries[i].occupiedBy->playerID - 11]->GetCountries().size() == 0){
+					for (int j = 0; j < newMap->countries[i].occupiedBy->GetCountries().size(); j++)
+					{
+						comps[newMap->countries[i].occupiedBy->playerID - 11]->AddCountry(&newMap->countries[i]);
+					}
+				}
+
+					
 			}
 		}
 
-		*this = gameDriver::Builder().setMap("saves/"+thisMap).setNumberOfPlayers(numberOfPlayers).setWhosTurn(whosTurn).setPhaseNum(phaseNum).setComputers(comps).build();
+		*this = gameDriver::Builder().setMap(newMap).setNumberOfPlayers(numberOfPlayers).setWhosTurn(whosTurn).setPhaseNum(phaseNum).setComputers(comps).build();
 
 	}
 	else
@@ -663,7 +674,7 @@ gameDriver::Builder& gameDriver::Builder::setPlayers(Player** players){
 	return *this;
 }
 
-gameDriver::Builder& gameDriver::Builder::setMap(map file){
+gameDriver::Builder& gameDriver::Builder::setMap(map* file){
 	this->builderMap = file;
 	return *this;
 }

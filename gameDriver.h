@@ -13,7 +13,7 @@ class gameDriver
 public:
 	void start();
 	gameDriver();
-	gameDriver(map, Player**, AI**, int, int, int);
+	gameDriver(map*, Player**, AI**, int, int, int);
 	~gameDriver();
 	class Builder;
 	int getCardUnits();
@@ -58,7 +58,7 @@ private:
 
 class gameDriver::Builder{
 	private:
-		map builderMap;
+		map* builderMap;
 		Player** players;
 		AI** computers;
 		int numberOfPlayers;
@@ -72,7 +72,7 @@ class gameDriver::Builder{
 
 		Builder();
 
-		Builder& setMap(const string);
+		Builder& setMap(map*);
 		Builder& setPlayers(Player**);
 		Builder& setComputers(AI**);
 		Builder& setNumberOfPlayers(const int);

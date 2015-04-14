@@ -1,5 +1,5 @@
 map=comp.map
 numberOfPlayers=2
-whosTurn=1
-phaseNum=3
-computers=random,random,aggressive,random,
+whosTurn=0
+phaseNum=1
+computers=random,random,defensive,defensive,
