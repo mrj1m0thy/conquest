@@ -87,9 +87,13 @@ void map::getCountries(ifstream& mapFile) //extract countries
 					continents[i].addCountry(new Country(name, positionX, positionY, continent, surrounding, playerid, numOfArmies));
 			}
 			Country c = Country(name, positionX, positionY, continent, surrounding, playerid, numOfArmies); //create country/territory from the obtained information
+
+			//I was thinking of making a list to keep track of the playerid's that are retrieved and for each playerid add countries[countListNum]
+			//to the list.  Then in an if, if the list contains the current playerid, add the new country to that player.
+
+			c.occupiedBy->AddCountry(&countries[countListNum]);
 			countries[countListNum] = c; //add country to list
 			countryList[countListNum] = name; // store a list of country name
-			c.occupiedBy->AddCountry(&countries[countListNum]);
 			countListNum++;
 			numOfCountries++; //increment country count
 		}

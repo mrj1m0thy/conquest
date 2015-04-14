@@ -594,6 +594,10 @@ void gameDriver::loadGame(string load){
 		inStream.close();
 
 		Player** players = new Player*[numberOfPlayers];
+		for (int i = 0; i < numberOfPlayers; i++)
+		{
+			players[i] = new Player(i + 1, "player " + to_string(i + 1));
+		}
 		map* newMap = new map();
 		newMap->loadMap("saves/" + thisMap);
 
@@ -616,7 +620,7 @@ void gameDriver::loadGame(string load){
 			}
 		}
 
-		*this = gameDriver::Builder().setMap(newMap).setNumberOfPlayers(numberOfPlayers).setWhosTurn(whosTurn).setPhaseNum(phaseNum).setComputers(comps).build();
+		*this = gameDriver::Builder().setMap(newMap).setNumberOfPlayers(numberOfPlayers).setWhosTurn(whosTurn).setPhaseNum(phaseNum).setComputers(comps).setPlayers(players).build();
 
 	}
 	else
