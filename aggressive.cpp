@@ -37,6 +37,7 @@ bool aggressive::canAttack(Player* user){
 			}
 		}
 	}
+	return false;
 }
 
 int aggressive::reinforce(Player* user)

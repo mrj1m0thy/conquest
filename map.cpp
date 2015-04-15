@@ -49,6 +49,14 @@ void map::getContinents(ifstream& mapFile) //extract the continents and army val
 
 void map::getCountries(ifstream& mapFile) //extract countries
 {
+	struct validation{
+		int playerid;
+		vector<Country> countries;
+		validation(int id){
+			playerid = id;
+		}
+	};
+
 	string terri; //string that holds each individual line from the file
 	string terrdel = ","; //delimeter
 	int countListNum = 0; //keeps track the number of countries
@@ -61,6 +69,7 @@ void map::getCountries(ifstream& mapFile) //extract countries
 	string adjacentCountries;
 	int playerid = 0;
 	int numOfArmies = 0;
+	vector<validation> players;
 
 	while (!mapFile.eof())
 	{
@@ -87,11 +96,26 @@ void map::getCountries(ifstream& mapFile) //extract countries
 					continents[i].addCountry(new Country(name, positionX, positionY, continent, surrounding, playerid, numOfArmies));
 			}
 			Country c = Country(name, positionX, positionY, continent, surrounding, playerid, numOfArmies); //create country/territory from the obtained information
-
+			bool exist = false;
+			int loc;
+			for (int i = 0; i < players.size(); i++){
+				if (players[i].playerid == playerid){
+					exist = true;
+					loc = i;
+					break;
+				}
+			}
+			if (!exist)
+			{
+				players.push_back(validation(playerid));
+				players[players.size() - 1].countries.push_back(c);
+			}
+			else{
+				players[loc].countries.push_back(c);
+			}
 			//I was thinking of making a list to keep track of the playerid's that are retrieved and for each playerid add countries[countListNum]
 			//to the list.  Then in an if, if the list contains the current playerid, add the new country to that player.
 
-			c.occupiedBy->AddCountry(&countries[countListNum]);
 			countries[countListNum] = c; //add country to list
 			countryList[countListNum] = name; // store a list of country name
 			countListNum++;
@@ -99,6 +123,15 @@ void map::getCountries(ifstream& mapFile) //extract countries
 		}
 		createContinents();
 		assignAdjacentCountries();
+	}
+	for (int i = 0; i < numOfCountries; i++){
+		for (int j = 0; j < players.size(); j++){
+			if (countries[i].occupiedBy->playerID == players[j].playerid){
+				for (int k = 0; k < players.size(); k++){
+					countries[i].occupiedBy->AddCountry(&players[j].countries[k]);
+				}
+			}
+		}
 	}
 }
 

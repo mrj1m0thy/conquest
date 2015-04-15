@@ -51,6 +51,7 @@ bool defensive::canAttack(Player* user){
 			return true;
 		}
 	}
+	return false;
 }
 
 int defensive::reinforce(Player* user)
