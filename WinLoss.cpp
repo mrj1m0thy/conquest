@@ -6,13 +6,6 @@ using namespace std;
 
 void WinLoss::Update(Player* p)
 {
-	/*
-	cout << "Player: " << p->GetColour() << endl;
-	cout << "Countries Controlled: " << p->GetCountriesOwned() << endl;
-	cout << "Armies Owned: " << p->GetArmiesOwned() << endl;
-	cout << "Cards in Hand: " << p->GetHandSize() << endl << endl << endl;
-	*/
-
 	double total = p->GetBattlesWon() + p->GetBattlesLost();
 	double win = p->GetBattlesWon();
 	double loss = p->GetBattlesLost();

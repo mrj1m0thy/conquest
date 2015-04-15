@@ -5,26 +5,9 @@
 
 using namespace std;
 
-template <typename T>
-void Output::OutputData(T t)
-{
-	cout << t;
-}
-
-template <typename T>
-T Output::OutputData(string out1, T varout, string out2 = "")
-{
-	cout << out1;
-	cout << varout;
-	cout << out2;
-	cout << endl;
-}
-
-
-
 void Output::PlayerStats(Player p)
 {
-	cout << "Player: " << p.getID() << endl << endl;
+	cout << p.getID() << endl << endl;
 	for (size_t i = 0; i < p.GetCountries().size(); i++)
 	{
 		if (i == 0)
@@ -41,6 +24,8 @@ void Output::PlayerStats(Player p)
 		
 		cout << left << "\n-----------------------------------------------------------------------------------------------------------------------" << endl << endl;
 	}	
+
+
 }
 
 void Output::attackPlayerStats(Player p)

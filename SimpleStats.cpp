@@ -4,7 +4,7 @@ Nicholas Sabelli
 COMP 345 Section SI
 Assignement #3
 
-This file implements the PlayerView class.
+This file implements the SimpleStates class.
 */
 
 #include <iostream>
@@ -15,16 +15,15 @@ using namespace std;
 
 SimpleStats::SimpleStats()
 {
-	//type = "SimpleStats";
+	type = "SimpleStats";
 }
 
 void SimpleStats::Update(Player* p)
 {
-	cout << "Player: " << p->GetColour()			<< endl;
+	cout << "Player: " << p->playerID		<< endl;
 	cout << "Countries Controlled: " << p->GetNumCountries() << endl;
 	cout << "Armies Owned: " << p->GetArmiesOwned()	<< endl;
 	cout << "Cards in Hand: " << p->HandSize() << endl << endl << endl;
-
 }
 
 void SimpleStats::Update(Subject* s)

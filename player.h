@@ -35,7 +35,6 @@ private:
 
 	Hand _hand;
 
-	//vector<Card*> _hand;	//List of Cards in the Player's hand.
 	vector<Country*> _countriesOwned;	//List of Countires occupied by the Player object.
 	vector<Continent*> _continentsOwned;	//List of Continents controlled by the Player object.
 
@@ -68,11 +67,6 @@ public:
 	void SetColour(Colours c) { _colour = c; Notify(this); }
 	Colours GetColour() { return _colour; }
 
-	/*
-	void AddCard(Card*); 
-	void RemoveCard(Card*);
-	vector<Card*> GetHand() { return _hand; }	
-	*/
 	int HandSize() { return _hand.Size(); }
 	Hand GetHand() { return _hand; }
 
